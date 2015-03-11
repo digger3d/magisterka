@@ -1,0 +1,3 @@
+cluster validation
+convex cluster?
+Silhouette coefficient
