@@ -1,6 +1,5 @@
 import scipy.cluster.hierarchy as sch
 
-# execfile("spines_example.py")
 
 def labels_to_dict(labels):
     return dict([(key, [i for i, x in enumerate(labels) if x == key]) 

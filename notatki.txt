@@ -1,3 +1,16 @@
 cluster validation
 convex cluster?
 Silhouette coefficient
+
+23.04:
+stability based validation
+(single-linkage, complete-linkage, average-linkage and Ward).
+(hard) competetive learning algorithms
+EM clustering algorithm?
+
+poziomy do manipulacji
+ilosc probek
+ilosc klastrow
+ilosc cech (feature vector) (feature extraction PCA?)
+
+wybrac wskazniki!
