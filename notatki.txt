@@ -3,8 +3,8 @@ convex cluster?
 Silhouette coefficient
 
 23.04:
-stability based validation
-(single-linkage, complete-linkage, average-linkage and Ward).
+stability based validation done
+(single-linkage, complete-linkage, average-linkage and Ward). done
 (hard) competetive learning algorithms
 EM clustering algorithm?
 
@@ -14,3 +14,13 @@ ilosc klastrow
 ilosc cech (feature vector) (feature extraction PCA?)
 
 wybrac wskazniki!
+point symmetry distance
+PCA step by step (utube)
+
+opracowac skrypt dostajacy sklastrowane dane i wyliczajacy zadane indeksy
+
+25.04
+^ or not?
+
+
+
