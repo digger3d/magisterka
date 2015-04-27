@@ -46,9 +46,6 @@ def computeDissimilarity(data, clust_algo, n_clust, munkres_obj):
     cluster_labels2 = clust_algo.fit_predict(data2)
     accorded_labels2 = accordLabels(predicted_labels2, cluster_labels2,
                                     n_clust, munkres_obj)
-#    print predicted_labels2
-#    print cluster_labels2
-#    print accorded_labels2
     return np.sum(predicted_labels2 != accorded_labels2) /\
         float(len(data1))
 
@@ -85,19 +82,17 @@ def adjustedAverageDissimilarity(data, clust_algo, n_clust,
         n_clust, n_iter)
     return avgDissimilarity / avgRandDissimilarity
 
-def plotSimilarityMeassure(data, clust_algo, list_n_clust, 
+def similarityMeasure(data, clust_algo, list_n_clust, 
                                   munkres_obj, n_iter):
     adj = np.zeros(len(list_n_clust))
     for i, n_clust in enumerate(list_n_clust):
         a = adjustedAverageDissimilarity(data, clust_algo,
             n_clust, munkres_obj, n_iter)
         adj[i] = a
-        b.append(a)
-        print adj[i]
-    plt.scatter(list_n_clust, adj)
+    return adj
     
 m = Munkres()
-male_gaussy2 = createGaussianData((5, 5, 10), (10, 10, 10))
+#male_gaussy2 = createGaussianData((5, 5, 10), (10, 10, 10))
 #print computeDissimilarity(Data.gaussy2, skl.cluster.MiniBatchKMeans, 3, m)
 
 #print computeDissimilarities(Data.gaussy2, skl.cluster.MiniBatchKMeans,
@@ -106,8 +101,11 @@ male_gaussy2 = createGaussianData((5, 5, 10), (10, 10, 10))
 #                        3, m, 50)
 #print adjustedAverageDissimilarity(Data.gaussy2, skl.cluster.MiniBatchKMeans,
 #                        3, m, 50)
-plotSimilarityMeassure(Data.gaussy2, skl.cluster.MiniBatchKMeans,
-                        [2, 3, 4, 5, 6, 7, 8, 9, 10], m, 50)
+#plotSimilarityMeasure(Data.gaussy6, skl.cluster.MiniBatchKMeans,
+#                        [2, 3, 4, 5, 6, 7, 8, 9, 10], m, 50)
+#plotSimilarityMeasure(Data.ov_gaussy4_2, skl.cluster.MiniBatchKMeans,
+#                        [2, 3, 4, 5, 6, 7, 8, 9, 10], m, 50)
+
 #print diss
 #labels = np.array([1,1,1,1,0,0,0,0])
 #matrix = createConfusionMatrix(labels, labels[::-1], 2)

@@ -22,9 +22,8 @@ def produceSilhouetteDiag(data, clustering_algorithm, n_clust_list):
     silhouettes = []
     for n in n_clust_list:
         algo = clustering_algorithm(n_clusters = n)
-        algo.fit(data)
-        silhouettes.append(skl.metrics.silhouette_score(data,
-                                                        algo.labels_))
+        labels = algo.fit_predict(data)
+        silhouettes.append(skl.metrics.silhouette_score(data, labels))
     plt.plot(n_clust_list, silhouettes, "bo")
 
 COLORS = np.array([x for x in "bgrcmykbgrcmyk"])
