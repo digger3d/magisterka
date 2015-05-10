@@ -20,24 +20,37 @@ def createGaussianData(*args):
     
 def produceSilhouetteDiag(data, clustering_algorithm, n_clust_list):
     silhouettes = []
+    clust_ticks = np.arange(len(n_clust_list)) + 1
     for n in n_clust_list:
         algo = clustering_algorithm(n_clusters = n)
         labels = algo.fit_predict(data)
-        silhouettes.append(skl.metrics.silhouette_score(data, labels))
-    plt.plot(n_clust_list, silhouettes, "bo")
+        silhouettes.append(skl.metrics.silhouette_score(data, labels)) 
+    plt.plot(clust_ticks, silhouettes, "bo", markersize=10)
+    plt.xlim([0, len(n_clust_list) + 1])    
+    plt.title("Silhouette Index (KMeans Algorithm)")   
+    plt.xticks(clust_ticks, n_clust_list)
+    plt.xlabel("No. of clusters")
 
 COLORS = np.array([x for x in "bgrcmykbgrcmyk"])
 def plotClustering(data, clustering_alg, n_clust):
+    plt.title("Clustering")
     clustering_alg = clustering_alg(n_clusters=n_clust).fit(data)
     labels = clustering_alg.labels_
     plt.scatter(data[:,0],data[:,1], color=COLORS[labels])
     
 def plotClusters(data, labels):
+    plt.title("Data")
     plt.scatter(data[:,0],data[:,1], color=COLORS[labels])
 
 def ward_linkage(n_clusters = 2):
     return skl.cluster.AgglomerativeClustering(n_clusters=n_clusters,
                                                linkage="ward")
+
+def create_labels(n_clust, n_samples_in_clust):
+    labels = []
+    for i in xrange(n_clust):
+        labels += [i] * n_samples_in_clust
+    return labels
                                                
 class Data:                                               
     gaussy2 = createGaussianData((5, 5, 500), (10, 10, 500))
@@ -50,9 +63,19 @@ class Data:
                                     (9, 9, 500), (11, 11, 500))
     ov_gaussy4_2 = createGaussianData((5, 5, 500), (8, 8, 500),
                                     (11, 11, 500), (14, 14, 500))
-#produceSilhouetteDiag(a, skl.cluster.MiniBatchKMeans, range(2,4))
-#produceSilhouetteDiag(gaussy6, skl.cluster.MiniBatchKMeans, range(2,11))
-#plotClustering(ov_gaussy4_2, skl.cluster.MiniBatchKMeans, 4)
+
+#Silhouette index 6gauss
+#produceSilhouetteDiag(Data.gaussy6, skl.cluster.MiniBatchKMeans, range(2,11))
+#plotClusters(Data.gaussy6, create_labels(6,500))
+#plotClustering(Data.gaussy6, skl.cluster.MiniBatchKMeans, 6)
+
+##Silhouette index 4gauss_ov
+#produceSilhouetteDiag(Data.ov_gaussy4, skl.cluster.MiniBatchKMeans, range(2,11))
+#plotClusters(Data.ov_gaussy4, create_labels(4,500))
+#plotClustering(Data.ov_gaussy4, skl.cluster.MiniBatchKMeans, 4)
+
+
+
 
 #connectivity = skl.neighbors.kneighbors_graph(a, n_neighbors=10,
 #                                              include_self=False)

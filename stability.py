@@ -23,7 +23,7 @@ def createConfusionMatrix(labels1, labels2, n_clusters):
 
 def findLabelMapping(labels1, labels2, n_clusters, munkres_obj):
     """label 2 is the "original" labelling
-    returns list of tuples (a, b) a change to be to match the original"""
+    returns list of tuples (a, b) a change to b to match the original"""
     conf_matrix = createConfusionMatrix(labels1, labels2, n_clusters)
     return munkres_obj.compute(conf_matrix)
     
@@ -91,7 +91,26 @@ def similarityMeasure(data, clust_algo, list_n_clust,
         adj[i] = a
     return adj
     
+def plotSimilarityDiag(data, clust_algo, list_n_clust, munkres_obj, n_iter):
+    similarity_indeces = similarityMeasure(data, clust_algo, list_n_clust, 
+                                  munkres_obj, n_iter)
+    clust_ticks = np.arange(len(list_n_clust)) + 1
+    plt.plot(clust_ticks, similarity_indeces, "bo", markersize=10)
+    plt.xlim([0, len(list_n_clust) + 1])    
+    plt.title("Similarity Index (KMeans Algorithm)")   
+    plt.xticks(clust_ticks, list_n_clust)
+    plt.xlabel("No. of clusters")
+    
 m = Munkres()
+
+
+#plotSimilarityDiag(Data.gaussy6, skl.cluster.MiniBatchKMeans,
+#                        range(2,11), m, 50)
+
+plotSimilarityDiag(Data.ov_gaussy4, skl.cluster.MiniBatchKMeans,
+                        range(2,11), m, 50)
+
+
 #male_gaussy2 = createGaussianData((5, 5, 10), (10, 10, 10))
 #print computeDissimilarity(Data.gaussy2, skl.cluster.MiniBatchKMeans, 3, m)
 
@@ -101,8 +120,7 @@ m = Munkres()
 #                        3, m, 50)
 #print adjustedAverageDissimilarity(Data.gaussy2, skl.cluster.MiniBatchKMeans,
 #                        3, m, 50)
-#plotSimilarityMeasure(Data.gaussy6, skl.cluster.MiniBatchKMeans,
-#                        [2, 3, 4, 5, 6, 7, 8, 9, 10], m, 50)
+
 #plotSimilarityMeasure(Data.ov_gaussy4_2, skl.cluster.MiniBatchKMeans,
 #                        [2, 3, 4, 5, 6, 7, 8, 9, 10], m, 50)
 

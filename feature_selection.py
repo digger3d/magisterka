@@ -6,6 +6,7 @@ import sklearn.cluster
 import stability
 import toy_problems as tp
 from sklearn.decomposition import PCA
+from mpl_toolkits.mplot3d import Axes3D
 
 
 
@@ -62,10 +63,32 @@ PCA_COMP_10 = np.load("PCAcomps.npy")
 M = stability.Munkres()
 KMEANS = sklearn.cluster.MiniBatchKMeans
 LIST_OF_CLUSTERS = [4, 10, 15, 30, 50]
-SILHOUETTE_MESH = silhouettePCAMesh(all_norm, PCA_COMP_10,
-                                 KMEANS, LIST_OF_CLUSTERS)
-np.savez("silhouette_mesh.npz", SILHOUETTE_MESH=SILHOUETTE_MESH,
-         LIST_OF_CLUSTERS=LIST_OF_CLUSTERS)
+
+##transforming data for plotting 2D
+#X = transformPCA(all_norm, PCA_COMP_10[:2,:])
+#plt.scatter(X[:,0], X[:,1])
+#plt.title("PCA transform for first two components")
+#plt.xlabel("Component 1")
+#plt.ylabel("component 2")
+#plt.xticks([])
+#plt.yticks([])
+#plt.show()
+
+##3d
+#X = transformPCA(all_norm, PCA_COMP_10[:3,:])
+#fig = plt.figure()
+#ax = fig.add_subplot(111, projection='3d')
+#x = X[:,0]
+#y = X[:,1]
+#z = X[:,2]
+#ax.scatter(x, y, z, c='b', marker='o')
+#plt.show()
+
+#meshing
+#SILHOUETTE_MESH = silhouettePCAMesh(all_norm, PCA_COMP_10,
+#                                 KMEANS, LIST_OF_CLUSTERS)
+#np.savez("silhouette_mesh.npz", SILHOUETTE_MESH=SILHOUETTE_MESH,
+#         LIST_OF_CLUSTERS=LIST_OF_CLUSTERS)
 #STABILITY_MESH = stabilityPCAMesh(all_norm, PCA_COMP_10, KMEANS,
 #                                  LIST_OF_CLUSTERS, M, 10)
 #np.savez("stability_mesh.npz", STABILITY_MESH=STABILITY_MESH,
