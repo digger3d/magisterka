@@ -16,6 +16,6 @@ def makeDataSmaller(source_data, new_data_name, n = 100):
              mice = new_mice)
     
 if __name__ == "__main__":
-    makeDataSmaller("spines.npz", "smaller_")
-    x = np.load("smaller_100.npz")
-    print x.keys()
+    makeDataSmaller("spines.npz", "smaller_", 1000)
+#    x = np.load("smaller_100.npz")
+#    print x.keys()
