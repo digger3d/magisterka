@@ -1,12 +1,12 @@
 ##TODO : prediction method for ward clustering, 
 ## absolute and stability measures for labeled data
-## prepare data
 
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import cluster
+from my_ward import myAgglomerativeClustering
 
-original = np.load("spines2.npz")
+original = np.load("datasets/spines2.npz")
 ##at least one classifier chose label for a spine
 both_label_vector = np.logical_and(np.not_equal(original["kl1"], None),
                                    np.not_equal(original["kl2"], None))
@@ -18,7 +18,7 @@ longs = original["kl1"] == "Long & thin"
 mushrooms = original["kl1"] == "Mushroom"
 stubbies = original["kl1"] == "Stubby"
 ##roznice w populacjach poszczegolnych typow
-print sum(longs), sum(mushrooms), sum(stubbies)
+#print sum(longs), sum(mushrooms), sum(stubbies)
 
 #test_adj = np.array([1,2,1,1,3])
 #test_clust = np.array([4,4,1,2])
@@ -53,20 +53,22 @@ shapes = np.sum(original["shapes_n"], axis=2)
 
 clust_labels = kmeans.fit_predict(shapes)
 
-plt.figure()
-for cluster_label in range(N_CLUSTERS):
-    plt.subplot(3,3,cluster_label + 1) ## lol watch out!!!!
-    plt.gca().invert_yaxis()
-    one_cluster = original["shapes_n"][clust_labels == cluster_label, ...]
-    mean_image = np.mean(one_cluster, axis=0)
-    plt.pcolor(mean_image)
+def plot_clusters(clust_labels, original_data)
+    plt.figure()
+    for cluster_label in range(N_CLUSTERS):
+        plt.subplot(3,3,cluster_label + 1) ## lol watch out for +1 !!!!
+        plt.gca().invert_yaxis()
+        one_cluster = original_data["shapes_n"][clust_labels == cluster_label, ...]
+        mean_image = np.mean(one_cluster, axis=0)
+        plt.pcolor(mean_image)
+    plt.show()
 
-plt.show()
-        
-adjusted_labels = input("1 long, 2 mushroom, 3 stubby: ")
-#adjusted_labels = map(int, adjusted_labels.split(","))
-if len(adjusted_labels) < N_CLUSTERS or max(adjusted_labels) > N_CLUSTERS:
-    print "wrong input!!!"
+def get_labels():
+    """collects integer tuple as described belowe"""        
+    adjusted_labels = input("1 long, 2 mushroom, 3 stubby: ")
+    if len(adjusted_labels) < N_CLUSTERS or max(adjusted_labels) > N_CLUSTERS:
+        print "wrong input!!!"
+    return adjusted_labels
 
 def random_accordance(n_cases, n_cluster, N_iter):
     accordance_vec = np.zeros(N_iter)
@@ -88,6 +90,8 @@ def accordance(adjusted_labels, clustering_vec, classification,
     return accordance / random_accordance(len(clustering_vec),
         len(adjusted_labels), N_iter)
 
+def plotAccordanceMultiCluster(listOfClusterN, original_data = original):
+    accordances = np.zeros(len(listOfClusterN))
     
 print accordance(adjusted_labels, clust_labels, original["kl1"],
                  both_match_long_stubby_mush)
