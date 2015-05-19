@@ -20,6 +20,7 @@ def plotMesh(meshgrid, title, xlabel, ylabel, xlabels, ylabels):
     plt.show()
 
 def plotMesh2(meshgrid, title, xlabel, ylabel, xlabels, ylabels):
+    """ """
     plt.pcolor(meshgrid)
     plt.xticks(np.arange(len(xlabels)) + 0.5, xlabels)
     plt.yticks(np.arange(len(ylabels)) + 0.5, ylabels)
@@ -42,7 +43,7 @@ NO_OF_PCA_COMP = 10
 #         "No. of clusters", range(1,NO_OF_PCA_COMP + 1),
 #         PCA_STAB["LIST_OF_CLUSTERS"])
 
-PCA_SIL = np.load("silhouette_mesh.npz")
-plotMesh2(PCA_SIL["SILHOUETTE_MESH"], "Silhouette index", "First n PCA components",
-         "No. of clusters", range(1,NO_OF_PCA_COMP + 1),
-         PCA_SIL["LIST_OF_CLUSTERS"])
+#PCA_SIL = np.load("silhouette_mesh.npz")
+#plotMesh2(PCA_SIL["SILHOUETTE_MESH"], "Silhouette index", "First n PCA components",
+#         "No. of clusters", range(1,NO_OF_PCA_COMP + 1),
+#         PCA_SIL["LIST_OF_CLUSTERS"])

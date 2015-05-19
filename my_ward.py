@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.cluster import AgglomerativeClustering, MiniBatchKMeans
 from collections import defaultdict
-from toy_problems import Data
+#from toy_problems import Data
 
 class myAgglomerativeClustering(AgglomerativeClustering):
     def fit(self, X, y=None):
@@ -32,8 +32,7 @@ class myAgglomerativeClustering(AgglomerativeClustering):
             distances = np.sum((self.centroids_ - observation) ** 2, axis=1)
             labels[i], _ = min(enumerate(distances), key=lambda x: x[1])
         return labels
-#            print distances
-        # produce labels according to centroids
+
         
 #a = np.array([[1,2], [3,4]])
 #b = [[1, [1,2]], [3, [4,5]]]

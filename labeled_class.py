@@ -27,13 +27,18 @@ both_match_long_stubby_mush = both_match_vector & (longs | mushrooms | stubbies)
 
 def change_labels_to_text(cluster_translation, label_vector):
     """
-    params:
-    cluster_translation - cluster with indication to what group cluster 
-        was assigned (see tranlate dictionary)
-    label_vector - vector with cluster labels obtained from clustering alg.
+    params
+    -------
+    cluster_translation : cluster with indication to what group cluster was assigned\
+    (see tranlate dictionary)
     
-    returns:
-        vector of text labels ready to 
+    label_vector : vector with cluster labels obtained from clustering alg.
+    
+    returns
+    -------
+    labels : np.array of ints
+    vector of text labels ready to compare with reference class
+    
     """
     text_labels = [None] * len(label_vector)
     translate_dict = {1 : "Long & thin",
@@ -44,33 +49,26 @@ def change_labels_to_text(cluster_translation, label_vector):
             if cluster_label == clust_no:
                 text_labels[i] = translate_dict[clust_trans_key]
     return np.array(text_labels)
-        
-N_CLUSTERS = 9
-kmeans = cluster.MiniBatchKMeans(n_clusters=N_CLUSTERS)
 
-#transforming original normalised data to line shape
-shapes = np.sum(original["shapes_n"], axis=2)
-
-clust_labels = kmeans.fit_predict(shapes)
-
-def plot_clusters(clust_labels, original_data)
+def plotClusters(clust_labels, n_clusters, original_data):
     plt.figure()
-    for cluster_label in range(N_CLUSTERS):
-        plt.subplot(3,3,cluster_label + 1) ## lol watch out for +1 !!!!
+    for cluster_label in range(n_clusters):
+        plt.subplot(7,7,cluster_label + 1) ## lol watch out for +1 !!!!
+        plt.title(cluster_label + 1)
         plt.gca().invert_yaxis()
         one_cluster = original_data["shapes_n"][clust_labels == cluster_label, ...]
         mean_image = np.mean(one_cluster, axis=0)
         plt.pcolor(mean_image)
-    plt.show()
+    plt.show(block = False)
 
-def get_labels():
+def getLabels(N_CLUSTERS):
     """collects integer tuple as described belowe"""        
     adjusted_labels = input("1 long, 2 mushroom, 3 stubby: ")
-    if len(adjusted_labels) < N_CLUSTERS or max(adjusted_labels) > N_CLUSTERS:
+    if len(adjusted_labels) < N_CLUSTERS or max(adjusted_labels) > 3:
         print "wrong input!!!"
     return adjusted_labels
 
-def random_accordance(n_cases, n_cluster, N_iter):
+def randomAccordance(n_cases, n_cluster, N_iter):
     accordance_vec = np.zeros(N_iter)
     for i in range(N_iter):
         a = np.random.randint(n_cluster, size=n_cases)
@@ -80,23 +78,64 @@ def random_accordance(n_cases, n_cluster, N_iter):
     
 
 def accordance(adjusted_labels, clustering_vec, classification,
-               selection_vector=None, N_iter = 100):
+               selection_vector=None, N_iter = 50):
+    """
+    Parameters
+    ----------
+    adjusted_labels : labels indicating to which group cluster was assigned \
+    (eg 3 is for "Stubby" etc.)
+    clustering_vec : vector returned from clustering algo
+    classification : reference classification (here made by human)
+    selection_vector : logic vector indicating whether all observation should \
+    be taken under consideration
+    N_iter : number of iterations used to determine randomAccordance
+    
+    Retruns
+    -------
+    Accordance : adjusted by randomAccordance for that many clusters
+    """
+    
     adjusted_clustering = change_labels_to_text(adjusted_labels, clustering_vec)
     if selection_vector != None:
         adjusted_clustering = adjusted_clustering[selection_vector]
         classification = classification[selection_vector]
     accordance = np.sum(adjusted_clustering != classification)\
         / float(len(classification))
-    return accordance / random_accordance(len(clustering_vec),
-        len(adjusted_labels), N_iter)
+    return accordance# / randomAccordance(len(clustering_vec),
+        #len(adjusted_labels), N_iter)
 
-def plotAccordanceMultiCluster(listOfClusterN, original_data = original):
+def accordanceMultiCluster(listOfClusterN, clust_algo,
+         result_file, original_data = original, n_iter = 50):
     accordances = np.zeros(len(listOfClusterN))
-    
-print accordance(adjusted_labels, clust_labels, original["kl1"],
-                 both_match_long_stubby_mush)
-    
-    
+    print 1
+    data_to_cluster = np.mean(original_data["shapes_n"], axis=2)
+    print 2    
+    for i, n_clusters in enumerate(listOfClusterN):
+        print 3
+        clust_algo_instance = clust_algo(n_clusters = n_clusters)
+        print 4        
+        labels = clust_algo_instance.fit_predict(data_to_cluster)
+        print 5
+        plotClusters(labels, n_clusters, original_data)
+        print 6
+        plt.pause(0.001)
+        adjusted_labels = getLabels(n_clusters)
+        accordances[i] = accordance(adjusted_labels, labels,
+            original_data["kl1"], both_match_long_stubby_mush, n_iter)
+    result_txt = open(result_file, "w")
+    for i, accord in enumerate(accordances):
+        result_txt.write("{}\t{}\n".format(listOfClusterN[i],accord))
+    return accordances
+        ## odpalic accordance 
+#print accordance(adjusted_labels, clust_labels, original["kl1"],
+#                 both_match_long_stubby_mush)
+k_means = cluster.MiniBatchKMeans
+
+#transforming original normalised data to line shape
+#shapes = np.sum(original["shapes_n"], axis=2)
+my_ward = myAgglomerativeClustering
+a = accordanceMultiCluster([10, 15, 20, 30, 40], my_ward, "results/ward_accord.txt", original, 50)
+#    
     
     
     
