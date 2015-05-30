@@ -1,6 +1,7 @@
 from labeled_stability import *
 from collections import Counter
 import matplotlib.pylab as plt
+from os.path import join as pathJoin
 
 #original = np.load("datasets/spines2.npz")
 #
@@ -121,8 +122,8 @@ def multiCrossStability(list_n_clusters, data_to_cluster, clust_algo,
     return np.array(accordance_indices), np.array(neighbour_coeffs)
 
 #dolozyc klastrowan
-a, b = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], shapes,
-                           k_means, "results/multi_stab/kmeans3/", n_iter = 50)
+#a, b = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], shapes,
+#                           k_means, "results/multi_stab/kmeans3/", n_iter = 50)
     
 def plotMultiStab(data_file, matrix_file):
     data_dict = {}
@@ -138,6 +139,35 @@ def plotMultiStab(data_file, matrix_file):
 #plotMultiStab("results/multi_stab/kmeans/data.txt",
 #              "results/multi_stab/kmeans/neigh.npy")
 
+def plotFromPath(path, npy_file, y_lim = [0.75, 1]):
+    trans_dict = dict([("accord.npy", "Ratio of properly classified spines"),
+                       ("neigh.npy", "Nieghbourhood Index")])
+    data_file = open(pathJoin(path, "data.txt"))
+    matrix = np.load(pathJoin(path, npy_file))
+    means = np.mean(matrix, axis = 1)
+    errors = np.std(matrix, axis = 1)
+    data_dict = {}
+    for line in data_file:
+        parameter, value = line.rstrip("\n").split("\t")
+        data_dict[parameter] = value
+    plt.errorbar(np.arange(len(matrix)), means, yerr=errors)
+    title_string = ("Algorithm: {algorithm}, n_iter: {n_iter},"
+                    "throw away: {throw_away}").format(**data_dict) 
+    plt.ylim(y_lim)
+    plt.title(title_string)
+    plt.xlim(-1, len(matrix) + 1)
+    plt.ylabel(trans_dict[npy_file])
+    plt.xticks(np.arange(len(matrix)), eval(data_dict["list_of_cluster_n"]))
+
+plt.subplot(222)
+plotFromPath("results/multi_stab/ward2/", "accord.npy")
+plt.subplot(221)
+plotFromPath("results/multi_stab/kmeans3/", "accord.npy")
+plt.subplot(224)
+plotFromPath("results/multi_stab/ward2/", "neigh.npy")
+plt.subplot(223)
+plotFromPath("results/multi_stab/kmeans3/", "neigh.npy")
+plt.show()
 def plotSmth(array, title):
     plt.plot(np.mean(array, axis=1))
     plt.show()
