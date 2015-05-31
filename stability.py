@@ -2,6 +2,7 @@
 import numpy as np
 from munkres import Munkres
 from toy_problems import *
+from sklearn import cluster
 
 def splitData(data):
     if len(data) % 2:
@@ -53,6 +54,8 @@ def computeRandomDissimilarity(len_half_data, n_clust):
     labels1 = np.random.randint(0, n_clust, len_half_data)
     labels2 = np.random.randint(0, n_clust, len_half_data)
     return np.sum(labels1 != labels2) / float(len_half_data)
+    #TODO moze wystarczy wrzucic tutaj wartosc oczekiwana
+    # czyli 1 - 1/n_clust
 
 def computeAverageRandomDissimilarity(data, n_clust, n_iter):
     half_len = len(data) / 2
@@ -91,11 +94,29 @@ def similarityMeasure(data, clust_algo, list_n_clust,
         adj[i] = a
     return adj
     
+def fasterSimilarityMeasure(data, clust_algo, list_n_clust, 
+                                  munkres_obj, n_iter):
+    "returns len(list_n_clust) x n_iter array with adjusted similarities measure"
+    similarities = np.zeros((len(list_n_clust), n_iter))
+    for i, n_clust in enumerate(list_n_clust):
+        similarities[i, ...] = computeDissimilarities(data, clust_algo, 
+            n_clust, munkres_obj, n_iter) / (1. - 1./n_clust)
+    return similarities
+
+def plotErrorSimilarity(matrix, list_n_clust):
+    means = np.mean(matrix, axis = 1)
+    errors = np.std(matrix, axis = 1)
+    plt.errorbar(np.arange(len(matrix)), means, yerr=errors)
+#    plt.title()
+    plt.xlim(-1, len(matrix) + 1)
+    plt.xticks(np.arange(len(matrix)), list_n_clust)
+
 def plotSimilarityDiag(data, clust_algo, list_n_clust, munkres_obj, n_iter):
     similarity_indeces = similarityMeasure(data, clust_algo, list_n_clust, 
                                   munkres_obj, n_iter)
     clust_ticks = np.arange(len(list_n_clust)) + 1
-    plt.plot(clust_ticks, similarity_indeces, "bo", markersize=10)
+    plt.figure()
+    plt.plot(clust_ticks, similarity_indeces, "ro", markersize=10)
     plt.xlim([0, len(list_n_clust) + 1])    
     plt.title("Similarity Index (KMeans Algorithm)")   
     plt.xticks(clust_ticks, list_n_clust)
@@ -103,14 +124,24 @@ def plotSimilarityDiag(data, clust_algo, list_n_clust, munkres_obj, n_iter):
     
 m = Munkres()
 
+import time
+from my_ward import myAgglomerativeClustering
+original = np.load("datasets/spines2.npz")
+shapes = np.mean(original["shapes_n"], axis=2)
+k_means = cluster.MiniBatchKMeans
+ward = myAgglomerativeClustering
 
-#plotSimilarityDiag(Data.gaussy6, skl.cluster.MiniBatchKMeans,
+
+#TODO do wyplotowania z wlasciwymi klastrami [3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100]
+sims = fasterSimilarityMeasure(shapes, ward, range(2,3), m, 1)
+plotErrorSimilarity(sims, range(2,3))
+
+
+
+#plotSimilarityDiag(Data.ov_gaussy4, skl.cluster.MiniBatchKMeans,
 #                        range(2,11), m, 50)
 
-plotSimilarityDiag(Data.ov_gaussy4, skl.cluster.MiniBatchKMeans,
-                        range(2,11), m, 50)
-
-
+#plotSimilarityDiag(Data.gaussy6, k_means, range(2,10), m, 10)
 #male_gaussy2 = createGaussianData((5, 5, 10), (10, 10, 10))
 #print computeDissimilarity(Data.gaussy2, skl.cluster.MiniBatchKMeans, 3, m)
 

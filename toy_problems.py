@@ -24,7 +24,7 @@ def produceSilhouetteDiag(data, clustering_algorithm, n_clust_list):
     for n in n_clust_list:
         algo = clustering_algorithm(n_clusters = n)
         labels = algo.fit_predict(data)
-        silhouettes.append(skl.metrics.silhouette_score(data, labels)) 
+        silhouettes.append(skl.metrics.silhouette_score(data, labels, sample_size = 3000)) 
     plt.plot(clust_ticks, silhouettes, "bo", markersize=10)
     plt.xlim([0, len(n_clust_list) + 1])    
     plt.title("Silhouette Index (KMeans Algorithm)")   
@@ -51,7 +51,8 @@ def create_labels(n_clust, n_samples_in_clust):
     for i in xrange(n_clust):
         labels += [i] * n_samples_in_clust
     return labels
-                                               
+
+#if __name__ == "__main__":                                               
 class Data:                                               
     gaussy2 = createGaussianData((5, 5, 500), (10, 10, 500))
     gaussy3 = createGaussianData((5, 5, 500), (10, 10, 500), (10, 5, 500))

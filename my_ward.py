@@ -5,7 +5,7 @@ from collections import defaultdict
 
 class myAgglomerativeClustering(AgglomerativeClustering):
     def fit(self, X, y=None):
-        super(myAgglomerativeClustering, self).fit(X,y)
+        super(myAgglomerativeClustering, self).fit(X)
         ### determining centroids
         clusters = defaultdict(lambda: [np.zeros_like(X[1]),0])
         for i, observation in enumerate(X):
@@ -27,6 +27,7 @@ class myAgglomerativeClustering(AgglomerativeClustering):
         -------
         labels : predicted labels on a new set.
         """
+        #mozna przepisac na forme wektorowa
         labels = np.zeros(len(X), dtype="uint8")
         for i, observation in enumerate(X):            
             distances = np.sum((self.centroids_ - observation) ** 2, axis=1)
