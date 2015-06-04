@@ -18,7 +18,8 @@ from os.path import join as pathJoin
 ###roznice w populacjach poszczegolnych typow
 ##print sum(longs), sum(mushrooms), sum(stubbies)
 #both_match_long_stubby_mush = lsm = both_match_vector & (longs | mushrooms | stubbies)
-
+par_file = np.load("datasets/morphological_parameters.npz")
+par_data = par_file["data"]
 
 
 def clusterVote(label, labels, original_data = original,
@@ -44,6 +45,8 @@ def createTransDict(labels, n_cluster, original_data = original,
 
 def translateLabeling(labels, n_cluster, original_data = original,
         selection_vec = both_match_long_stubby_mush):
+    """translates labels obtained via clustering to textual labels
+    using voting technique"""
     new_labels = np.empty(len(labels), dtype=object)
     trans_dict = createTransDict(labels, n_cluster, original_data, selection_vec)
     for i, label in enumerate(labels):
@@ -121,9 +124,20 @@ def multiCrossStability(list_n_clusters, data_to_cluster, clust_algo,
     np.save(path + "neigh.npy", neighbour_coeffs)
     return np.array(accordance_indices), np.array(neighbour_coeffs)
 
-#dolozyc klastrowan
+
 #a, b = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], shapes,
 #                           k_means, "results/multi_stab/kmeans3/", n_iter = 50)
+###TODO  do zapuszczenia 
+#a, b = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], shapes,
+#                           ward, "results/multi_stab/ward3/", n_iter = 25)
+
+#b, c = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], par_data,
+#                           k_means, "results/multi_stab/par_k_means/", n_iter = 50)
+#
+#d, e = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], par_data,
+#                           ward, "results/multi_stab/par_ward/", n_iter = 25)
+
+## TODO normalised parameters 
     
 def plotMultiStab(data_file, matrix_file):
     data_dict = {}
@@ -158,18 +172,13 @@ def plotFromPath(path, npy_file, y_lim = [0.75, 1]):
     plt.xlim(-1, len(matrix) + 1)
     plt.ylabel(trans_dict[npy_file])
     plt.xticks(np.arange(len(matrix)), eval(data_dict["list_of_cluster_n"]))
-
-plt.subplot(222)
-plotFromPath("results/multi_stab/ward2/", "accord.npy")
-plt.subplot(221)
-plotFromPath("results/multi_stab/kmeans3/", "accord.npy")
-plt.subplot(224)
-plotFromPath("results/multi_stab/ward2/", "neigh.npy")
-plt.subplot(223)
-plotFromPath("results/multi_stab/kmeans3/", "neigh.npy")
-plt.show()
-def plotSmth(array, title):
-    plt.plot(np.mean(array, axis=1))
-    plt.show()
-    
-#plotSmth(a, "dupa")
+#
+#plt.subplot(222)
+#plotFromPath("results/multi_stab/ward2/", "accord.npy")
+#plt.subplot(221)
+#plotFromPath("results/multi_stab/kmeans3/", "accord.npy")
+#plt.subplot(224)
+#plotFromPath("results/multi_stab/ward2/", "neigh.npy")
+#plt.subplot(223)
+#plotFromPath("results/multi_stab/kmeans3/", "neigh.npy")
+#plt.show()
