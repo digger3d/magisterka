@@ -2,6 +2,7 @@ from labeled_stability import *
 from collections import Counter
 import matplotlib.pylab as plt
 from os.path import join as pathJoin
+from parameters import *
 
 #original = np.load("datasets/spines2.npz")
 #
@@ -122,20 +123,27 @@ def multiCrossStability(list_n_clusters, data_to_cluster, clust_algo,
     neighbour_coeffs = np.array(neighbour_coeffs)
     np.save(path + "accord.npy", accordance_indices)
     np.save(path + "neigh.npy", neighbour_coeffs)
+    print "finished!"
     return np.array(accordance_indices), np.array(neighbour_coeffs)
 
 
-#a, b = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], shapes,
-#                           k_means, "results/multi_stab/kmeans3/", n_iter = 50)
-###TODO  do zapuszczenia 
-#a, b = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], shapes,
-#                           ward, "results/multi_stab/ward3/", n_iter = 25)
 
-#b, c = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], par_data,
-#                           k_means, "results/multi_stab/par_k_means/", n_iter = 50)
-#
-#d, e = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], par_data,
-#                           ward, "results/multi_stab/par_ward/", n_iter = 25)
+###TODO  do zapuszczenia 
+a, b = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], shapes,
+                           ward, "results/multi_stab/ward3/", n_iter = 25)
+
+b, c = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], par_data,
+                           k_means, "results/multi_stab/par_k_means/", n_iter = 50)
+
+d, e = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], par_data,
+                           ward, "results/multi_stab/par_ward/", n_iter = 25)
+
+f, g = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], par_data_normed,
+                           k_means, "results/multi_stab/par_normed_k_means/", n_iter = 50)
+
+d, e = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], par_data_normed,
+                           ward, "results/multi_stab/par_normed_ward/", n_iter = 25)
+
 
 ## TODO normalised parameters 
     

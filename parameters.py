@@ -34,9 +34,6 @@ def delogData(log_data, non_log_cols=[2, 10]):
     deloged = np.insert(deloged, 10, log_data[:,10], 1)
     return deloged
 
-def identity(x):
-    return x
-
 def getScaleFactors(deloged_data):
     max_val = max(deloged_data[:,0])
     return max_val / deloged_data[:,0]
@@ -73,4 +70,4 @@ par_file = np.load("datasets/morphological_parameters.npz")
 par_data_log = par_file["data"]
 par_data = delogData(par_data_log)
 par_data_normed = normalise_data(par_data)
-print par_data_normed
+
