@@ -114,7 +114,7 @@ def multiCrossStability(list_n_clusters, data_to_cluster, clust_algo,
     accordance_indices = []    
     neighbour_coeffs = []
     for i, n_cluster in enumerate(list_n_clusters):
-        print i, n_cluster
+        print path, i, n_cluster
         accordance, neighbour = checkCrossStability(n_cluster, data_to_cluster, clust_algo,
             n_iter, original_data, throw_away)
         neighbour_coeffs.append(neighbour)
@@ -123,28 +123,38 @@ def multiCrossStability(list_n_clusters, data_to_cluster, clust_algo,
     neighbour_coeffs = np.array(neighbour_coeffs)
     np.save(path + "accord.npy", accordance_indices)
     np.save(path + "neigh.npy", neighbour_coeffs)
-    print "finished!"
+    print path, "finished!"
     return np.array(accordance_indices), np.array(neighbour_coeffs)
+#
+#import multiprocessing
 
+##zastartowane 2 pierwsze
 
+#p1 = multiprocessing.Process(target=multiCrossStability, args=([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], par_data,
+#                           ward, "results/multi_stab/par_ward/", 20))
+#p1.start()
+#p2 = multiprocessing.Process(target=multiCrossStability, args=([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], par_data,
+#                           k_means, "results/multi_stab/par_normed_k_means/", 40))
+#p2.start()
+#
+#p3 = multiprocessing.Process(target=multiCrossStability, args=([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], par_data,
+#                           ward, "results/multi_stab/par_normed_ward/", 20))
+#p3.start()
 
 ###TODO  do zapuszczenia 
-a, b = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], shapes,
-                           ward, "results/multi_stab/ward3/", n_iter = 25)
-
-b, c = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], par_data,
-                           k_means, "results/multi_stab/par_k_means/", n_iter = 50)
-
-d, e = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], par_data,
-                           ward, "results/multi_stab/par_ward/", n_iter = 25)
-
-f, g = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], par_data_normed,
-                           k_means, "results/multi_stab/par_normed_k_means/", n_iter = 50)
-
-d, e = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], par_data_normed,
-                           ward, "results/multi_stab/par_normed_ward/", n_iter = 25)
-
-
+from sys import argv
+try:
+    if argv[1] == '1':
+        d, e = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], par_data,
+                                   ward, "results/multi_stab/par_ward/", n_iter = 20)
+    #if argv[1] == '2':
+    #    f, g = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], par_data_normed,
+    #                               k_means, "results/multi_stab/par_normed_k_means/", n_iter = 40)
+    if argv[1] == '3':
+        h, i = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], par_data_normed,
+                                   ward, "results/multi_stab/par_normed_ward/", n_iter = 20)
+except IndexError:
+    pass
 ## TODO normalised parameters 
     
 def plotMultiStab(data_file, matrix_file):

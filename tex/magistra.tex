@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{polski}
 \usepackage{natbib}
-
+\usepackage{ amssymb }
 \begin{document}
 
 \title{Moja wspaniała magisterka}
@@ -90,12 +90,62 @@ vddd
 
 \section{Dane}
 \section{Metody}
+W świecie nauki i technologii w ostatnich latach pojawia się problem natłoku danych.
+Potrafimy zbierać tak ogromne ilości danych, że człowiek nie jest w stanie ich przetworzyć.
+Odpowiedzią na ten problem jest dzedzina zwana uczeniem maszynowym. 
+Zajmuje się ona opracowywaniem algorytmów, które wyposażony w zbiór uczący, będą w stanie dostarczyć wyektrahowanej zeń informacji.
+Obecnie najdroższym i najbardziej czasochłonnym etapem w procesie przetwarzania informacji jest praca człowieka.
+O ile na ostatnich stopniach obróbki danych jego udział jest niezbędny czy wręcz pożądany, o tyle uciekanie się do pracy ludzkiej na pierwszych etapach procesowania danych znakomicie wydłużyłoby takie przedsięwzięcie, zwiększyło koszty, lub nawet z uwagi na dwa poprzednie czynniki zupełnie go uniemożliwiło.
+Dlatego wiele wisiłku wkładane jest w takie opracowywanie algorytmów, aby nakład luzkiej pracy niezbędny do ich działania był minimalny.
+W niniejszej pracy zastosowano szereg rozwiązań stosowanych na polu uczenia maszynowego.
+Zostaną one opisane w poniższych rozdziałach.
 \subsection{Klastrowanie hierarchiczne}
+
 \subsection{Algorytm K-means}
+\subsection{Uczenie pół-nadzorowane}
+Dzisiaj zbieranie danych jest stosunkowo tanie.
+Natomiast, żeby taki zbiór danych dało się dostarczyć na wejście jakiego algorytmu uczącego się, należy go uprzednio opisać.
+Jeśli interesuje nas zagadnienie klasyfikacji, należy obserwacjom z takiego wzoru przypisać etykiety.
+Jest to zadanie zwykle wykonywanie przez człowieka.
+Tradycyjne algorytmy uczenia nadzorowanego do skutecznego działania potrzebują dużych zbiorów uczących. 
+Jednak przygotowanie takich zbiorów jest zasobochłonne.
+Rozwiązaniem tego problemu moga być algorytmu pół-nadzorowane.
+Projektowane są one pod kątem optymalizacji działania w warunkach małego zbioru uczącego i dużego zbioru obserwacji bez etykiet.
+Algorytmy pół-nadzorowane zakładają dwie własności danych na których pracują.
+Po pierwsze zakładają spójność danych, co oznacza, że punktu leżące blisko siebie w przestrzeni problemu najprawdopodobniej mają tą samą etykietę.
+Po drugie, jeśli dane formułują dającą się odgraniczyć od innych punktów strukturę, to jest wysoce prawdopodobne, że noszą taką samą etykietę\cite{Zhou2004}.
+Poniżej opisane zostaną dwa z nich, które zostały wykorzystane przez autora.
+\subsubsection{Sformułowanie problemu}
+Dany jest zbiór oberwacji \(X = \{x_1, ..., x_l, x_{l+1}, ..., x_n\}\) oraz zbiór etykiet \(\mathcal{L} = \{1, ... ,c\}\).
+Pierwsze \(l\) przypadków ma przypisaną którąś z etykiet ze zbioru \(\mathcal{L}\). Celem jest przypisanie odpowiednich oznaczeń dla pozostałych punktów \(x_u(l  < u \leqslant n)\).
+Do rozwiązania tak postawionego problemu w obu algorytmach należy zacząć od skonstruowania grafu, gdzie krawędzi między dwoma wierzchołkami \(i, j\) przypisana jest waga, która zależy od wyboru odpowiedniej funkcji jądra (\emph{ang. kernel function}. W pracy wykorzystano dwie: \emph{Radial Basis Function} oraz funkcję opartą o algorytm k Najbliższych Sąsiadów. Jeśli odległość euklidesową między punktami \(x_1\) i \(x_2\) oznaczymy jako \(||x_1 - x_2||\), to wartość funkcja dla tych obserwacji wyrażona jest wzorem \(exp(\gamma(||x_1 - x_2||^2)\).
+Druga funkcja równa się jedności jeśli punkt jest w zbiorze k Najbliższych sąsiadów drugiego w przeciwnym wypadku wynosi 0, co można to zapisać \(1[x_1 \in kNN(x_2)]\). 
+Wybierając pierwszą funkcję należy mieć na uwadze, że powstaje całkowicie połączony graf, przez co jego macierzowa reprezentacja jest wymagająca, jeśli chodzi o miejsce w pamięci komputera.
+Dlatego też, rozwiązanie to mało skalowalne, co przy dużych zbiorach obserwacji może być kłopotliwe.
+Wybór drugiej funkcji powstaje do powstania macierzy składające się w przeważającej części z zer, dlatego też można wybrać reprezentację pochłaniającą znacznie mniej pamięci.
+\subsubsection{Propagacja etykiet (label propagation)}
+Po wyborze funckji jądra i zbudowaniu grafu algorytmie Propagacji Etykiet należy pszystąpić do konstrukcji macierzy przejścia \(T\).
+\[T_{ij} = P(j \rightarrow i) = \frac{w_{ij}}{\sum^n_{k=1}w_{kj}}\]
+Liczbę \(T_{ij}\) możemy traktować jako prawdopodobieństwo propagacji etykiety z wezła \(j\) na węzeł \(i\). Zdefiniujmy macierz \(Y\) o wymiarach \((n \times |\mathcal{L}|)\), gdzie wiersz odpowiada danej obserwacji, zaś liczby w poszczególnych kolumnach (po normalizacji) interpretujemy jako miarę prawdopodobieństwa przypisania obserwacji określonej etykiety.
+Sam algorytm jest natury iteracyjnej i składa się z trzech kroków:
+\begin{enumerate}
+	\item Propagowania etykiet \(Y \leftarrow TY\).
+	\item Normalizacji każdego wiersza macierzy Y.
+	\item Odtworzeniu wierszy \(Y\) z pierwotnie ustalonymi etykietami.
+\end{enumerate}
+Po spełnieniu warunku stop przypisujemy obserwacjom etykiety na podstawie macierzy Y\cite{Zhu2002}.
+\subsubsection{Przeciąganie etykiet (label spreading)}
+Zdefiniujmy macierz \(F\) o wymiarach \((n \times |\mathcal{L}|)\) , która pełni podobną rolę do macierzy \(Y\) w algorytmie Propagacji Etykiet.
+Natomiast w algorytmie Przeciągania etykiet macierzy Y zdefiniowana jest nieco odmiennie.
+Macierz składa się w większości zer. W pierwszych l wierszach występuje 1 na pozycji reprezentującej etykietę pierwotnie przypisaną obserwacji.
+Podobnie jak w poprzednim algorytmie budujemy macierz sąsiedztwa między wierzchołkami stworzonego grafu, gdzie wartości je wypełniające zależą od wybranej funkcji jądra.
+Nazwijmy ją macierzą \(W\). 
+Następnie tworzymy macierz \(S = D^{-1/2}WD^{-1/2}\), gdzie \(D\) to macierz diagonalna z elementami będącymi sumą \(i\)-tego wiersza w macierzy \(W\).
+Następnie przystępujemy do kroku iteracyjnego obliczając kolejne macierze \(F\): \(F(t+1) = \alpha SF(t) + (1 - \alpha)Y\), gdzie \(a \in [0,1]\).
+Ostatecznie przypisujemy obserwacji etykietę na podstawie wartości macierzy \(F\) tak, że \(y_i = argmax_{j\leqslant |\mathcal{L}|} F_{ij}\). 
 \subsection{Indeksy}
 \section{Wyniki}
 \section{Dyskusja}
-
 \bibliographystyle{plain}
 
 \bibliography{magisterka}
