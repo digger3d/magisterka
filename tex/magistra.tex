@@ -3,19 +3,20 @@
 \usepackage[utf8]{inputenc}
 \usepackage{polski}
 \usepackage{natbib}
-\usepackage{ amssymb }
+\usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{algorithm}
 \usepackage{algorithmic}
+\usepackage{amsmath}
 \begin{document}
 
-\title{Analiza kształtów kolców dendrytycznych metodami uczenia maszynowego}
+\title{Analiza kształtów kolców dendrytycznych metodami uczenia maszynowego.\\Wersja robocza}
 \author{Konrad Solarz\\Uniwerstytet Warszawski}
 \date{Czerwiec 2015}
 \maketitle
 \clearpage
 \begin{abstract}
-asf
+
 
 \end{abstract}
 \clearpage
@@ -25,11 +26,11 @@ asf
 
 \section{Motywacja pracy}
 Badania nad kolcami dendrytycznymi sa bardzo ważne ze względu na ich postulowaną rolę w procesie uczenia się % cos z bazy ile badan itp.
-Problem nabywanie nowych umiejętności i adaptowania się do nowych warunków jest jednym ze starszych zagadnień w naukach o mózgu.
+Problem nabywanie umiejętności i adaptowania się do nowych warunków jest jednym z istotnych zagadnień w naukach o mózgu.
 Wielu z naukowców uważa, że klucz do zrozumienia wspomnianego procesu leży właśnie w mechanizmach sterujących wzrostem i zanikaniem kolców dendrytycznych.
-Niestety obecne metody analizowania danych eksperymentalnych są bardzo czasochłonne i wymagają zaangażowania wyspecjalizowanego personelu, przez co współczesne rozwiązania są słabo skalowalne.
+Niestety obecne metody analizowania danych eksperymentalnych są bardzo czasochłonne i wymagają zaangażowania wyspecjalizowanego personelu, przez co współczesne rozwiązania są mało skalowalne.
 W dobie szybkich i tanich komputerów, coraz bardziej zaawansowanych metod uczenia maszynowego, przetwarzania obrazów, przechowywania i udostępniania wyników, naturalnym jest zwrócenie się ku automatyzacji tychże procesów.
-Gdyby udało się zastąpić naukowca przez komputer przy żmudnym i długotrwałym procesie analizy danych pozwoliłoby to na dużą oszczędność czasu i zasobów, przyspieszyłoby pierwsze etapy analizy wyników.
+Gdyby udało się zastąpić choć częściowo zastąpić naukowca przez komputer przy żmudnym i długotrwałym procesie analizy danych pozwoliłoby to na dużą oszczędność czasu i zasobów oraz przyspieszyłoby pierwsze etapy analizy wyników.
 Zważając na powyższe, mogłoby to skutkować przyspieszeniem procesu badawczego i/lub zwiększeniem liczebności próby poddanej eksperymentowi i analizie.
 Celem niniejszej pracy magisterskiej jest wypracowanie metodyki pozwalającej na zautomatyzowanie, przyspieszenie i zobiektywizowanie procesu analizy zdjęć kolców dendrytycznych uzyskanych metodami mikroskopii konfokalnej.
 
@@ -37,49 +38,44 @@ Celem niniejszej pracy magisterskiej jest wypracowanie metodyki pozwalającej na
 
 \section{Wstęp}
 Konlce dendrytyczne zostały po raz pierwszy opisane przez Ramona y Cajala ponad 100 lat temu. %% źródło
-Skupiły na sobie zainteresowanie od samego początku, jednak rozwój technik badawczych (mikroskopia konfokalna, dwufotoonowa,
-glutamate caging technique) % - technika aktywowania światłem?)
-pozwolił na zintensyfikowanie badań nad kolcami dendrytycznymi. W następnych podrozdziałach opisana zostanie postulowana rola
-biologiczna kolców dendrytycznych, a także pokrótce technika mikroskopowa, która posłużyła do wykonania fotografii stanowiących źródło danych dla niniejszej pracy. 
-    
+Skupiły na sobie zainteresowanie od samego początku, jednak rozwój metod badawczych 
+pozwolił na zintensyfikowanie badań nad kolcami dendrytycznymi. W następnych podrozdziałach opisana zostanie postulowana funkcja biologiczna kolców dendrytycznych oraz ich budowa.
 \subsection{Biologiczna rola kolców dendrytycznych}
 Większość zakończeń postsynaptycznych %% kulawe tlumaczenie?
 w ludzkim mózgu znajduje się na czubkach kolców dendrytycznych.
-Naukowcy wskazują kilka udogodnień, które oferuje takie rozwiązanie.
+Naukowcy wskazują kilka udogodnień, które oferuje takie rozwiązanie w stosunku do zwykłych synaps znajduących się bezpośrednio na dendrycie.
 Zostaną one opisane w dalszych rozdziałach pracy.
 \subsubsection{Przedział biochemiczny}
 Komórka jest wielce skomplikowaną maszyną biochemiczną. 
-Wiele z jej mechamnizmów regulacyjnych opiera się na róźnicy stężeń w jej częściach. 
-Jak wykazały badania %cytat
-jednym z kluczowych zadań kolców dendrytycznych jest utrzymywanie odmiennego środowiska biochemicznego od reszty neuronu.
+Wiele z jej mechamnizmów regulacyjnych opiera się na róźnicy stężeń w poszczególnych przedziałach.
+Jak wykazały badania jednym z kluczowych zadań kolców dendrytycznych jest utrzymywanie odmiennego środowiska biochemicznego w stosunku do reszty neuronu.
 Uczenie opiera się w dużym stopniu na kaskadzie zmian w ekspresji genów i zachowania białek wywołanej przez napływ jonów wapnia.
-Typowo stężenie jonów wapnia w głowie kolca dendrytycznego oscyluje w granicach 50-100	 nM.
+Typowo stężenie jonów wapnia w głowie kolca dendrytycznego oscyluje w granicach 50-100 nM.
 Po stymulacji potrafi sie zwiekszyć o kilka rzędów wielkości.
 Do takiej gwałtownej zmiany może prowadzić napływj jonów wapnia przez kanały bramkowane napięciem, przekźnikiem (zarówno jono- jak i metabotropowe), ale także ze zbiorników znajdujących się wewnątrz kolca.
 Powrót do stanu równowagi po tak gwałtownym skoku osiągany jest dzięki aktywności pomp wapniowych, wymienników sodowo-wapniowych oraz wspomnianych wcześniej zbiorników.
-Jeśli chodzi o ostatni element mechanizmu pozbywania się nadmiarowych jonów, to istotne jest to, że w obręgie kolców dendrytycznych nie występują mitochondria, które w neuronie pełnią rolę zbiorników jonów wapnia. 
+Jeśli chodzi o ostatni element mechanizmu pozbywania się nadmiarowych jonów, to istotne jest to, że w obręgie kolców dendrytycznych nie występują mitochondria, które w neuronie pełnią rolę przechowywania jonów wapnia. 
 Dzięki temu, stężenie tego pierwiastka w może ulec tak gwałtownej zmianie\citep{Sala2014}.
 Naukowcy zaobserwowali, że podczas pobudzenia postsynaptycznego obserwuje się duży wzrost koncentracji jonów Ca<sup>{2+}</sup> w obrębie samego kolca, znikomy zaś w połączonym z nim dendrytem.
 Co więcej okazało się, że na stałą dyfuzji przez szyję kolca wpływ ma zarówno aktywność pre- jak i post-synaptyczna.
-Stała dyfuzji znacząco różni się dla poszczególnych kolców i zmienność nie jest w całości wyjaśniana przez długość szyi kolca.
-Zaangażowany może być w to proces utrudniania dyfuzji białek kluczowych dla regulacji stężenia jonów wapnia\citep{Costa2007}.
+Szybkość dyfuzji znacząco różni się dla poszczególnych kolców i zmienność nie jest w całości wyjaśniana przez długość szyi kolca.
 W porównaniu do cząsteczek o podobnych gabarytach w obrębie kolca dendrytycznego lepkość cytozolu wydaje się być selektywnie wyższa dla wybranych białek.
-Większość cząsteczek przytwierdzonych do błony komórkowej dość swobodnie się przemieszcze w jej obrębie. 
+Większość cząsteczek przytwierdzonych do błony komórkowej dość swobodnie się przemieszcze w jej obrębie.
 Zachowanie takie byłoby wysoce niepożądane w przypdaku zakończeń synaptycznych. 
 Swobodnie dyfundujące receptory cząsteczek sygnałowych wysyłanych przez akson neuronu aferentnego obniżałyby efektywność przesyłu informacji przez taką synapsę. 
 Kolce dendrytyczne utrudniają swobodne przemieszczanie się receptorów neurotransmiterów, przez co synapsy znajdujące się w obrębie tych struktur mają do dyspozycji większą pulę białek receptorowych, co prawdopodobnie wpływa na ich siłę i stabilność.
 Z drugiej strony odkryto, że kolce dendrytyczne mogą się ze sobą komunikować.
 Jednym z białek sygnalizacyjnych jest molekuła Ras.
-Uwolnione w jednym kolcu, może być znalezione w kolcach odległych o do 10\(\mu\).
+Uwolniona w jednym kolcu, może być znalezione w kolcach odległych o do 10\(\mu\).
 
 \subsubsection{Przedział elektryczny}
-Jednych z kanałów przekazu informacji w obrębie komórki nerwowej jest impuls elektryczny.
+Jednym z kanałów przekazu informacji w obrębie komórki nerwowej jest impuls elektryczny.
 Podobnie jak przypadku składu biochemicznego cytozolu i tutaj kolce potrafią utrzymać odmienne napięcie elektryczne na błonie samego kolca od tego panującego w reszcie dendrytu.
 Początkowo wydawało się, że szyja kolca dendrytycznego oferuje zbyt mały opór, by w znaczący sposób odizolować kolec dendrytyczny od komórki. 
 Jednak ostatnie badania wykazały, że przynajmniej niektóre z kolców dendrytycznych podtrafią odizolować głowę kolca od dendrytu.
 Predystynowane do tego wydają się być kolce o szyjach dlugich i cienkich.
 W eksperymencie z użyciem technik fluorescencyjnych oszacowano opór szyi kolca dendrytycznego na co najwyżej 50\(M\Omega\)
-Inne badanei wykazało, że szyję dendrytu można traktować jako opornik o zmiennym oporze, zaś kolce z szyjami krótkimy wywołują większe pobudzenie postsynaptycznie w ciele neuronu.
+Inne badanei wykazało, że szyję dendrytu można traktować jako opornik o zmiennym oporze, zaś kolce z szyjami krótkimi wywołują większe pobudzenie postsynaptycznie w ciele neuronu.
 Badacze zaobserwowali, że w kolcach dendrytycznych bardziej oddalonych od somy, prądy wstrzykiwane przez synapsy na kolcach dendrytycznych są znacząco większe w porównaniu do kolców znajdujących się bliżej ciała kómórki.
 Co jest przyczyną takiego zjawiska nie zostało ponad wszelką wątpliwośćwyjaśnione\citep{Sala2014}.
 
@@ -91,42 +87,40 @@ Niewadomo czy owe pierwotne synapsy poprzez zmiany w błonie komórkowej wypięt
 W kolcach dendrytycznych upatruje się pierwszoplanowych aktorów w procesie uczenia.
 Zatem czy da się zaobserwować zmiany zachodzące podczas treningu?
 Okazuje się że, wiele eksperymentów daje odpowiedź twierdzącą.
-Długotrwałym wzmocnieniem synapsy (\emph{LTP - long term potentiation}) nazywa sie taką sytuację, że taka sama stymulacja komórki presynaptycznej powoduje większe pobudzenie komórki postsynaptycznej.
+Długotrwałym wzmocnieniem synapsy (\emph{LTP - long term potentiation}) nazywa sie taką sytuację, że równie silna stymulacja komórki presynaptycznej powoduje większe pobudzenie komórki postsynaptycznej.
 Opisane zjawisko traktuje się jako komórkowy substrat uczenia się.
 Badacze indukujący w neuronach LTP zaobserwowali zwiększanie się objętości kolców dendrytycznych, w obrębie których leżały pobudzane synapsy.
 W skrajnym przypadku może to być nawet trzykrotny wzrost, jednak typowo jest to około 40\%.
-Zmiany zachodzą bardzo szybkow - od kilku do kilkudziesięciu minut po stymulacji. 
-Wzrost objętość sprzężony jest ze wzrostem gęstości receptorów glutaminergicznych.
+Zmiany zachodzą bardzo szybko - od kilku do kilkudziesięciu minut po stymulacji. 
+Wzrost objętości sprzężony jest ze wzrostem gęstości receptorów glutaminergicznych.
 Zmienną mającą duży wpływ na wyżej opisane zjawisko jest wiek neuronów.
 W młodych neuronach zwykle zmiany objętości są większe i szybsze niż w neuronach dojrzałych.
-W innych badaniachudokumentowano powstawanie nowych kolców dendrytycznych już kilkagdziesiąt minut po indcukcji LTP.
+W innych badaniach udokumentowano powstawanie nowych kolców dendrytycznych już kilkagdziesiąt minut po indcukcji LTP.
 Jednak aby na kolcu pojawiła się w pełni funkcjonalna synapsa konieczne jest upłynięcie od kilku do kilkudziesięciu godzin\cite{Sala2014}
-Ważne jest czy badanie prowadzone jest in vivo, czy in vitro, jaki jest wiek badanaych neuronów, z jakiego obszaru mózgu zostały pobrane itd.
+Ważne jest czy badanie prowadzone jest in vivo czy in vitro, jaki jest wiek badanaych neuronów, z jakiego obszaru mózgu zostały pobrane itd.
 Co więcej, kolce większe były zarówno strukturalnie jak i funkcjonalnie stabilniejsze.
 Co ciekawe, jony wapniowe, które są niezbędne dla modyfikacji siły synaps, spełniają także ważną rolę w regulacji procesu wzrostu kolców dendrytycznych.
-Oprócz zwiększenia się objętości na niektórych kolcach zaobserwowano rozszczepienie się gęstości postsynaptycznej na dwie struktury, co w efekcie zwiększało powierzchnię kontaktu synaptycznego.
-W innych badaniach obserwowano wzrost nowych kolców dendrytycznych prowadzący to zwiększenia się ilości synaps na jednostke powierzchni błony komórkowej.
-Badania prowadzone na szczurach żyjących we wzbogaconym środowisku pokazały, że mózgi takich szczurów nie tylko charakteryzowały się większą gęstością kolców dendrytycznych, ale także szybszym zastępowaniem jednych kolców przez drugie.
 Ułatwiają one polimeryzację aktyny, co prowadzi do wzrostu cytoszkieletu, w wyniku czego zwiększa się objętość kolca\cite{Costa2007}.
-Jakkolwiek proce uczenia się jest najczęście skorelowany ze wzrostem ilości/objętości kolców, to warunkowanie strachem prowadzi do obniżenia się gęstości kolców dendrytycznych.
-W różnych eksperymentach obserwowano zmiany w różnych skalach czasowych - od sekund, po dni.
-Na takie wyniki eksperymentów oprócz biologicznej zmienności wpływ może mieć sam protokół badania.
+Oprócz zwiększenia się objętości na niektórych kolcach zaobserwowano rozszczepienie się gęstości postsynaptycznej na dwie struktury, co w efekcie zwiększało powierzchnię kontaktu synaptycznego.
+W innych badaniach obserwowano wzrost nowych kolców dendrytycznych prowadzący do zwiększenia się ilości synaps na jednostkę powierzchni błony komórkowej.
+Badania prowadzone na szczurach żyjących we wzbogaconym środowisku pokazały, że mózgi takich szczurów nie tylko charakteryzowały się większą gęstością kolców dendrytycznych, ale także szybszym zastępowaniem jednych kolców przez drugie.
 W literaturze\citep{Sala2014} można znaleźć doniesienia, że w korze baryłkowej szczura około 50\% kolców dendrytycznych jest stabilna.
 Nabywanie nowych umiejętności przez zwierzęta laboratoryjne zwiększało tempo zmian kolców dendrytycznych.
+Jakkolwiek proces uczenia się jest najczęściej skorelowany ze wzrostem ilości/objętości kolców, to warunkowanie strachem prowadzi do obniżenia się gęstości kolców dendrytycznych.
+W różnych eksperymentach obserwowano zmiany w różnych skalach czasowych - od sekund, po dni.
+Na takie wyniki eksperymentów oprócz biologicznej zmienności wpływ może mieć sam protokół badania.
 
 
 \subsubsection{Morfologia Kolców Dendrytycznych}
-Neurobiolodzy wyróźniają trzy główne grupy kolców dedrytycznych: kolce grzybkowate, cienkie i długie, oraz przysadziste (\emph{ang. stubby})
-W pierwszej grupie kolców można rozróźnić dwie dobrze wyodrębnione struktury: główkę oraz szyjkę.
-Głowa ma zaokrąglony kształt i na jejczubku znajduje się zgrubienie postsynaptyczne.
-W błonie znajdują się receptory (przede wszystkim AMPA oraz NMDA) zaś w płynie komórkowym białka odpowiedzialne za regulację sprzężenia kolca dendrytycznego z synapsą oraz resztą dendrytu. %% czy aby tutaj nie pieprzę?
+Neurobiolodzy wyróźniają trzy główne grupy kolców dedrytycznych: kolce grzybkowate, cienkie, oraz przysadziste (\emph{ang. stubby})
+W pierwszej grupie kolców można rozróżnić dwie dobrze wyodrębnione struktury: główkę oraz szyjkę.
+Głowa ma zaokrąglony kształt i na jej czubku znajduje się zgrubienie postsynaptyczne.
+W błonie znajdują się receptory zaś w płynie komórkowym białka odpowiedzialne za regulację sprzężenia kolca dendrytycznego z synapsą oraz resztą dendrytu. %% czy aby tutaj nie pieprzę?
 W kolcu długim i cienkim typowo nie można wyróźnić główki, a kształt przypomina długie filopodium.
 W typie przysadzistym także, trudno jest zlokalizować okrągłe zwieńczenie szyi, gdyż w kolce należące do tej grupy przypominają krótkie, acz grube wypustki dendrytu. %% dodać koniecznie grafikę
 Kolce grzybkowate wydają się być najstabilniejsze wśród trzech typów.
 Badacze wykazali, że po warunkowaniu strachu u myszy, białko GFP-Glur1 gromadziło się tylko w kolcach grzybkowatych.
-Ponadto w porónwnaniu z innymi grupami kolce charakteryzują się większym zgęstnieniem postynaptycznym oraz wyższą koncentracją rybosomów, co może wskazywać na aktywny proces produkcji białek w utrzymywaniu większej objętości i siły synapsy.
-\cite{Sala2014}
-\cite{Costa2007}
+Ponadto w porónwnaniu z innymi grupami kolce charakteryzują się większym zgęstnieniem postynaptycznym oraz wyższą koncentracją rybosomów, co może wskazywać na aktywny proces produkcji białek w utrzymywaniu większej objętości kolcai siły synapsy\cite{Sala2014}.
 
 \section{Dane}
 
@@ -136,30 +130,25 @@ Wspomniany program znacząco przyspiesza proces zbierania danych.
 Z zaznaczenia dwóch pikseli, leżących na środku podstawy kolca oraz na czubku jego głowy, program jest w stanie oznaczyć piksele przynależące do danego kolca, a także obliczyć parę przydatnych statystyk(np. powierzchnię, szerogość głowy).
 Po zmianie danych wyeksportowanych z programu SpineMagic! na bitmapy o rozdzielczości 64x32 piksele, dokonano ich normalizacji tak, aby wszystkie kolce miały taką samą powierzchnię.
 Krok ten jest, kluczowy dla dalszych analiz, gdzie interesujący jest przede wszysktim kształt kolca dendrytycznego, nie zaś jego wielkość.
-%wielkość zbioru skład, klasyfikacja
-Dwóch uczonych przyporządkowało 9278 zdjęć kolców dendrytycznych do jednej z 4 kategorii: cienkie, przysadziste, grzybkowate oraz trudne do zaklasyfikowania.
-Zbiór kolców przyporządkowanych do jednej z trzech kategorii biologicznych o etykiecie zgodnej w obu klasyfikacjach zawierał 3900 obserwacji.
+Dwóch uczonych przyporządkowało 9278 wyżej opisanych bitmap do jednej z 4 kategorii: kolców cienkich, przysadzistych, grzybkowatych oraz trudnych do zaklasyfikowania.
+Zbiór kolców przyporządkowanych do jednej z trzech grup biologicznych o etykiecie zgodnej w obu klasyfikacjach zawierał 3900 obserwacji.
 Wśród tych obserwacji 643 kolce zostały zaklasyfikowane do kategorii cienkich, 754 do grupy kolców grzybkowatych oraz 2503 do przysadzistych.
-Aby ograniczyć wymiarowość danych, ale jednocześnie zachować informację o kształcie kolców, dokonano rzutowania macierzy opisującej każdy z kolców na jej pierwszy wymiar, uzyskując w ten sposób obrys danego kolca.
+Aby ograniczyć wymiarowość danych, ale jednocześnie zachować informację o kształcie kolców, dokonano rzutowania macierzy opisującej każdy z kolców na jej pionowy wymiar, uzyskując w ten sposób obrys danego kolca.
 
 
 \section{Metody}
-W świecie nauki i technologii w ostatnich latach pojawia się problem natłoku danych.
+W świecie nauki i technologii w ostatnich latach pojawia się problem natłoku informacji.
 Potrafimy zbierać tak ogromne ilości danych, że człowiek nie jest w stanie ich przetworzyć.
 Odpowiedzią na ten problem jest dzedzina zwana uczeniem maszynowym. 
-Zajmuje się ona opracowywaniem algorytmów, które wyposażony w zbiór uczący, będą w stanie dostarczyć wyektrahowanej zeń informacji.
+Zajmuje się ona opracowywaniem algorytmów, które wyposażony w zbiór uczący, będą w stanie dostarczyć wyektrahowanej zeń użytecznej informacji.
 Obecnie najdroższym i najbardziej czasochłonnym etapem w procesie przetwarzania informacji jest praca człowieka.
 O ile na ostatnich stopniach obróbki danych jego udział jest niezbędny czy wręcz pożądany, o tyle uciekanie się do pracy ludzkiej na pierwszych etapach procesowania danych znakomicie wydłużyłoby takie przedsięwzięcie, zwiększyło koszty, lub nawet z uwagi na dwa poprzednie czynniki zupełnie go uniemożliwiło.
 Dlatego wiele wisiłku wkładane jest w takie opracowywanie algorytmów, aby nakład luzkiej pracy niezbędny do ich działania był minimalny.
 W niniejszej pracy zastosowano szereg rozwiązań stosowanych na polu uczenia maszynowego.
 Zostaną one opisane w poniższych rozdziałach.
 \subsection{Klastrowanie}
-\subsubsection{Algorytm K-means}
-\paragraph{Sformułowanie problemu}
-
 Mając \(N\) obserwacji w \(d\)-wymiarowej przestrzeni ze zbioru \(X = {x_1, ..., x_N}\) chcemy dokonać takiego przyporządkowania punktów do \(K\) zbiorów oznaczonych od \(C_1\) do \(C_K\), tak żeby obserwacje w obrębie jednego zbioru były jak najbardziej podobne do siebie, a zarazem jak najbardziej odmienne od punktów przyporządkowanych do innych klastrów.\
-
-\paragraph{Działanie algorytmu}
+\subsubsection{Działanie algorytmu K-means}
 Algorytm K-means, dla ustalonego \(K\) tj. liczby klastrów dąży do minimalizacji funkcji 
 \[Q = \sum\limits^K_{k=1}\sum\limits_{x_i \in C_k} ||x_i - c_k||^2\]
 gdzie \(c_k\) to średnia wyciagnieta z obserwacji zawierających się w \(k\)-tym klastrze.
@@ -181,7 +170,7 @@ gdzie \(c_k\) to średnia wyciagnieta z obserwacji zawierających się w \(k\)-t
 W pierwszej linii algorytmu \ref{class_kmeans_alg} podana jest instrukcja wyboru początkowych centroid. 
 Można to robić na wiele sposobów, na przyklad za centroidy wziąć K pierwszych lub losowych elementów zbioru, zbadać rozpiętość poszczególnych zmiennych i na tej podstawie rozmieścić początkowe centra klastrów.
 Nieprzypadkowe i celowe wybranie centroid może prowadzić do znacznego przyspieszenia zbiegania algorytmu do lokalnego minimum.
-W badaniach relacjonowanych przez tą pracę skorzystano z algorytmu K-Means++.
+W badaniach relacjonowanych przez tą pracę skorzystano z algorytmu K-Means++\cite{C.K.Reddy2014}.
 Składa się o z następujących kroków:
 \begin{algorithm}
 \floatname{algorithm}{Algorytm}
@@ -203,7 +192,7 @@ Skorzystanie z algorytmu K-Means++ gwarantuje, że
 gdzie \(Q*\) to funkcja kosztu optymalnego klastrowania. %cytat sprawdzić
 
 \paragraph{Mini Batch K-Means}
-Dla dużych zborów danych klasyczny algorytm K-Means może działać wolno. Dlatego w pracy wykorzystany został algorytm, który w jednej iteracji pracuje jedynie na części danych, co znacząco przyspiesza jego działanie.
+Dla dużych zborów danych klasyczny algorytm K-Means może działać wolno. Dlatego w pracy wykorzystany został algorytm, który w jednej iteracji pracuje jedynie na części danych, co znacząco przyspiesza jego działanie\citep{Sculley2010}.
 Rozwiązanie, o którym mowa to Batch K-Means.
 Zdefiniujmy \(b\), jako wielkość zbioru punktu, który będzie brany pod uwagę w jednej iteracji, \(t\) - ilość iteracji algorytmu, \(\mathbb{C} = {c_1, ..., c_k}\) zbiór centroid, oraz funkcje \(f(\mathbb{C}, x)\), która zwraca centroidę ze zbioru \(\mathbb{C}\) leżącą najbliżej punktu \(x\).
 Podejście to składa się z następujących etapów:
@@ -237,7 +226,7 @@ Są ponadto deterministyczne, w przeciwieństwie do poprzednio opisywanych algor
 Zapuszczając klastrowanie hierarchiczne dwa razy na tym samym zbiorze, zawsze dostaniemy taki sam dendrogram, co w pewnych sytuacjach może być kluczowe.
 Wśród metod klastrowania hierarchicznego można wyszczególnić dwa podejścia: aglomeracyjne oraz dzielące.
 Pierwsze z nich wychodzi od $N$ singletonów zawierających wszystkie obserwacje ze zbioru , a następnie z wykorzystaniem wybranej metody łączenia, skleja leżące najbliżej siebie klastry. 
-W podejściu drugim sytuacja jest odwrócona, z jednego dużego klastra, wydzielane są coraz mniejsze skupiska obserwacji.
+W podejściu drugim sytuacja jest odwrócona, z jednego dużego klastra, wydzielane są coraz mniejsze skupiska obserwacji\citep{Jain1988}.
 
 
 \begin{algorithm}
@@ -260,8 +249,9 @@ Dalej zostanie opisane ostatnie z nich.
 
 
 \paragraph{Kryterium Warda}
-W funkcji odległośći zaproponowanej przez Warda najważniejsza jest wariancja wewnątrz potencjalnie powstającego klastra powstającego z dwóch mniejszych.
-Łączone są klastry, które minimalizują funkcję kosztu:
+W funkcji odległośći zaproponowanej przez Warda premiowane są klastry zwarte.
+Funkcja dąży do zminimalizowania wzrostu wariancji wentrzklastrowej nowego zgrupowania.
+Funkcję odległości spełniającą powyższy warunek daje się zapisać następująco:
 \[ Q(C_1, C_2) = \frac{N_1N_2}{N_1 + N_2}||c_1 - c_2||^2 \]
 gdzie $C_n$ to zbiór obserwacji w klastrze, $N_j$ to liczebność klastra $j$otego, zaś $c_j$ to jego centroida.
 
@@ -311,25 +301,43 @@ Aby kontrolować ten proces, algorytm dąży do minimalizacji funkcji kosztu \(Q
 \[Q(F) = \frac{1}{2}\bigg(\sum\limits^n_{i,j=1}W_{ij}\left|\left| \frac{F_i}{\sqrt{D_{ii}}} -
 \frac{F_j}{\sqrt{D_{jj}}}\right|\right|^2 + \mu\sum\limits^n_{i=1}
 \left|\left|F_i - Y_i\right|\right|^2 \bigg)\]
-Pierwszy człon funkcji \(Q\) zapewnia minimalizację zmienności etykiet punktów nieodległych od siebie, drugi natomiast kontroluje przez parametr \(\mu\) na ile jesteśmy skłonni zmienić naszą pierwszą decyzje co do etykiet obserwacji ze zbioru uczącego.	
+Pierwszy człon funkcji \(Q\) zapewnia minimalizację zmienności etykiet punktów nieodległych od siebie, drugi natomiast kontroluje przez parametr \(\mu\) na ile jesteśmy skłonni zmienić naszą pierwszą decyzje co do etykiet obserwacji ze zbioru uczącego\citep{Zhou2004}.	
 \subsection{Indeksy}
-Do oceny jakości klastrowania potrzebne sa jakieś wskaźniki.
+Do oceny jakości klastrowania potrzebne sa wskaźniki.
 Poniżej zostaną opisane indeksy, które znalazły zastosowanie w niniejszej pracy.
 
 \subsubsection{Silhouette Coefficient}
-
+Pierwszym z wykorzystanych wskaźników był Silhouette Coefficient.
+Jest to indeks , który preferuje podziały o klastrach dobrze rozseparowanych, z małą wariancją wewnątrzgrupową\citep{Arbelaitz2013}. Oblicza się go dla jednej obserwacji ze zbioru, wykorzystując poniższy wzór:
 
 \[SC(x) = \frac{B(x) - W(x)}{max(B(x),W(x))}\]
-\subsubsection{Stability Index}
 
-\subsubsection{Neighbourhood Coefficient}
+gdzie $W(x)$ to średnia odległość od punktów zaklasyfikowanych do tego samego klastra, zaś $B(x)$ to średnia odległość od punktów w najbliższym sąsiednim klastrze\citep{Rousseeuw1987}.
+Niech $d(x, C)$ będzie średnią odległością punktu $x$ od wszystkich punktów w klastrze $C$, wtedy:
+\[B(x) = \min_{0 < j < K} d(x, C_j)\]
+Wskaźnik może przyjmować wartości od -1 do 1, gdzie wyniki dodatnie, bliższe jedynki swiadczą o dobrym dopasowaniu.
+Żeby policzyć Silhouette Index dla całego klastrowania, należy wyciągnąć średnią ze wskaźników dla poszczególnych punktów.
+ %% cytaty
 
+\subsubsection{Adjusted Neighbourhood Coefficient}
+W przeciwieństwie do poprzedniego indksu, który oceniał przede strukturę klastrowania, indeks Adjusted Neighbourhood Coefficient ocenia stabilność danego klastrowania\citep{Ben-Hur2002}, tj. jak bardzo czułe jest klastrowanie na niewielkie zmiany warunków początkowych np. usunięcie paru obserwacji.
+Zdefiniujmy $\textbf{Y} = {y_1, ..., y_N}$ oraz $\textbf{Z} = {z_1, ..., z_N}$ jako wektory etykiet dla dwóch klastrowań. Macierz sąsiedztwa $\textbf{A}$ dla wektora etykiet $\textbf{Y}$ konstruujemy na podstawie wzoru:
 
+$$A^Y_{ij} = \begin{cases}
+	1\text{, jeśli} \textbf{ Y}_i = \textbf{Y}_j \\
+	0\text{, jeśli}\textbf{ Y}_i \neq \textbf{Y}_j
+\end{cases}$$
+
+Następnie definiujemy Neighbourhood Coefficient ($NC$):
+$$NC(\textbf{Y}, \textbf{Z}) = \frac{1}{N}\sum_i^N\sum_j^N A^Y_{ij} \cdot A^Z_{ij}$$
+
+Ostatecznie obliczamy Adjusted Neighbourhood Coefficient ze wzoru:
+$$NC_{adj} = \frac{NC(\textbf{X},\textbf{Z})}{\sqrt{NC(\textbf{X},\textbf{X}NC(\textbf{Z},\textbf{Z})}}$$
 \subsubsection{Accordance Index}
-\section{Wyniki}
-\section{Dyskusja}
+Ostatnim wskaźnikiem służącym do szacowania jakości dopoasowania był ułamek poprawnie zaklasyfikowanych przypadków w odniesieniu do kolców opisanych w rozdziale 2.
+\section{Wyniki i dyskusja}
+
 \bibliographystyle{plain}
 
 \bibliography{magisterka}
-
 \end{document}
