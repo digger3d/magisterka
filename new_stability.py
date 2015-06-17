@@ -171,7 +171,7 @@ def plotMultiStab(data_file, matrix_file):
 #plotMultiStab("results/multi_stab/kmeans/data.txt",
 #              "results/multi_stab/kmeans/neigh.npy")
 
-def plotFromPath(path, npy_file, y_lim = [0.75, 1]):
+def plotFromPath(path, npy_file, y_lim = [0.5, 1]):
     trans_dict = dict([("accord.npy", "Ratio of properly classified spines"),
                        ("neigh.npy", "Nieghbourhood Index")])
     data_file = open(pathJoin(path, "data.txt"))
@@ -190,13 +190,25 @@ def plotFromPath(path, npy_file, y_lim = [0.75, 1]):
     plt.xlim(-1, len(matrix) + 1)
     plt.ylabel(trans_dict[npy_file])
     plt.xticks(np.arange(len(matrix)), eval(data_dict["list_of_cluster_n"]))
-#
-#plt.subplot(222)
-#plotFromPath("results/multi_stab/ward2/", "accord.npy")
+    
+
 #plt.subplot(221)
-#plotFromPath("results/multi_stab/kmeans3/", "accord.npy")
-#plt.subplot(224)
-#plotFromPath("results/multi_stab/ward2/", "neigh.npy")
+#plotFromPath("results/multi_stab/par_ward/", "accord.npy")
+#plt.subplot(222)
+#plotFromPath("results/multi_stab/par_ward/", "neigh.npy")
 #plt.subplot(223)
-#plotFromPath("results/multi_stab/kmeans3/", "neigh.npy")
+#plotFromPath("results/multi_stab/par_k_means/", "accord.npy")
+#plt.subplot(224)
+#plotFromPath("results/multi_stab/par_k_means/", "neigh.npy")
 #plt.show()
+
+#plt.subplot(221)
+#plotFromPath("results/multi_stab/par_normed_ward/", "accord.npy")
+#plt.subplot(222)
+#plotFromPath("results/multi_stab/par_normed_ward/", "neigh.npy")
+#plt.subplot(223)
+#plotFromPath("results/multi_stab/par_normed_k_means/", "accord.npy")
+#plt.subplot(224)
+#plotFromPath("results/multi_stab/par_normed_k_means/", "neigh.npy")
+#plt.show()
+

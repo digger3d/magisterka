@@ -143,7 +143,7 @@ Odpowiedzią na ten problem jest dzedzina zwana uczeniem maszynowym.
 Zajmuje się ona opracowywaniem algorytmów, które wyposażony w zbiór uczący, będą w stanie dostarczyć wyektrahowanej zeń użytecznej informacji.
 Obecnie najdroższym i najbardziej czasochłonnym etapem w procesie przetwarzania informacji jest praca człowieka.
 O ile na ostatnich stopniach obróbki danych jego udział jest niezbędny czy wręcz pożądany, o tyle uciekanie się do pracy ludzkiej na pierwszych etapach procesowania danych znakomicie wydłużyłoby takie przedsięwzięcie, zwiększyło koszty, lub nawet z uwagi na dwa poprzednie czynniki zupełnie go uniemożliwiło.
-Dlatego wiele wisiłku wkładane jest w takie opracowywanie algorytmów, aby nakład luzkiej pracy niezbędny do ich działania był minimalny.
+Dlatego wiele wisiłku wkładane jest w takie opracowywanie algorytmów, aby nakład ludzkiej pracy niezbędny do ich działania był minimalny.
 W niniejszej pracy zastosowano szereg rozwiązań stosowanych na polu uczenia maszynowego.
 Zostaną one opisane w poniższych rozdziałach.
 \subsection{Klastrowanie}
@@ -186,15 +186,15 @@ Składa się o z następujących kroków:
 \end{algorithmic}
 \end{algorithm}
 
-Pomimo dłuższej fazy wybierania pierwszych centroid algorytm K-means++ prowadzi do przyspieszenia działania w stosunku do klasycznego algorytmu K-means. Ponadto udowodniono, standardowy algorytm może znaleźć rozwiązanie, którego funkcja \(Q\) może być dowolnie duża w stosunku do optymalnego rozwiązania.
+Pomimo dłuższej fazy wybierania pierwszych centroid algorytm K-means++ prowadzi do przyspieszenia działania w stosunku do klasycznego algorytmu K-means. Ponadto udowodniono, że standardowy algorytm może znaleźć rozwiązanie, którego funkcja \(Q\) może być dowolnie duża w stosunku do optymalnego rozwiązania.
 Skorzystanie z algorytmu K-Means++ gwarantuje, że 
-\[\frac{Q}{Q*} \approx O(log k)\]
-gdzie \(Q*\) to funkcja kosztu optymalnego klastrowania. %cytat sprawdzić
+\[\frac{Q}{Q^*} \approx O(log k)\]
+gdzie \(Q^*\) to funkcja kosztu optymalnego klastrowania. %cytat sprawdzić
 
 \paragraph{Mini Batch K-Means}
 Dla dużych zborów danych klasyczny algorytm K-Means może działać wolno. Dlatego w pracy wykorzystany został algorytm, który w jednej iteracji pracuje jedynie na części danych, co znacząco przyspiesza jego działanie\citep{Sculley2010}.
 Rozwiązanie, o którym mowa to Batch K-Means.
-Zdefiniujmy \(b\), jako wielkość zbioru punktu, który będzie brany pod uwagę w jednej iteracji, \(t\) - ilość iteracji algorytmu, \(\mathbb{C} = {c_1, ..., c_k}\) zbiór centroid, oraz funkcje \(f(\mathbb{C}, x)\), która zwraca centroidę ze zbioru \(\mathbb{C}\) leżącą najbliżej punktu \(x\).
+Zdefiniujmy \(b\), jako wielkość zbioru punktów, który będzie brany pod uwagę w jednej iteracji, \(t\) - ilość iteracji algorytmu, \(\mathbb{C} = {c_1, ..., c_k}\) zbiór centroid, oraz funkcję \(f(\mathbb{C}, x)\), która zwraca centroidę ze zbioru \(\mathbb{C}\) leżącą najbliżej punktu \(x\).
 Podejście to składa się z następujących etapów:
 
 \begin{algorithm}
@@ -212,7 +212,7 @@ klastra
 	\FORALL{$x$ in $M$}
 		\STATE $c \leftarrow d[x]$
 		\STATE $v[c] \leftarrow v[c] + 1$
-		\STATE $\eta \leftarrow \frac{1}{v[c]}$ // eta jest tempem uczenia
+		\STATE $\eta \leftarrow \frac{1}{v[c]}$ // \text{$\eta$ jest tempem uczenia}
 		\STATE $c \leftarrow (1 - \eta)c + \eta x$ 
 	\ENDFOR
 \ENDFOR
@@ -221,9 +221,9 @@ klastra
 
 \subsubsection{Klastrowanie hierarchiczne}
 Klastrowanie hierarchiczne przedstawia inne spojrzenie na problem niż opisane wyżej metody. Zamiast zwracać płaską strukturę opartą na podziale przestrzeni między dane klastry, obliczany jest tzw. dendrogram. 
-Można z niego wyciągnąć więcej wniosków niż, z samego wektora etykiet powstałego po dokonaniu klastrowania np. metodą K-means.
+Można z niego wyciągnąć więcej wniosków(np. grupowania składające z róźnej ilości klastrów, odległość między powstałymi klastrami)  niż, z samego wektora etykiet powstałego po dokonaniu klastrowania np. metodą K-means.
 Są ponadto deterministyczne, w przeciwieństwie do poprzednio opisywanych algorytmów.
-Zapuszczając klastrowanie hierarchiczne dwa razy na tym samym zbiorze, zawsze dostaniemy taki sam dendrogram, co w pewnych sytuacjach może być kluczowe.
+Zapuszczając klastrowanie hierarchiczne dwa razy na tym samym zbiorze, zawsze dostaniemy taki sam dendrogram, co w pewnych sytuacjach może być ważne.
 Wśród metod klastrowania hierarchicznego można wyszczególnić dwa podejścia: aglomeracyjne oraz dzielące.
 Pierwsze z nich wychodzi od $N$ singletonów zawierających wszystkie obserwacje ze zbioru , a następnie z wykorzystaniem wybranej metody łączenia, skleja leżące najbliżej siebie klastry. 
 W podejściu drugim sytuacja jest odwrócona, z jednego dużego klastra, wydzielane są coraz mniejsze skupiska obserwacji\citep{Jain1988}.
@@ -256,13 +256,13 @@ Funkcję odległości spełniającą powyższy warunek daje się zapisać nastę
 gdzie $C_n$ to zbiór obserwacji w klastrze, $N_j$ to liczebność klastra $j$otego, zaś $c_j$ to jego centroida.
 
 \subsection{Uczenie pół-nadzorowane}
-Dzisiaj zbieranie danych jest stosunkowo tanie.
-Natomiast, żeby taki zbiór danych dało się dostarczyć na wejście jakiego algorytmu uczącego się, należy go uprzednio opisać.
+Współcześnie zbieranie danych jest stosunkowo tanie.
+Natomiast, żeby taki zbiór danych dało się dostarczyć na wejście jakiegoś algorytmu uczącego się, należy go uprzednio opisać.
 Jeśli interesuje nas zagadnienie klasyfikacji, należy obserwacjom z takiego wzoru przypisać etykiety.
 Jest to zadanie zwykle wykonywanie przez człowieka.
 Tradycyjne algorytmy uczenia nadzorowanego do skutecznego działania potrzebują dużych zbiorów uczących. 
-Jednak przygotowanie takich zbiorów jest zasobochłonne.
-Rozwiązaniem tego problemu moga być algorytmu pół-nadzorowane.
+Jednak przygotowanie takowych jest zasobochłonne.
+Rozwiązaniem tego problemu moga być algorytmy pół-nadzorowane.
 Projektowane są one pod kątem optymalizacji działania w warunkach małego zbioru uczącego i dużego zbioru obserwacji bez etykiet.
 Algorytmy pół-nadzorowane zakładają dwie własności danych na których pracują.
 Po pierwsze zakładają spójność danych, co oznacza, że punktu leżące blisko siebie w przestrzeni problemu najprawdopodobniej mają tą samą etykietę.
@@ -271,13 +271,13 @@ Poniżej opisane zostaną dwa z nich, które zostały wykorzystane przez autora.
 \subsubsection{Sformułowanie problemu}
 Dany jest zbiór oberwacji \(X = \{x_1, ..., x_l, x_{l+1}, ..., x_n\}\) oraz zbiór etykiet \(\mathcal{L} = \{1, ... ,c\}\).
 Pierwsze \(l\) przypadków ma przypisaną którąś z etykiet ze zbioru \(\mathcal{L}\). Celem jest przypisanie odpowiednich oznaczeń dla pozostałych punktów \(x_u(l  < u \leqslant n)\).
-Do rozwiązania tak postawionego problemu w obu algorytmach należy zacząć od skonstruowania grafu, gdzie krawędzi między dwoma wierzchołkami \(i, j\) przypisana jest waga, która zależy od wyboru odpowiedniej funkcji jądra (\emph{ang. kernel function}. W pracy wykorzystano dwie: \emph{Radial Basis Function} oraz funkcję opartą o algorytm k Najbliższych Sąsiadów. Jeśli odległość euklidesową między punktami \(x_1\) i \(x_2\) oznaczymy jako \(||x_1 - x_2||\), to wartość funkcja dla tych obserwacji wyrażona jest wzorem \(exp(\gamma(||x_1 - x_2||^2)\).
+Do rozwiązania tak postawionego problemu w obu algorytmach należy zacząć od skonstruowania grafu, gdzie krawędzi między dwoma wierzchołkami \(i, j\) przypisana jest waga, która zależy od wyboru odpowiedniej funkcji jądra (\emph{ang. kernel function}. W pracy wykorzystano dwie z nich: \emph{Radial Basis Function} oraz funkcję opartą o algorytm K Najbliższych Sąsiadów. Jeśli odległość euklidesową między punktami \(x_1\) i \(x_2\) oznaczymy jako \(||x_1 - x_2||\), to wartość funkcji RBF dla tych obserwacji wyrażona jest wzorem \(exp(\gamma(||x_1 - x_2||^2)\).
 Druga funkcja równa się jedności jeśli punkt jest w zbiorze k Najbliższych sąsiadów drugiego w przeciwnym wypadku wynosi 0, co można to zapisać \(1[x_1 \in kNN(x_2)]\). 
 Wybierając pierwszą funkcję należy mieć na uwadze, że powstaje całkowicie połączony graf, przez co jego macierzowa reprezentacja jest wymagająca, jeśli chodzi o miejsce w pamięci komputera.
-Dlatego też, rozwiązanie to mało skalowalne, co przy dużych zbiorach obserwacji może być kłopotliwe.
-Wybór drugiej funkcji powstaje do powstania macierzy składające się w przeważającej części z zer, dlatego też można wybrać reprezentację pochłaniającą znacznie mniej pamięci.
+Dlatego też, jest to rozwiązanie mało skalowalne, co przy dużych zbiorach obserwacji może być kłopotliwe.
+Wybór drugiej funkcji prowadzi do powstania macierzy składające się w przeważającej części z zer, dlatego też można wybrać reprezentację pochłaniającą znacznie mniej pamięci.
 \subsubsection{Propagacja etykiet (label propagation)}
-Po wyborze funckji jądra i zbudowaniu grafu algorytmie Propagacji Etykiet należy pszystąpić do konstrukcji macierzy przejścia \(T\).
+Po wyborze funckji jądra i zbudowaniu grafu odległości w algorytmie Propagacji Etykiet należy pszystąpić do konstrukcji macierzy przejścia \(T\).
 \[T_{ij} = P(j \rightarrow i) = \frac{w_{ij}}{\sum^n_{k=1}w_{kj}}\]
 Liczbę \(T_{ij}\) możemy traktować jako prawdopodobieństwo propagacji etykiety z wezła \(j\) na węzeł \(i\). Zdefiniujmy macierz \(Y\) o wymiarach \((n \times |\mathcal{L}|)\), gdzie wiersz odpowiada danej obserwacji, zaś liczby w poszczególnych kolumnach (po normalizacji) interpretujemy jako miarę prawdopodobieństwa przypisania obserwacji określonej etykiety.
 Sam algorytm jest natury iteracyjnej i składa się z trzech kroków:
@@ -291,8 +291,8 @@ Po spełnieniu warunku stop przypisujemy obserwacjom etykiety na podstawie macie
 Zdefiniujmy macierz \(F\) o wymiarach \((n \times |\mathcal{L}|)\) , która pełni podobną rolę do macierzy \(Y\) w algorytmie Propagacji Etykiet.
 Natomiast w algorytmie Przeciągania etykiet macierzy Y zdefiniowana jest nieco odmiennie.
 Macierz składa się w większości zer. W pierwszych l wierszach występuje 1 na pozycji reprezentującej etykietę pierwotnie przypisaną obserwacji.
-Podobnie jak w poprzednim algorytmie budujemy macierz sąsiedztwa między wierzchołkami stworzonego grafu, gdzie wartości je wypełniające zależą od wybranej funkcji jądra.
-Nazwijmy ją macierzą \(W\). 
+Podobnie jak w poprzednim algorytmie budujemy macierz sąsiedztwa między obserwacjami, gdzie wartości je wypełniające zależą od wybranej funkcji jądra.
+Nazwijmy ją macierzą \(W\). Na jej podstawie tworzymy graf. 
 Następnie tworzymy macierz \(S = D^{-1/2}WD^{-1/2}\), gdzie \(D\) to macierz diagonalna z elementami będącymi sumą \(i\)-tego wiersza w macierzy \(W\).
 Następnie przystępujemy do kroku iteracyjnego obliczając kolejne macierze \(F\): \(F(t+1) = \alpha SF(t) + (1 - \alpha)Y\), gdzie \(a \in [0,1]\).
 Ostatecznie przypisujemy obserwacji etykietę na podstawie wartości macierzy \(F\) tak, że \(y_i = argmax_{j\leqslant |\mathcal{L}|} F_{ij}\).
@@ -307,7 +307,7 @@ Do oceny jakości klastrowania potrzebne sa wskaźniki.
 Poniżej zostaną opisane indeksy, które znalazły zastosowanie w niniejszej pracy.
 
 \subsubsection{Silhouette Coefficient}
-Pierwszym z wykorzystanych wskaźników był Silhouette Coefficient.
+Pierwszym z wykorzystanych wskaźników jest Silhouette Coefficient.
 Jest to indeks , który preferuje podziały o klastrach dobrze rozseparowanych, z małą wariancją wewnątrzgrupową\citep{Arbelaitz2013}. Oblicza się go dla jednej obserwacji ze zbioru, wykorzystując poniższy wzór:
 
 \[SC(x) = \frac{B(x) - W(x)}{max(B(x),W(x))}\]
@@ -320,7 +320,7 @@ Wskaźnik może przyjmować wartości od -1 do 1, gdzie wyniki dodatnie, bliższ
  %% cytaty
 
 \subsubsection{Adjusted Neighbourhood Coefficient}
-W przeciwieństwie do poprzedniego indksu, który oceniał przede strukturę klastrowania, indeks Adjusted Neighbourhood Coefficient ocenia stabilność danego klastrowania\citep{Ben-Hur2002}, tj. jak bardzo czułe jest klastrowanie na niewielkie zmiany warunków początkowych np. usunięcie paru obserwacji.
+W przeciwieństwie do poprzedniego indeksu, który oceniał strukturę klastrowania, indeks Adjusted Neighbourhood Coefficient ocenia stabilność danego klastrowania\citep{Ben-Hur2002}, tj. jak bardzo czułe jest klastrowanie na niewielkie zmiany warunków początkowych np. usunięcie paru obserwacji.
 Zdefiniujmy $\textbf{Y} = {y_1, ..., y_N}$ oraz $\textbf{Z} = {z_1, ..., z_N}$ jako wektory etykiet dla dwóch klastrowań. Macierz sąsiedztwa $\textbf{A}$ dla wektora etykiet $\textbf{Y}$ konstruujemy na podstawie wzoru:
 
 $$A^Y_{ij} = \begin{cases}
@@ -329,10 +329,13 @@ $$A^Y_{ij} = \begin{cases}
 \end{cases}$$
 
 Następnie definiujemy Neighbourhood Coefficient ($NC$):
-$$NC(\textbf{Y}, \textbf{Z}) = \frac{1}{N}\sum_i^N\sum_j^N A^Y_{ij} \cdot A^Z_{ij}$$
+$$NC(\textbf{Y}, \textbf{Z}) = \sum_i^N\sum_j^N A^Y_{ij} \cdot A^Z_{ij}$$
 
 Ostatecznie obliczamy Adjusted Neighbourhood Coefficient ze wzoru:
 $$NC_{adj} = \frac{NC(\textbf{X},\textbf{Z})}{\sqrt{NC(\textbf{X},\textbf{X}NC(\textbf{Z},\textbf{Z})}}$$
+
+Wskaźnik ten intuicyjnie można pojmować jako część wspólnych krawędzi w grafach sąsiedztwa zbudowanych na bazie dwu klastrowań.
+Adjusted Neighbourhood Index przyjmuje wartości od 0 do 1, gdzie wyższe wartości świadczą o większej stabilności algorytmu.
 \subsubsection{Accordance Index}
 Ostatnim wskaźnikiem służącym do szacowania jakości dopoasowania był ułamek poprawnie zaklasyfikowanych przypadków w odniesieniu do kolców opisanych w rozdziale 2.
 \section{Wyniki i dyskusja}

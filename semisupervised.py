@@ -1,9 +1,10 @@
+# coding: utf-8
 #from toy_problems import Data
+
 import numpy as np
 from sklearn.semi_supervised import LabelPropagation, LabelSpreading
 from new_stability import *
-import pdb
-
+GAMMA = 3e-6
 
 original = np.load("datasets/spines2.npz")
 shapes = np.sum(original["shapes_n"], axis=2)
@@ -78,9 +79,9 @@ def fromIdx2Mask(indices, len_of_mask=N_OBS):
 #print len(a), N_OBS
 
 from collections import Counter
-def checkCrossStabilitySemi(data_to_cluster, clust_algo, knn = 7, kernel="-",
+def checkCrossStabilitySemi(data_to_cluster, clust_algo, knn = 15, kernel="-",
                             learn_cases=100, n_iter = 5,  original_data = original,
-                            gamma = 20, throw_away = 20, selection_vec = lsm):
+                            gamma = GAMMA, throw_away = 20, selection_vec = lsm):
     """selection vector is applied after clustering, and throw away
     vector before"""
     clust_algo_instance = clust_algo(kernel=kernel, gamma=gamma, n_neighbors=knn)
@@ -115,7 +116,7 @@ def checkCrossStabilitySemi(data_to_cluster, clust_algo, knn = 7, kernel="-",
                 neighbour_coeff_list.append(coeff)
     return accordance_list, neighbour_coeff_list    
 
-def inspectKNeighbour(data_to_cluster, algo, list_of_knn, path, n_iter, kernel, learn_cases=100):
+def inspectKNeighbour(data_to_cluster, algo, list_of_knn, path, kernel, n_iter, learn_cases=100):
     data_file = open(path + "data.txt", "w")
     data_file.write("algorithm\t{0}\n"
     "list_of_knns\t{1}\n"
@@ -157,7 +158,7 @@ def inspectGamma(data_to_cluster, algo, list_of_n_learn, path, kernel, n_iter):
     return np.array(accordance_indices), np.array(neighbour_coeffs)
     
 
-def inspectLearnCases(data_to_cluster, algo, list_of_gammas, path, kernel, n_iter):
+def inspectLearnCases(data_to_cluster, algo, list_of_n_learn, path, kernel, n_iter):
     data_file = open(path + "data.txt", "w")
     data_file.write("algorithm\t{0}\n"
     "list_of_gammas\t{1}\n"
@@ -178,9 +179,9 @@ def inspectLearnCases(data_to_cluster, algo, list_of_gammas, path, kernel, n_ite
     print path, "finished!"
     return np.array(accordance_indices), np.array(neighbour_coeffs)
 
-def plotFromPath(path, npy_file, title, ylabel):
-    trans_dict = dict([("accord.npy", "Ratio of properly classified spines"),
-                       ("neigh.npy", "Nieghbourhood Index")])
+def plotFromPath(path, npy_file, title, ylabel, xlabel, ylim=[0,1]):
+#    trans_dict = dict([("accord.npy", "Ratio of properly classified spines"),
+#                       ("neigh.npy", "Nieghbourhood Index")])
     data_file = open(pathJoin(path, "data.txt"))
     matrix = np.load(pathJoin(path, npy_file))
     means = np.mean(matrix, axis = 1)
@@ -192,27 +193,77 @@ def plotFromPath(path, npy_file, title, ylabel):
         parameter, value = line.rstrip("\n").split("\t")
         data_dict[parameter] = value
     plt.errorbar(np.arange(len(matrix)), means, yerr=errors)
-#    plt.ylim(y_lim)
     plt.title(title)
     plt.xlim(-1, len(matrix) + 1)
-    plt.ylabel(trans_dict[npy_file])
+    plt.ylim(*ylim)
+    plt.ylabel(ylabel)
+    plt.xlabel(xlabel)
     plt.xticks(np.arange(len(matrix)), eval(ticks))
 
-#plotFromPath("results/semi_labeled/spreading/rbf/gamma/", "accord.npy","Gamma Value", "knn")
+##### Plotting
+#
+#plt.subplot(221)
+#plotFromPath("results/semi_labeled/propagation/rbf/gamma/", "accord.npy",\
+#"Algorytm Label Propagation", u"Ułamek dobrze zaklasyfikowanych przypadków",\
+#u"Wartość parametru gammma")
+#plt.subplot(222)
+#plotFromPath("results/semi_labeled/propagation/rbf/gamma/", "neigh.npy",\
+#"Algorytm Label Propagation", u"Współczynnik Przystawania",\
+#u"Wartość parametru gammma")
+#plt.subplot(223)
+#plotFromPath("results/semi_labeled/spreading/rbf/gamma/", "accord.npy",\
+#"Algorytm Label Spreading", u"Ułamek dobrze zaklasyfikowanych przypadków",\
+#u"Wartość parametru gammma")
+#plt.subplot(224)
+#plotFromPath("results/semi_labeled/spreading/rbf/gamma/", "neigh.npy",\
+#"Algorytm Label Spreading", u"Współczynnik Przystawania",\
+#u"Wartość parametru gammma")
+#
+#plt.subplot(221)
+#plotFromPath("results/semi_labeled/propagation/knn/knns/", "accord.npy",\
+#"Algorytm Label Propagation", u"Ułamek dobrze zaklasyfikowanych przypadków",\
+#u"Ilość najbliższych sąsiadów")
+#plt.subplot(222)
+#plotFromPath("results/semi_labeled/propagation/knn/knns/", "neigh.npy",\
+#"Algorytm Label Propagation", u"Współczynnik Przystawania",\
+#u"Ilość najbliższych sąsiadów")
+#plt.subplot(223)
+#plotFromPath("results/semi_labeled/spreading/knn/knns/", "accord.npy",\
+#"Algorytm Label Spreading", u"Ułamek dobrze zaklasyfikowanych przypadków",\
+#u"Ilość najbliższych sąsiadów")
+#plt.subplot(224)
+#plotFromPath("results/semi_labeled/spreading/knn/knns/", "neigh.npy",\
+#"Algorytm Label Spreading", u"Współczynnik Przystawania",\
+#u"Ilość najbliższych sąsiadów")
+
+#plt.subplot(221)
+#plotFromPath("results/semi_labeled/propagation/rbf/learn_cases/", "accord.npy",\
+#"Algorytm Label Propagation", u"Ułamek dobrze zaklasyfikowanych przypadków",\
+#u"Wielkość zbioru uczącego")
+#plt.subplot(222)
+#plotFromPath("results/semi_labeled/propagation/rbf/learn_cases/", "neigh.npy",\
+#"Algorytm Label Propagation", u"Współczynnik Przystawania",\
+#u"Wielkość zbioru uczącego")
+#plt.subplot(223)
+#plotFromPath("results/semi_labeled/spreading/rbf/learn_cases/", "accord.npy",\
+#"Algorytm Label Spreading", u"Ułamek dobrze zaklasyfikowanych przypadków",\
+#u"Wielkość zbioru uczącego")
+#plt.subplot(224)
+#plotFromPath("results/semi_labeled/spreading/rbf/learn_cases/", "neigh.npy",\
+#"Algorytm Label Spreading", u"Współczynnik Przystawania",\
+#u"Wielkość zbioru uczącego")
+
+#plotFromPath("results/semi_labeled/spreading/knn/learn_cases/", "accord.npy","Gamma Value", "knn")
 
 ### rbf kernel
-#e, f = inspectLearnCases(shapes, LabelPropagation, [10, 20, 30, 50, 80, 100, 200, 500, 1000],
-#    "results/semi_labeled/propagation/rbf/learn_cases/", "rbf", 25)
-#
-#g, h = inspectLearnCases(shapes, LabelSpreading, [10, 20, 30, 50, 80, 100, 200, 500, 1000],
-#    "results/semi_labeled/spreading/rbf/learn_cases/", "rbf",  25)  
+
 
 ##TODO zmienic gamme w checStability!!!!
-
-gammas = list(np.arange(1,11) * 1e-6)
-i, j = inspectGamma(shapes, LabelSpreading, gammas,
-    "results/semi_labeled/spreading/rbf/gamma/", "rbf",20)
 #
+#gammas = list(np.arange(1,11) * 1e-6)
+#i, j = inspectGamma(shapes, LabelSpreading, gammas,
+#    "results/semi_labeled/spreading/rbf/gamma/", "rbf",20)
+##
 #k, l = inspectGamma(shapes, LabelPropagation, gammas,
 #    "results/semi_labeled/propagation/rbf/gamma/", "rbf", 20)
 
@@ -227,9 +278,20 @@ i, j = inspectGamma(shapes, LabelSpreading, gammas,
 #    "results/semi_labeled/propagation/knn/learn_cases/", "knn", 20)
 #
 #g, h = inspectLearnCases(shapes, LabelSpreading, [10, 20, 30, 50, 80, 100, 200, 500, 1000],
-#    "results/semi_labeled/spreading/knn/learn_cases/", "knn",  20)    
-
-
+#    "results/semi_labeled/spreading/knn/learn_cases/", "knn",  20)  
+    
+##TODO
+#e, f = inspectLearnCases(shapes, LabelPropagation, [10, 20, 30, 50, 80, 100, 200, 500, 1000],
+#    "results/semi_labeled/propagation/rbf/learn_cases/", "rbf", 25)
+#
+#g, h = inspectLearnCases(shapes, LabelSpreading, [10, 20, 30, 50, 80, 100, 200, 500, 1000],
+#    "results/semi_labeled/spreading/rbf/learn_cases/", "rbf",  25)      
+#    
+#m, n = inspectLearnCases(shapes, LabelPropagation, [10, 20, 30, 50, 80, 100, 200, 500, 1000],
+#    "results/semi_labeled/propagation/rbf/learn_cases/", "rbf", 20)
+#
+#o, u = inspectLearnCases(shapes, LabelSpreading, [10, 20, 30, 50, 80, 100, 200, 500, 1000],
+#    "results/semi_labeled/spreading/rbf/learn_cases/", "rbf",  20)  
 
 #i, j = inspectGamma(shapes, LabelSpreading, gammas,
 #    "results/semi_labeled/spreading/gamma/", 5)
