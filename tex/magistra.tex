@@ -8,6 +8,9 @@
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{amsmath}
+\usepackage[pdftex]{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
 \begin{document}
 
 \title{Analiza kształtów kolców dendrytycznych metodami uczenia maszynowego.\\Wersja robocza}
@@ -120,12 +123,29 @@ W kolcu długim i cienkim typowo nie można wyróźnić główki, a kształt prz
 W typie przysadzistym także, trudno jest zlokalizować okrągłe zwieńczenie szyi, gdyż w kolce należące do tej grupy przypominają krótkie, acz grube wypustki dendrytu. %% dodać koniecznie grafikę
 Kolce grzybkowate wydają się być najstabilniejsze wśród trzech typów.
 Badacze wykazali, że po warunkowaniu strachu u myszy, białko GFP-Glur1 gromadziło się tylko w kolcach grzybkowatych.
-Ponadto w porónwnaniu z innymi grupami kolce charakteryzują się większym zgęstnieniem postynaptycznym oraz wyższą koncentracją rybosomów, co może wskazywać na aktywny proces produkcji białek w utrzymywaniu większej objętości kolcai siły synapsy\cite{Sala2014}.
+Ponadto w porónwnaniu z innymi grupami kolce charakteryzują się większym zgęstnieniem postynaptycznym oraz wyższą koncentracją rybosomów, co może wskazywać na aktywny proces produkcji białek w utrzymywaniu większej objętości kolca i siły synapsy\cite{Sala2014}.
 
 \section{Dane}
+\label{rozdzial_dane}
 
 Zdjęcia z mikroskopu konfokalnego zostały poddane półatomatycznej segmentacji w celu zidentyfikowania kolców dendrytycznych. 
-Wykwalifikowana osoba z użyciem programu SpineMagick! oznaczyła kolce dendrytyczne znajdujące się na zdjęciach z eksperymentu.
+Wykwalifikowana osoba z użyciem programu SpineMagick! oznaczyła kolce dendrytyczne znajdujące się na zdjęciach z eksperymentu (por. rysunki \ref{rys_konfokal} i \ref{rys_spine_magick}.
+\begin{figure}
+\centering
+\begin{minipage}{.4\textwidth}
+  \centering
+  \includegraphics[scale=0.40]{grafika/no_spine_magic}
+  \captionof{figure}{Zdjęcie z mikroskopu konfokalnego}
+  \label{rys_konfokal}
+\end{minipage}%
+\hspace{1cm}
+\begin{minipage}{.4\textwidth}
+  \centering
+  \includegraphics[scale=0.40]{grafika/spine_magic}
+  \captionof{figure}{Zdjęcie ze znacznikami SpineMagick!}
+  \label{rys_spine_magick}
+\end{minipage}
+\end{figure}
 Wspomniany program znacząco przyspiesza proces zbierania danych.
 Z zaznaczenia dwóch pikseli, leżących na środku podstawy kolca oraz na czubku jego głowy, program jest w stanie oznaczyć piksele przynależące do danego kolca, a także obliczyć parę przydatnych statystyk(np. powierzchnię, szerogość głowy).
 Po zmianie danych wyeksportowanych z programu SpineMagic! na bitmapy o rozdzielczości 64x32 piksele, dokonano ich normalizacji tak, aby wszystkie kolce miały taką samą powierzchnię.
@@ -151,7 +171,7 @@ Mając \(N\) obserwacji w \(d\)-wymiarowej przestrzeni ze zbioru \(X = {x_1, ...
 \subsubsection{Działanie algorytmu K-means}
 Algorytm K-means, dla ustalonego \(K\) tj. liczby klastrów dąży do minimalizacji funkcji 
 \[Q = \sum\limits^K_{k=1}\sum\limits_{x_i \in C_k} ||x_i - c_k||^2\]
-gdzie \(c_k\) to średnia wyciagnieta z obserwacji zawierających się w \(k\)-tym klastrze.
+gdzie \(c_k\) to średnia wyciagnieta z obserwacji zawierających się w \(k\)-tym klastrze, którą później będziemy nazywać centroidą $k$-tego skupiska.
 
 \begin{algorithm}
 \floatname{algorithm}{Algorytm}
@@ -338,8 +358,60 @@ Wskaźnik ten intuicyjnie można pojmować jako część wspólnych krawędzi w 
 Adjusted Neighbourhood Index przyjmuje wartości od 0 do 1, gdzie wyższe wartości świadczą o większej stabilności algorytmu.
 \subsubsection{Accordance Index}
 Ostatnim wskaźnikiem służącym do szacowania jakości dopoasowania był ułamek poprawnie zaklasyfikowanych przypadków w odniesieniu do kolców opisanych w rozdziale 2.
-\section{Wyniki i dyskusja}
+\subsection{Analiza Głównych Składowych}
+\label{pca_rozdzial}
+Analiza głównych składowych jest metodą analizy czynnikowej, która wielowymiarowym zbiorze danych znajduje kierunki o największej zmienności.
+Zagadnienie można też równoważnie postrzegać jako próbę takiego obrotu układu współrzędnych, żeby zmaksymalizować wariancję transformowanych danych.
+Analiza głównych składowych znajduje zastosowanie w dziedzinie kompresji danych.
+Odrzucając kierunki o najmniejszej zmienności możemy przedstawić dane w przestrzeni o mniejszej wymiarowości
+W niniejszej pracy została wykorzystana do redukcji wymiarowości danych w celu ich wizualizacji.
+Algorytm prowadzący do otrzymania głównych składowych można zapisać następująco:
 
+\begin{algorithm}
+\floatname{algorithm}{Algorytm}
+\label{pca}
+\caption{Analiza głównych składowych}
+\begin{algorithmic}[1]
+\STATE utwórz macierz $\textbf{X}$ o wymiarach $d \times N$, gdzie $N$ to liczebność zbioru obserwacji zaś $d$ jest liczbą zmiennych, które mierzymy. $k$-tą kolumnę w takiej macierzy utożsamianą z jedną obserwacją będziemy oznaczć $\mathbf{x_k}$
+\STATE obliczając średnią dla każdego wiersza utwórz wektor $\textbf{m}$
+\STATE oblicz macierz kowariancji $\mathbf{\Sigma} = \frac{1}{N-1}\sum\limits_k^N(\mathbf{x_k - m})(\mathbf{x_k - m})^T$
+\STATE znajdź wektory i wartości własne $\mathbf{\Sigma}$
+\STATE z uzyskanych wektorów własnych skonstruuj macierz \textbf{W}, tak by stanowiły jej kolumny
+\STATE dokonaj projekcji na nową podprzestrzeń wykonując mnożenie $\mathbf{Y = W^TX}$
+\end{algorithmic}
+\end{algorithm}
+Aby dokonać redukcji wymiarowość danych przy zachowaniu jak najwyższej zmienności w zbiorze, do konstrukcji macierzy W należy wybrać $k$ wektorów własnych o najwyższych wartościach własnych.
+
+\section{Wyniki i dyskusja}
+\subsection{Eksploracja danych}
+Aby zorientować się w ogólnej strukturze przeprowadzono redukcję wymiarowości danych z wykorzystaniem analizy głównych składowych (por. \ref{pca_rozdzial}).
+W pierwszym etapie badań postanowiono sprawdzić czy jest możliwe odkrycie wewnętrznej struktury danych, dlatego nie wykorzystano klasyfikacji o której mowa w rozdziale \ref{rozdzial_dane}.
+Na rysunku przedstawiono wszystkie obserwacje, jakie znalazły się w analizowanym zbiorze.  
+Aby możliwa była reprezentacja graficzna zbioru danych, zrzutowano każdy wektor reprezentujący obserwację wykorzystując dwie pierwsze składowe, zachowujące $43\%$ wariancji.
+W przestrzeni dwuwymiarowej wydaje się, że wskazanie wyraźnie wyodrębnionych klastrów na pierwszy rzut oka jest niemożliwe. 
+W kolejnym podrozdziale opisane zostaną działanie jakie podjęto w celu identyfikacji właściwej liczby skupień w analizowanym zbiorze.
+\begin{figure}
+\caption{Redukcja wymiarowości z użyciem analizy głównych składowych. Wszystkie obserwacje}
+\label{rys_pca_unlabeled}
+\includegraphics[scale=0.25]{grafika/klastry_unlabeled}
+\end{figure}
+
+
+
+\begin{figure}
+\caption{Redukcja wymiarowości z użyciem analizy głównych składowych. Zdjęcia poprawnie opisane}
+\label{pca_opisane}
+\includegraphics[scale=0.25]{grafika/klastry_pca}
+\end{figure}
+
+Spoglądając na rysunek \ref{pca_opisane} zaobserwować można trzy skupiska punktów. Jakkolwiek grupy \textit{Przysadzista} i \textit{Długie} są dobrze rozseparowane tak, trzecia klasa kolców dendrytycznych w dużym stopniu przekrywa się z dwoma innymi, co utrudnia działanie algorytmów analizy skupień.
+\subsection{Ocena struktury}
+
+\subsection{Analiza skupień metodą K-means}
+\subsection{Analiza skupień metodą hierarchiczną}
+\subsection{Analiza skupień narzędziami uczenia pół-nadzorowanego}
+\subsection{Porównanie metod klasyfikacji.}
+\subsection{Podsumowanie}
 \bibliographystyle{plain}
 
 \bibliography{magisterka}

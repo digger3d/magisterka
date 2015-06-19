@@ -6,13 +6,6 @@ import numpy as np
 import matplotlib.pylab as plt
 
 
-ward = myAgglomerativeClustering
-k_means = cluster.MiniBatchKMeans
-
-
-N_ITER=25
-DATA_TO_CLUSTER = shapes
-
 def gatherData3Way(everyPath, algo, index, no):
     path = join(everyPath,algo,index)
     x = np.load(path)
@@ -38,30 +31,52 @@ def gatherAllData(everyPath, index):
     return np.array(Data +\
         [datum_prop_rbf, datum_prop_knn, datum_spread_rbf, datum_spread_knn])
 
-def plotAllData(data):
+def plotAllData(data, title):
     plt.figure()
+    plt.title(title)    
+    n = len(data)
     for i, data_vec in enumerate(data):
-        plot1Clust(data_vec, i, "")
+        plot1Clustering(data_vec, i, "")
+        plt.xticks(range(n), ["k-means3", "k-means32", "k-means100",
+                              "ward3", "ward32", "ward100",
+                              "propagation-rbf","propagation-knn",
+                              "spreading-rbf","spreading-knn"], rotation = 70)
     plt.show()
-    
+
+def plotAllDataBox(data, title):
+    plt.figure()
+    n = len(data)
+    plt.boxplot(data.T)
+    plt.title(title)
+    plt.xticks(range(1, n + 1), ["k-means3", "k-means32", "k-means100",
+                          "ward3", "ward32", "ward100",
+                          "propagation-rbf","propagation-knn",
+                          "spreading-rbf","spreading-knn"], rotation = 70)
+    plt.show()
+#
+#a = gatherAllData("results/every_way_possible/", "accord.npy")
+#plotAllDataBox(a, "Accordance Index")
+#    
+#a = gatherAllData("results/every_way_possible/", "neigh.npy")
+#plotAllDataBox(a, "Neighbourhood Index")
+
 a = gatherAllData("results/every_way_possible/", "accord.npy")
-print a.shape
+plotAllData(a, "Accordance Index")
+    
+a = gatherAllData("results/every_way_possible/", "neigh.npy")
+plotAllData(a, "Neighbourhood Index")
 
-for el in a:
-    print len(el)
-exit()
-print gatherData1Way("results/every_way_possible/", "spreading", "rbf", "accord.npy") 
-
+    
 def plot1Clustering(val_vec, placement, label):
     x = np.ones(len(val_vec)) * placement
     plt.scatter(x, val_vec)
     plt.xlabel(label)
-    
-def plotEveryClustering(path, algo, index):
-    pass
-a = gatherData3Way("results/every_way_possible/", "k_means", "/accord.npy", 2)
-plot1Clustering(a, 1, "dupa")
-#def plotEveryWay(path)
+
+
+ward = myAgglomerativeClustering
+k_means = cluster.MiniBatchKMeans
+N_ITER=25
+DATA_TO_CLUSTER = shapes
 ##DATA_TO_CLUSTER = par_data_normed
 #
 #g, h = inspectLearnCases(shapes, LabelSpreading, [100],
@@ -77,6 +92,6 @@ plot1Clustering(a, 1, "dupa")
 #
 #d, e = multiCrossStability([3, 32, 100], shapes,
 #                           ward, "results/every_way_possible/ward/", n_iter = N_ITER)
-
+#
 #d, e = multiCrossStability([3, 32, 100], shapes,
 #                           k_means, "results/every_way_possible/k_means/", n_iter = N_ITER)

@@ -124,17 +124,17 @@ def plotSimilarityDiag(data, clust_algo, list_n_clust, munkres_obj, n_iter):
     
 m = Munkres()
 
-import time
-from my_ward import myAgglomerativeClustering
-original = np.load("datasets/spines2.npz")
-shapes = np.mean(original["shapes_n"], axis=2)
-k_means = cluster.MiniBatchKMeans
-ward = myAgglomerativeClustering
+#import time
+#from my_ward import myAgglomerativeClustering
+#original = np.load("datasets/spines2.npz")
+#shapes = np.mean(original["shapes_n"], axis=2)
+#k_means = cluster.MiniBatchKMeans
+#ward = myAgglomerativeClustering
 
 
 #TODO do wyplotowania z wlasciwymi klastrami [3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100]
-sims = fasterSimilarityMeasure(shapes, ward, range(2,3), m, 1)
-plotErrorSimilarity(sims, range(2,3))
+#sims = fasterSimilarityMeasure(shapes, ward, range(2,3), m, 1)
+#plotErrorSimilarity(sims, range(2,3))
 
 
 

@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
+import matplotlib.pylab as plt
 import sklearn.metrics
 import sklearn.cluster
 import stability
-import toy_problems as tp
+#import toy_problems as tp
 from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
 
@@ -13,12 +14,26 @@ from mpl_toolkits.mplot3d import Axes3D
 all_data = np.load("./zaczyn/spines.npz")
 all_norm = all_data["shapes_n"]
 all_norm = all_norm.reshape(all_norm.shape[0], -1)
+original = np.load("datasets/spines2.npz")
 
-#all_norm = all_norm[:500,:] ### skrocenie danych
+##at least one classifier chose label for a spine
+both_label_vector = np.logical_and(np.not_equal(original["kl1"], None),
+                                   np.not_equal(original["kl2"], None))
+##both classyfiers agreed on spine
+both_match_vector = np.logical_and(both_label_vector,
+                                   original["kl1"] == original["kl2"])
+##both stubby, long & thin or mushroom                                   
+longs = original["kl1"] == "Long & thin"
+mushrooms = original["kl1"] == "Mushroom"
+stubbies = original["kl1"] == "Stubby"
+##roznice w populacjach poszczegolnych typow
+#print sum(longs), sum(mushrooms), sum(stubbies)
+both_match_long_stubby_mush = lsm = both_match_vector & (longs | mushrooms | stubbies)
 
-##pca fitting
-#pca = PCA(n_components = 10)
-#pca.fit(all_norm)
+
+#pca fitting
+pca = PCA(n_components = 10)
+pca.fit(all_norm)
 #np.save("PCAcomps.npy", pca.components_)
 
 
@@ -64,6 +79,51 @@ M = stability.Munkres()
 KMEANS = sklearn.cluster.MiniBatchKMeans
 LIST_OF_CLUSTERS = [4, 10, 15, 30, 50]
 
+def PCAReduction(vectorized_obs, pca_comps):
+    return transformPCA(vectorized_obs, pca_comps)
+
+def plotPCAScatter(vectorized_obs, pca_comps, longs, stubbies, mushrooms, accorded):
+    groups = [longs, stubbies, mushrooms]
+    labels = [u"Długie", "Przysadziste", "Grzybkowate"]
+    reduced = transformPCA(vectorized_obs, pca_comps)
+    plt.figure()    
+    colors = "rbg"
+#    plt.title(u"Redukcja wymiarowości z użyciem analizy głównych składowych",
+#              fontsize=16)
+    for i, group in enumerate(groups):
+        obs_to_plot = reduced[group & accorded, ...]
+        plt.scatter(obs_to_plot[...,0], obs_to_plot[...,1],
+                    label=labels[i], color=colors[i])
+        plt.gca().axes.get_xaxis().set_ticks([])
+        plt.gca().axes.get_yaxis().set_ticks([])
+    plt.xlabel(u"Składowa 1.", fontsize=13)
+    plt.ylabel(u"Składowa 2.", fontsize=13)
+    plt.legend(scatterpoints=1)
+    plt.show()
+    
+def plotPCAScatterAll(vectorized_obs, pca_comps, longs, stubbies, mushrooms, lsm):
+    accorded = np.ones(len(longs), dtype="bool")
+    uncategorised = accorded & np.logical_not(lsm)
+    groups = [longs, stubbies, mushrooms, uncategorised]
+    labels = [u"Długie", "Przysadziste", "Grzybkowate", "Nieopisane"]
+    reduced = transformPCA(vectorized_obs, pca_comps)
+    plt.figure()
+    colors = "rbgk"
+#    plt.title(u"Redukcja wymiarowości z użyciem analizy głównych składowych",
+#              fontsize=16)
+    for i, group in enumerate(groups):
+        obs_to_plot = reduced[group & accorded, ...]
+        plt.scatter(obs_to_plot[...,0], obs_to_plot[...,1],
+                    label=labels[i], color=colors[i])
+        plt.gca().axes.get_xaxis().set_ticks([])
+        plt.gca().axes.get_yaxis().set_ticks([])
+    plt.xlabel(u"Składowa 1.", fontsize=13)
+    plt.ylabel(u"Składowa 2.", fontsize=13)
+    plt.legend(scatterpoints=1)
+    plt.show()
+        
+#plotPCAScatter(all_norm, PCA_COMP_10[:2,...], longs, stubbies, mushrooms, lsm)
+plotPCAScatterAll(all_norm, PCA_COMP_10[:2,...], longs, stubbies, mushrooms, lsm)
 ##transforming data for plotting 2D
 #X = transformPCA(all_norm, PCA_COMP_10[:2,:])
 #plt.scatter(X[:,0], X[:,1])
