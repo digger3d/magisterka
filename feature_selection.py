@@ -123,13 +123,12 @@ def plotPCAScatterAll(vectorized_obs, pca_comps, longs, stubbies, mushrooms, lsm
     plt.show()
         
 #plotPCAScatter(all_norm, PCA_COMP_10[:2,...], longs, stubbies, mushrooms, lsm)
-plotPCAScatterAll(all_norm, PCA_COMP_10[:2,...], longs, stubbies, mushrooms, lsm)
+#plotPCAScatterAll(all_norm, PCA_COMP_10[:2,...], longs, stubbies, mushrooms, lsm)
 ##transforming data for plotting 2D
 #X = transformPCA(all_norm, PCA_COMP_10[:2,:])
 #plt.scatter(X[:,0], X[:,1])
-#plt.title("PCA transform for first two components")
-#plt.xlabel("Component 1")
-#plt.ylabel("component 2")
+#plt.xlabel(u"Składowa 1.", fontsize=14)
+#plt.ylabel(u"Składowa 2.", fontsize=14)
 #plt.xticks([])
 #plt.yticks([])
 #plt.show()

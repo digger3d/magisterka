@@ -72,7 +72,7 @@ def computeDissimilarities(data, clust_algo,n_clust, munkres_obj, n_iter):
         dissimilarities[i] = computeDissimilarity(data, clust_algo,
                                                 n_clust, munkres_obj)
     return dissimilarities
-    
+
 def computeAverageDissimilarity(data, clust_algo, n_clust, munkres_obj, n_iter):
     return np.mean(computeDissimilarities(data, clust_algo,
                            n_clust, munkres_obj, n_iter))

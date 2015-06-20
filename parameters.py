@@ -22,6 +22,19 @@ stubbies = original["kl1"] == "Stubby"
 #print sum(longs), sum(mushrooms), sum(stubbies)
 both_match_long_stubby_mush = lsm = both_match_vector & (longs | mushrooms | stubbies)
 
+def plotNormExample(original_data):
+
+    plt.subplot(121)
+    plt.imshow(original["shapes_n"][0], cmap="Greys")
+    plt.gca().axes.get_xaxis().set_visible(False)
+    plt.gca().axes.get_yaxis().set_visible(False)
+    plt.subplot(122)
+    plt.imshow(original["shapes_n"][0])
+    plt.gca().axes.get_xaxis().set_visible(False)
+    plt.gca().axes.get_yaxis().set_visible(False)
+    plt.show()
+
+plotNormExample(original)
 ##clust algorithms
 #ward = myAgglomerativeClustering
 #k_means = cluster.MiniBatchKMeans

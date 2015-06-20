@@ -11,6 +11,7 @@
 \usepackage[pdftex]{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage[export]{adjustbox}
 \begin{document}
 
 \title{Analiza kształtów kolców dendrytycznych metodami uczenia maszynowego.\\Wersja robocza}
@@ -28,7 +29,7 @@
 \clearpage
 
 \section{Motywacja pracy}
-Badania nad kolcami dendrytycznymi sa bardzo ważne ze względu na ich postulowaną rolę w procesie uczenia się % cos z bazy ile badan itp.
+Badania nad kolcami dendrytycznymi sa bardzo ważne ze względu na ich postulowaną rolę w procesie uczenia się.
 Problem nabywanie umiejętności i adaptowania się do nowych warunków jest jednym z istotnych zagadnień w naukach o mózgu.
 Wielu z naukowców uważa, że klucz do zrozumienia wspomnianego procesu leży właśnie w mechanizmach sterujących wzrostem i zanikaniem kolców dendrytycznych.
 Niestety obecne metody analizowania danych eksperymentalnych są bardzo czasochłonne i wymagają zaangażowania wyspecjalizowanego personelu, przez co współczesne rozwiązania są mało skalowalne.
@@ -45,31 +46,31 @@ Skupiły na sobie zainteresowanie od samego początku, jednak rozwój metod bada
 pozwolił na zintensyfikowanie badań nad kolcami dendrytycznymi. W następnych podrozdziałach opisana zostanie postulowana funkcja biologiczna kolców dendrytycznych oraz ich budowa.
 \subsection{Biologiczna rola kolców dendrytycznych}
 Większość zakończeń postsynaptycznych %% kulawe tlumaczenie?
-w ludzkim mózgu znajduje się na czubkach kolców dendrytycznych.
-Naukowcy wskazują kilka udogodnień, które oferuje takie rozwiązanie w stosunku do zwykłych synaps znajduących się bezpośrednio na dendrycie.
+w ludzkim mózgu znajduje się na szczycie kolców dendrytycznych.
+Naukowcy wskazują na usprawnienie funkcji w przekaźnictwie informacji oferowane przez takie rozwiązanie w stosunku do zwykłych synaps znajduących się bezpośrednio na dendrycie.
 Zostaną one opisane w dalszych rozdziałach pracy.
 \subsubsection{Przedział biochemiczny}
 Komórka jest wielce skomplikowaną maszyną biochemiczną. 
-Wiele z jej mechamnizmów regulacyjnych opiera się na róźnicy stężeń w poszczególnych przedziałach.
+Wiele z jej mechamnizmów regulacyjnych opiera się na róźnicy stężeń substancji chemicznych, jonów lub białek w poszczególnych przedziałach.
 Jak wykazały badania jednym z kluczowych zadań kolców dendrytycznych jest utrzymywanie odmiennego środowiska biochemicznego w stosunku do reszty neuronu.
 Uczenie opiera się w dużym stopniu na kaskadzie zmian w ekspresji genów i zachowania białek wywołanej przez napływ jonów wapnia.
 Typowo stężenie jonów wapnia w głowie kolca dendrytycznego oscyluje w granicach 50-100 nM.
 Po stymulacji potrafi sie zwiekszyć o kilka rzędów wielkości.
 Do takiej gwałtownej zmiany może prowadzić napływj jonów wapnia przez kanały bramkowane napięciem, przekźnikiem (zarówno jono- jak i metabotropowe), ale także ze zbiorników znajdujących się wewnątrz kolca.
 Powrót do stanu równowagi po tak gwałtownym skoku osiągany jest dzięki aktywności pomp wapniowych, wymienników sodowo-wapniowych oraz wspomnianych wcześniej zbiorników.
-Jeśli chodzi o ostatni element mechanizmu pozbywania się nadmiarowych jonów, to istotne jest to, że w obręgie kolców dendrytycznych nie występują mitochondria, które w neuronie pełnią rolę przechowywania jonów wapnia. 
+Jeśli chodzi o ostatni element mechanizmu pozbywania się nadmiarowych jonów, to istotne jest to, że w obrębie kolców dendrytycznych nie występują mitochondria, które w neuronie oprócz dostarczania energii niezbędnej do utrzymania komórki przy życiu pełnią rolę magazynów jonów wapnia. 
 Dzięki temu, stężenie tego pierwiastka w może ulec tak gwałtownej zmianie\citep{Sala2014}.
-Naukowcy zaobserwowali, że podczas pobudzenia postsynaptycznego obserwuje się duży wzrost koncentracji jonów Ca<sup>{2+}</sup> w obrębie samego kolca, znikomy zaś w połączonym z nim dendrytem.
+Naukowcy zaobserwowali, że podczas pobudzenia postsynaptycznego obserwuje się duży wzrost koncentracji jonów Ca\textsuperscript{2+} w obrębie samego kolca, znikomy zaś w połączonym z nim dendrytem.
 Co więcej okazało się, że na stałą dyfuzji przez szyję kolca wpływ ma zarówno aktywność pre- jak i post-synaptyczna.
 Szybkość dyfuzji znacząco różni się dla poszczególnych kolców i zmienność nie jest w całości wyjaśniana przez długość szyi kolca.
 W porównaniu do cząsteczek o podobnych gabarytach w obrębie kolca dendrytycznego lepkość cytozolu wydaje się być selektywnie wyższa dla wybranych białek.
-Większość cząsteczek przytwierdzonych do błony komórkowej dość swobodnie się przemieszcze w jej obrębie.
+Większość cząsteczek przytwierdzonych do błony komórkowej dość swobodnie się przemieszcza w jej obrębie.
 Zachowanie takie byłoby wysoce niepożądane w przypdaku zakończeń synaptycznych. 
 Swobodnie dyfundujące receptory cząsteczek sygnałowych wysyłanych przez akson neuronu aferentnego obniżałyby efektywność przesyłu informacji przez taką synapsę. 
 Kolce dendrytyczne utrudniają swobodne przemieszczanie się receptorów neurotransmiterów, przez co synapsy znajdujące się w obrębie tych struktur mają do dyspozycji większą pulę białek receptorowych, co prawdopodobnie wpływa na ich siłę i stabilność.
 Z drugiej strony odkryto, że kolce dendrytyczne mogą się ze sobą komunikować.
 Jednym z białek sygnalizacyjnych jest molekuła Ras.
-Uwolniona w jednym kolcu, może być znalezione w kolcach odległych o do 10\(\mu\).
+Uwolniona w jednym kolcu, może być znaleziona w kolcach odległych o do 10\(\mu\).
 
 \subsubsection{Przedział elektryczny}
 Jednym z kanałów przekazu informacji w obrębie komórki nerwowej jest impuls elektryczny.
@@ -149,9 +150,31 @@ Wykwalifikowana osoba z użyciem programu SpineMagick! oznaczyła kolce dendryty
 Wspomniany program znacząco przyspiesza proces zbierania danych.
 Z zaznaczenia dwóch pikseli, leżących na środku podstawy kolca oraz na czubku jego głowy, program jest w stanie oznaczyć piksele przynależące do danego kolca, a także obliczyć parę przydatnych statystyk(np. powierzchnię, szerogość głowy).
 Po zmianie danych wyeksportowanych z programu SpineMagic! na bitmapy o rozdzielczości 64x32 piksele, dokonano ich normalizacji tak, aby wszystkie kolce miały taką samą powierzchnię.
+
+
+\begin{figure}
+\centering
+\begin{minipage}[t]{.4\textwidth}
+  \vspace{0pt}
+  \includegraphics[scale=0.25]{grafika/kolec_org_shaved}
+  \captionof{figure}{Bitmapa oryginalna}
+  \label{rys_konfokal}
+\end{minipage}%
+\hspace{1cm}
+\begin{minipage}[t]{.4\textwidth}
+  \vspace{0pt}\raggedright
+  \centering
+  \includegraphics[scale=0.25]{grafika/kolec_normed_shaved}
+  \captionof{figure}{Bitmapa znormalizowana}
+  \label{rys_spine_magick}
+\end{minipage}
+\end{figure}
+
+
 Krok ten jest, kluczowy dla dalszych analiz, gdzie interesujący jest przede wszysktim kształt kolca dendrytycznego, nie zaś jego wielkość.
 Dwóch uczonych przyporządkowało 9278 wyżej opisanych bitmap do jednej z 4 kategorii: kolców cienkich, przysadzistych, grzybkowatych oraz trudnych do zaklasyfikowania.
 Zbiór kolców przyporządkowanych do jednej z trzech grup biologicznych o etykiecie zgodnej w obu klasyfikacjach zawierał 3900 obserwacji.
+Nazwijmy go zbiorem przypdków dobrze opisanym.
 Wśród tych obserwacji 643 kolce zostały zaklasyfikowane do kategorii cienkich, 754 do grupy kolców grzybkowatych oraz 2503 do przysadzistych.
 Aby ograniczyć wymiarowość danych, ale jednocześnie zachować informację o kształcie kolców, dokonano rzutowania macierzy opisującej każdy z kolców na jej pionowy wymiar, uzyskując w ten sposób obrys danego kolca.
 
@@ -168,8 +191,8 @@ W niniejszej pracy zastosowano szereg rozwiązań stosowanych na polu uczenia ma
 Zostaną one opisane w poniższych rozdziałach.
 \subsection{Klastrowanie}
 Mając \(N\) obserwacji w \(d\)-wymiarowej przestrzeni ze zbioru \(X = {x_1, ..., x_N}\) chcemy dokonać takiego przyporządkowania punktów do \(K\) zbiorów oznaczonych od \(C_1\) do \(C_K\), tak żeby obserwacje w obrębie jednego zbioru były jak najbardziej podobne do siebie, a zarazem jak najbardziej odmienne od punktów przyporządkowanych do innych klastrów.\
-\subsubsection{Działanie algorytmu K-means}
-Algorytm K-means, dla ustalonego \(K\) tj. liczby klastrów dąży do minimalizacji funkcji 
+\subsubsection{Działanie algorytmu K-Means}
+Algorytm K-Means, dla ustalonego \(K\) tj. liczby klastrów dąży do minimalizacji funkcji 
 \[Q = \sum\limits^K_{k=1}\sum\limits_{x_i \in C_k} ||x_i - c_k||^2\]
 gdzie \(c_k\) to średnia wyciagnieta z obserwacji zawierających się w \(k\)-tym klastrze, którą później będziemy nazywać centroidą $k$-tego skupiska.
 
@@ -327,6 +350,7 @@ Do oceny jakości klastrowania potrzebne sa wskaźniki.
 Poniżej zostaną opisane indeksy, które znalazły zastosowanie w niniejszej pracy.
 
 \subsubsection{Silhouette Coefficient}
+\label{roz_silhouette_coeff}
 Pierwszym z wykorzystanych wskaźników jest Silhouette Coefficient.
 Jest to indeks , który preferuje podziały o klastrach dobrze rozseparowanych, z małą wariancją wewnątrzgrupową\citep{Arbelaitz2013}. Oblicza się go dla jednej obserwacji ze zbioru, wykorzystując poniższy wzór:
 
@@ -339,8 +363,9 @@ Wskaźnik może przyjmować wartości od -1 do 1, gdzie wyniki dodatnie, bliższ
 Żeby policzyć Silhouette Index dla całego klastrowania, należy wyciągnąć średnią ze wskaźników dla poszczególnych punktów.
  %% cytaty
 
-\subsubsection{Adjusted Neighbourhood Coefficient}
-W przeciwieństwie do poprzedniego indeksu, który oceniał strukturę klastrowania, indeks Adjusted Neighbourhood Coefficient ocenia stabilność danego klastrowania\citep{Ben-Hur2002}, tj. jak bardzo czułe jest klastrowanie na niewielkie zmiany warunków początkowych np. usunięcie paru obserwacji.
+\subsubsection{Korygowany Współczynnik Przekrywania}
+\label{roz_neigh_coeff}
+W przeciwieństwie do poprzedniego indeksu, który oceniał strukturę klastrowania, indeks Korygowany Współczynnik Przekrywania ocenia stabilność danego klastrowania\citep{Ben-Hur2002}, tj. jak bardzo czułe jest klastrowanie na niewielkie zmiany warunków początkowych np. usunięcie paru obserwacji.
 Zdefiniujmy $\textbf{Y} = {y_1, ..., y_N}$ oraz $\textbf{Z} = {z_1, ..., z_N}$ jako wektory etykiet dla dwóch klastrowań. Macierz sąsiedztwa $\textbf{A}$ dla wektora etykiet $\textbf{Y}$ konstruujemy na podstawie wzoru:
 
 $$A^Y_{ij} = \begin{cases}
@@ -348,19 +373,19 @@ $$A^Y_{ij} = \begin{cases}
 	0\text{, jeśli}\textbf{ Y}_i \neq \textbf{Y}_j
 \end{cases}$$
 
-Następnie definiujemy Neighbourhood Coefficient ($NC$):
+Następnie definiujemy Współczynnik Przekrywania ($NC$):
 $$NC(\textbf{Y}, \textbf{Z}) = \sum_i^N\sum_j^N A^Y_{ij} \cdot A^Z_{ij}$$
 
-Ostatecznie obliczamy Adjusted Neighbourhood Coefficient ze wzoru:
+Ostatecznie obliczamy Korygowany Współczynnik Przekrywania ze wzoru:
 $$NC_{adj} = \frac{NC(\textbf{X},\textbf{Z})}{\sqrt{NC(\textbf{X},\textbf{X}NC(\textbf{Z},\textbf{Z})}}$$
 
 Wskaźnik ten intuicyjnie można pojmować jako część wspólnych krawędzi w grafach sąsiedztwa zbudowanych na bazie dwu klastrowań.
-Adjusted Neighbourhood Index przyjmuje wartości od 0 do 1, gdzie wyższe wartości świadczą o większej stabilności algorytmu.
-\subsubsection{Accordance Index}
+Korygowany Współczynnik Przekrywania przyjmuje wartości od 0 do 1, gdzie wyższe wartości świadczą o większej stabilności algorytmu.
+\subsubsection{Indeks Zgodności}
 Ostatnim wskaźnikiem służącym do szacowania jakości dopoasowania był ułamek poprawnie zaklasyfikowanych przypadków w odniesieniu do kolców opisanych w rozdziale 2.
 \subsection{Analiza Głównych Składowych}
 \label{pca_rozdzial}
-Analiza głównych składowych jest metodą analizy czynnikowej, która wielowymiarowym zbiorze danych znajduje kierunki o największej zmienności.
+Analiza głównych składowych(\textit{ang. PCA- Primary Component Analysis} jest metodą analizy czynnikowej, która wielowymiarowym zbiorze danych znajduje kierunki o największej zmienności.
 Zagadnienie można też równoważnie postrzegać jako próbę takiego obrotu układu współrzędnych, żeby zmaksymalizować wariancję transformowanych danych.
 Analiza głównych składowych znajduje zastosowanie w dziedzinie kompresji danych.
 Odrzucając kierunki o najmniejszej zmienności możemy przedstawić dane w przestrzeni o mniejszej wymiarowości
@@ -384,12 +409,13 @@ Aby dokonać redukcji wymiarowość danych przy zachowaniu jak najwyższej zmien
 
 \section{Wyniki i dyskusja}
 \subsection{Eksploracja danych}
+\label{roz_eksploracja_danych}
 Aby zorientować się w ogólnej strukturze przeprowadzono redukcję wymiarowości danych z wykorzystaniem analizy głównych składowych (por. \ref{pca_rozdzial}).
 W pierwszym etapie badań postanowiono sprawdzić czy jest możliwe odkrycie wewnętrznej struktury danych, dlatego nie wykorzystano klasyfikacji o której mowa w rozdziale \ref{rozdzial_dane}.
 Na rysunku przedstawiono wszystkie obserwacje, jakie znalazły się w analizowanym zbiorze.  
 Aby możliwa była reprezentacja graficzna zbioru danych, zrzutowano każdy wektor reprezentujący obserwację wykorzystując dwie pierwsze składowe, zachowujące $43\%$ wariancji.
 W przestrzeni dwuwymiarowej wydaje się, że wskazanie wyraźnie wyodrębnionych klastrów na pierwszy rzut oka jest niemożliwe. 
-W kolejnym podrozdziale opisane zostaną działanie jakie podjęto w celu identyfikacji właściwej liczby skupień w analizowanym zbiorze.
+W kolejnym podrozdziale opisane zostaną działanie jakie podjęto w celu identyfikacji właściwej liczby skupisk w analizowanym zbiorze.
 \begin{figure}
 \caption{Redukcja wymiarowości z użyciem analizy głównych składowych. Wszystkie obserwacje}
 \label{rys_pca_unlabeled}
@@ -397,19 +423,78 @@ W kolejnym podrozdziale opisane zostaną działanie jakie podjęto w celu identy
 \end{figure}
 
 
+\subsection{Ocena struktury}
+\label{roz_ocena_strukt}
+W celu znalezienia optymalnej liczby skupisk, na na jakie należałoby podzielić analizowany zbiór danych wykorzystano wskaźniki Silhouette Coefficient oraz Korygowany Współczynnik Przekrywania (opisane odpowiewnio w rozdziale \ref{roz_silhouette_coeff} i \ref{roz_neigh_coeff}).
+Zakładano, że wybranie liczby zbiorów odpowiadającej immanentnej strukturze danych, będzie skutkowało pojawieniem się maksimów na wykresach wspomnianych indeksów w funkcji ilości skupisk.
+Wyniki dla algorytmów K-Means i Warda zaprezentowano na rysunkach %%%%%%%
+\subsection{Struktura danych z etykietami}
+Po trudnościach z identyfikacją dających się dobrze wyodrębnić klastrów w rozdziale \ref{roz_eksploracja_danych} postanowiono z korzystać z etykiet przygotowanych przez badaczy(por. rozdział \ref{rozdzial_dane}). Na rysunek \ref{rys_pca_unlabeled} naniesiono etykiety, uzyskując efekt widoczny na rysunku \ref{pca_nieopisane}.
 
 \begin{figure}
-\caption{Redukcja wymiarowości z użyciem analizy głównych składowych. Zdjęcia poprawnie opisane}
+\caption{Obserwacje wraz z etykietami na przestrzeni dwuwymiarowej PCA. Wszystkie obserwacje}
+\label{pca_nieopisane}
+\includegraphics[scale=0.25]{grafika/klastry_pca_nieopisane}
+\end{figure}
+
+Po usunięciu punktów reprezentujących zdjęcie błędnie zaklasyfikowane otrzymano grafikę \ref{pca_opisane}.
+\begin{figure}
+\caption{Obserwacje wraz z etykietami na przestrzeni dwuwymiarowej PCA. Zdjęcia poprawnie opisane}
 \label{pca_opisane}
 \includegraphics[scale=0.25]{grafika/klastry_pca}
 \end{figure}
 
 Spoglądając na rysunek \ref{pca_opisane} zaobserwować można trzy skupiska punktów. Jakkolwiek grupy \textit{Przysadzista} i \textit{Długie} są dobrze rozseparowane tak, trzecia klasa kolców dendrytycznych w dużym stopniu przekrywa się z dwoma innymi, co utrudnia działanie algorytmów analizy skupień.
-\subsection{Ocena struktury}
+Dodatkowo, porównując rysunek \ref{pca_nieopisane} można zaobserwować, że obserwację błędnie zaklasyfikowane przez eksperymentatorów występują w bezpośredniej bliskości tych dobrze opisanych, co komplikuje stosunkowo prosty obraz wyłaniający się z rysunku \ref{pca_opisane}.
+\subsection{Metodologia obliczania wskaźników}
+Po krokach opisanch w dwóch poprzednich rozdziałach i niekonluzywnych wniosków na temat wewnętrznej struktury danych postanowiono z korzystać z etykiet przypisanych przez eksperymentatorów.
+Dla rozdziałów \ref{roz_anal_k_means}, \ref{roz_anal_ward} oraz \ref{roz_anal_semi} zastosowaną wspólną metodologię.
+Na wejście algorytmu dostarczano cały zbiór danych, pozbawiony 20 losowych obserwacji, co służyło sprawdzaniu stabilności algorytmu. 
+Do obliczania indeksów wykorzystywano przecięcie zbioru obserwacji występujących w zbiorze wejściowym każdej iteracji algorytmu oraz zbioru przypadków dobrze opisanych (por. \ref{rozdzial_dane}).
+Na wykresach we wspomnianych rozdziałach punkt oznacza średnią wyciągniętą z $k$ obserwacji w obrębie jednej grupy (np. $k$ klastrowań z określoną liczbą skupisk).
+Dla Indeksu Zgodności $k$ równe jest ilości wykonananych iteracji algorytmiu (zwykle 25).
+Dla Korygowanego Współczynnika Przekrywania, określając ilość iteracji jako $N_{\text{Iter}}$ jest to $\frac{N_\text{Iter}^2 - N_\text{Iter}}{2}$.
+Ponadto na wykresach zaznaczony jest błąd standardowy.
+Etykiety zwracane przez algorytmy analizy skupień są abstrakcyjne.
+Żeby określić mapowanie z przestrzeni etykiet algorytmu, do przestrzeni etykiet z rodziału \ref{rozdzial_dane}, wykorzystano metodę głosowania.
+Polegała ona na wyciągnięciu części wspolnej zbioru obserwacji zaklasyfikowanych do jednego skupiska przez algorytm ze zbiorem kolców dobrze opisanych.
+Następnie etykieta z klasyfikacji dokonanej przez człowieka najczęściej spotykana w powstałym zbiorze, stawała się etykietą dla calego skupiska zidentyfikowanego przez algorytm.
 
 \subsection{Analiza skupień metodą K-means}
+\label{roz_anal_k_means}
+Wyniki uzyskane dla algorytmu K-Means przedstawiono na rysunkach \ref{rysKMeansAccord} i \ref{rysKMeansNeigh}.
+\begin{figure}
+\caption{Współczynnik Zgodności dla algorytmu K-Means, 20 iteracji.}
+\label{rysKMeansAccord}
+\includegraphics[scale=0.25]{grafika/k_means_20_accord}
+\end{figure}
+
+\begin{figure}
+\caption{Korygowany Współczynnik Przekrywania dla algorytmu K-Means, 20 iteracji.}
+\label{rysKMeansNeigh}
+\includegraphics[scale=0.25]{grafika/k_means_20_neigh}
+\end{figure}
+
+
 \subsection{Analiza skupień metodą hierarchiczną}
+\label{roz_anal_ward}
+
+\begin{figure}
+\caption{Współczynnik Zgodności dla algorytmu Warda, 20 iteracji.}
+\label{rysWardAccord}
+\includegraphics[scale=0.25]{grafika/k_means_20_accord}
+\end{figure}
+
+\begin{figure}
+\caption{Korygowany Współczynnik Przekrywania dla algorytmu Warda, 20 iteracji.}
+\label{rysWardNeigh}
+\includegraphics[scale=0.25]{grafika/k_means_20_neigh}
+\end{figure}
+
+
+
 \subsection{Analiza skupień narzędziami uczenia pół-nadzorowanego}
+\label{roz_anal_semi}
 \subsection{Porównanie metod klasyfikacji.}
 \subsection{Podsumowanie}
 \bibliographystyle{plain}
