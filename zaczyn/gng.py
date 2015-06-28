@@ -1,7 +1,8 @@
 import mdp
 import networkx
 from sklearn.decomposition import PCA
-
+import numpy as np
+s_lines = np.mean(np.load("../datasets/spines2.npz")["shapes_n"], axis=2)
 gng = mdp.nodes.GrowingNeuralGasNode(max_nodes=160)
 gng.train(s_lines)
 gng.train(s_lines)

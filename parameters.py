@@ -6,7 +6,7 @@ import matplotlib.pylab as plt
 
 ##data
 original = np.load("datasets/spines2.npz")
-shapes = np.sum(original["shapes_n"], axis=2)
+shapes = np.mean(original["shapes_n"], axis=2)
 
 ##at least one classifier chose label for a spine
 both_label_vector = np.logical_and(np.not_equal(original["kl1"], None),
@@ -23,7 +23,6 @@ stubbies = original["kl1"] == "Stubby"
 both_match_long_stubby_mush = lsm = both_match_vector & (longs | mushrooms | stubbies)
 
 def plotNormExample(original_data):
-
     plt.subplot(121)
     plt.imshow(original["shapes_n"][0], cmap="Greys")
     plt.gca().axes.get_xaxis().set_visible(False)
@@ -33,8 +32,20 @@ def plotNormExample(original_data):
     plt.gca().axes.get_xaxis().set_visible(False)
     plt.gca().axes.get_yaxis().set_visible(False)
     plt.show()
+    
+def plotShapeExample(original_data):
+    plt.subplot(121)
+    plt.imshow(original["shapes_n"][0], cmap="Greys")
+    plt.gca().axes.get_xaxis().set_visible(False)
+    plt.gca().axes.get_yaxis().set_visible(False)
+    plt.subplot(122)
+    plt.plot(shapes[0][::-1], range(64), linewidth=2, color="k")
+    plt.gca().axes.get_xaxis().set_visible(False)
+    plt.gca().axes.get_yaxis().set_visible(False)
+    plt.show()
 
-plotNormExample(original)
+#plotShapeExample(original)
+#plotNormExample(original)
 ##clust algorithms
 #ward = myAgglomerativeClustering
 #k_means = cluster.MiniBatchKMeans

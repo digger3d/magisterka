@@ -12,8 +12,19 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage[export]{adjustbox}
-\begin{document}
+\usepackage[section]{placeins}
+\usepackage{float}
+\usepackage{geometry} 
 
+%\newcommand{\argmax}{\operatornamewithlimits{argmax}}
+%\underset{x}{\operatorname{argmax}}
+\renewcommand{\listalgorithmname}{Spis algorytmów}
+%\makeatletter
+%\g@addto@macro\@floatboxreset\centering
+%\makeatother
+
+\begin{document}
+\newgeometry{tmargin=3cm, bmargin=3cm, lmargin=4cm, rmargin=3cm} 
 \title{Analiza kształtów kolców dendrytycznych metodami uczenia maszynowego.\\Wersja robocza}
 \author{Konrad Solarz\\Uniwerstytet Warszawski}
 \date{Czerwiec 2015}
@@ -26,6 +37,10 @@
 \clearpage
 
 \tableofcontents
+
+\listoffigures
+
+\listofalgorithms
 \clearpage
 
 \section{Motywacja pracy}
@@ -45,9 +60,8 @@ Konlce dendrytyczne zostały po raz pierwszy opisane przez Ramona y Cajala ponad
 Skupiły na sobie zainteresowanie od samego początku, jednak rozwój metod badawczych 
 pozwolił na zintensyfikowanie badań nad kolcami dendrytycznymi. W następnych podrozdziałach opisana zostanie postulowana funkcja biologiczna kolców dendrytycznych oraz ich budowa.
 \subsection{Biologiczna rola kolców dendrytycznych}
-Większość zakończeń postsynaptycznych %% kulawe tlumaczenie?
-w ludzkim mózgu znajduje się na szczycie kolców dendrytycznych.
-Naukowcy wskazują na usprawnienie funkcji w przekaźnictwie informacji oferowane przez takie rozwiązanie w stosunku do zwykłych synaps znajduących się bezpośrednio na dendrycie.
+Większość pobudzających zakończeń postsynaptycznych
+w ludzkim mózgu znajduje się obrębie kolców dendrytycznych\cite{•}.Naukowcy wskazują na usprawnienie funkcji w przekaźnictwie informacji oferowane przez takie rozwiązanie w stosunku do zwykłych synaps znajduących się bezpośrednio na dendrycie.
 Zostaną one opisane w dalszych rozdziałach pracy.
 \subsubsection{Przedział biochemiczny}
 Komórka jest wielce skomplikowaną maszyną biochemiczną. 
@@ -55,7 +69,7 @@ Wiele z jej mechamnizmów regulacyjnych opiera się na róźnicy stężeń subst
 Jak wykazały badania jednym z kluczowych zadań kolców dendrytycznych jest utrzymywanie odmiennego środowiska biochemicznego w stosunku do reszty neuronu.
 Uczenie opiera się w dużym stopniu na kaskadzie zmian w ekspresji genów i zachowania białek wywołanej przez napływ jonów wapnia.
 Typowo stężenie jonów wapnia w głowie kolca dendrytycznego oscyluje w granicach 50-100 nM.
-Po stymulacji potrafi sie zwiekszyć o kilka rzędów wielkości.
+Po stymulacji potrafi się zwiekszyć o kilka rzędów wielkości.
 Do takiej gwałtownej zmiany może prowadzić napływj jonów wapnia przez kanały bramkowane napięciem, przekźnikiem (zarówno jono- jak i metabotropowe), ale także ze zbiorników znajdujących się wewnątrz kolca.
 Powrót do stanu równowagi po tak gwałtownym skoku osiągany jest dzięki aktywności pomp wapniowych, wymienników sodowo-wapniowych oraz wspomnianych wcześniej zbiorników.
 Jeśli chodzi o ostatni element mechanizmu pozbywania się nadmiarowych jonów, to istotne jest to, że w obrębie kolców dendrytycznych nie występują mitochondria, które w neuronie oprócz dostarczania energii niezbędnej do utrzymania komórki przy życiu pełnią rolę magazynów jonów wapnia. 
@@ -70,7 +84,7 @@ Swobodnie dyfundujące receptory cząsteczek sygnałowych wysyłanych przez akso
 Kolce dendrytyczne utrudniają swobodne przemieszczanie się receptorów neurotransmiterów, przez co synapsy znajdujące się w obrębie tych struktur mają do dyspozycji większą pulę białek receptorowych, co prawdopodobnie wpływa na ich siłę i stabilność.
 Z drugiej strony odkryto, że kolce dendrytyczne mogą się ze sobą komunikować.
 Jednym z białek sygnalizacyjnych jest molekuła Ras.
-Uwolniona w jednym kolcu, może być znaleziona w kolcach odległych o do 10\(\mu\).
+Uwolniona w jednym kolcu, może być znaleziona w kolcach odległych do 10\(\mu\).
 
 \subsubsection{Przedział elektryczny}
 Jednym z kanałów przekazu informacji w obrębie komórki nerwowej jest impuls elektryczny.
@@ -79,9 +93,9 @@ Początkowo wydawało się, że szyja kolca dendrytycznego oferuje zbyt mały op
 Jednak ostatnie badania wykazały, że przynajmniej niektóre z kolców dendrytycznych podtrafią odizolować głowę kolca od dendrytu.
 Predystynowane do tego wydają się być kolce o szyjach dlugich i cienkich.
 W eksperymencie z użyciem technik fluorescencyjnych oszacowano opór szyi kolca dendrytycznego na co najwyżej 50\(M\Omega\)
-Inne badanei wykazało, że szyję dendrytu można traktować jako opornik o zmiennym oporze, zaś kolce z szyjami krótkimi wywołują większe pobudzenie postsynaptycznie w ciele neuronu.
+Inne badanie wykazało, że szyję dendrytu można traktować jako opornik o zmiennym oporze, zaś kolce z szyjami krótkimi wywołują większe pobudzenie postsynaptycznie w ciele neuronu.
 Badacze zaobserwowali, że w kolcach dendrytycznych bardziej oddalonych od somy, prądy wstrzykiwane przez synapsy na kolcach dendrytycznych są znacząco większe w porównaniu do kolców znajdujących się bliżej ciała kómórki.
-Co jest przyczyną takiego zjawiska nie zostało ponad wszelką wątpliwośćwyjaśnione\citep{Sala2014}.
+Co jest przyczyną takiego zjawiska nie zostało ponad wszelką wątpliwość wyjaśnione\citep{Sala2014}.
 
 
 \subsubsection{Plastyczność kolców dendrytycznych}
@@ -100,7 +114,7 @@ Wzrost objętości sprzężony jest ze wzrostem gęstości receptorów glutamine
 Zmienną mającą duży wpływ na wyżej opisane zjawisko jest wiek neuronów.
 W młodych neuronach zwykle zmiany objętości są większe i szybsze niż w neuronach dojrzałych.
 W innych badaniach udokumentowano powstawanie nowych kolców dendrytycznych już kilkagdziesiąt minut po indcukcji LTP.
-Jednak aby na kolcu pojawiła się w pełni funkcjonalna synapsa konieczne jest upłynięcie od kilku do kilkudziesięciu godzin\cite{Sala2014}
+Jednak aby na kolcu pojawiła się w pełni funkcjonalna synapsa konieczne jest upłynięcie od kilku do kilkudziesięciu godzin\cite{Sala2014}.
 Ważne jest czy badanie prowadzone jest in vivo czy in vitro, jaki jest wiek badanaych neuronów, z jakiego obszaru mózgu zostały pobrane itd.
 Co więcej, kolce większe były zarówno strukturalnie jak i funkcjonalnie stabilniejsze.
 Co ciekawe, jony wapniowe, które są niezbędne dla modyfikacji siły synaps, spełniają także ważną rolę w regulacji procesu wzrostu kolców dendrytycznych.
@@ -148,9 +162,9 @@ Wykwalifikowana osoba z użyciem programu SpineMagick! oznaczyła kolce dendryty
 \end{minipage}
 \end{figure}
 Wspomniany program znacząco przyspiesza proces zbierania danych.
-Z zaznaczenia dwóch pikseli, leżących na środku podstawy kolca oraz na czubku jego głowy, program jest w stanie oznaczyć piksele przynależące do danego kolca, a także obliczyć parę przydatnych statystyk(np. powierzchnię, szerogość głowy).
+Z zaznaczenia dwóch pikseli, leżących na środku podstawy kolca oraz na szczycie jego głowy, program oprócz informacji o pikselach przypisanych do kolca zwraca m.in jego powierzchnię , obwód, maksymalną szerokość, maksymalną szerokość szyi, itd.), w sumie 11 statystyk.
 Po zmianie danych wyeksportowanych z programu SpineMagic! na bitmapy o rozdzielczości 64x32 piksele, dokonano ich normalizacji tak, aby wszystkie kolce miały taką samą powierzchnię.
-
+Jeśli chodzi o dane parametryczne, to analizy przeprowadzono zarówno dla surowych statystyk (por. rozdział \ref{rozPorParametry}) jak i poddanych normalizacji (por. rozdział \ref{rozPorNormParametry}).
 
 \begin{figure}
 \centering
@@ -158,7 +172,7 @@ Po zmianie danych wyeksportowanych z programu SpineMagic! na bitmapy o rozdzielc
   \vspace{0pt}
   \includegraphics[scale=0.25]{grafika/kolec_org_shaved}
   \captionof{figure}{Bitmapa oryginalna}
-  \label{rys_konfokal}
+  \label{rysBitmapaOrg}
 \end{minipage}%
 \hspace{1cm}
 \begin{minipage}[t]{.4\textwidth}
@@ -166,40 +180,54 @@ Po zmianie danych wyeksportowanych z programu SpineMagic! na bitmapy o rozdzielc
   \centering
   \includegraphics[scale=0.25]{grafika/kolec_normed_shaved}
   \captionof{figure}{Bitmapa znormalizowana}
-  \label{rys_spine_magick}
+  \label{rysBitmapaNormed}
 \end{minipage}
 \end{figure}
 
 
-Krok ten jest, kluczowy dla dalszych analiz, gdzie interesujący jest przede wszysktim kształt kolca dendrytycznego, nie zaś jego wielkość.
+Krok normalizacyjny jest kluczowy dla dalszych analiz, gdzie interesujący jest przede wszysktim kształt kolca dendrytycznego, nie zaś jego wielkość.
 Dwóch uczonych przyporządkowało 9278 wyżej opisanych bitmap do jednej z 4 kategorii: kolców cienkich, przysadzistych, grzybkowatych oraz trudnych do zaklasyfikowania.
 Zbiór kolców przyporządkowanych do jednej z trzech grup biologicznych o etykiecie zgodnej w obu klasyfikacjach zawierał 3900 obserwacji.
 Nazwijmy go zbiorem przypdków dobrze opisanym.
 Wśród tych obserwacji 643 kolce zostały zaklasyfikowane do kategorii cienkich, 754 do grupy kolców grzybkowatych oraz 2503 do przysadzistych.
-Aby ograniczyć wymiarowość danych, ale jednocześnie zachować informację o kształcie kolców, dokonano rzutowania macierzy opisującej każdy z kolców na jej pionowy wymiar, uzyskując w ten sposób obrys danego kolca.
+Aby ograniczyć wymiarowość danych, ale jednocześnie zachować informację o kształcie kolców, dokonano rzutowania macierzy opisującej każdy z kolców na jej pionowy wymiar, uzyskując w ten sposób obrys danego kolca (por. rysunek \ref{rysKolecObrys}).
+Drugim sposobem redukcji wymiarowości była transformacja z wykorzystaniem składowych głównych (por. rozdział \ref{pca_rozdzial}): dwóch dla celów wizualizacji w rozdziałach \ref{roz_eksploracja_danych}, \ref{roz_ocena_strukt} i \ref{rozStruktEtykiet} oraz dziesięciu dostarczona na wejście badanych algorytmów w rozdziale \ref{rozPor10PCA}.
+Dla danych otrzymanych w wyniku transformacji PCA nie stosowano procedury wybielania, czyli nie dokonano normalizacji wariancji między kolejnymi wymiarami.
+
+\begin{figure}
+\caption{Bitmapa i jej transformacja na obrys kolca}
+\label{rysKolecObrys}
+\includegraphics[scale=0.25]{grafika/kolec_obrys}
+\end{figure}
+
 
 
 \section{Metody}
 W świecie nauki i technologii w ostatnich latach pojawia się problem natłoku informacji.
 Potrafimy zbierać tak ogromne ilości danych, że człowiek nie jest w stanie ich przetworzyć.
-Odpowiedzią na ten problem jest dzedzina zwana uczeniem maszynowym. 
-Zajmuje się ona opracowywaniem algorytmów, które wyposażony w zbiór uczący, będą w stanie dostarczyć wyektrahowanej zeń użytecznej informacji.
+Odpowiedzią na ten problem jest dziedzina zwana uczeniem maszynowym. 
+Zajmuje się ona opracowywaniem algorytmów, które wyposażone w zbiór uczący, będą w stanie dostarczyć wyektrahowanej zeń użytecznej informacji.
 Obecnie najdroższym i najbardziej czasochłonnym etapem w procesie przetwarzania informacji jest praca człowieka.
 O ile na ostatnich stopniach obróbki danych jego udział jest niezbędny czy wręcz pożądany, o tyle uciekanie się do pracy ludzkiej na pierwszych etapach procesowania danych znakomicie wydłużyłoby takie przedsięwzięcie, zwiększyło koszty, lub nawet z uwagi na dwa poprzednie czynniki zupełnie go uniemożliwiło.
-Dlatego wiele wisiłku wkładane jest w takie opracowywanie algorytmów, aby nakład ludzkiej pracy niezbędny do ich działania był minimalny.
+Dlatego wiele wysiłku wkładane jest w takie opracowywanie algorytmów, aby nakład ludzkiej pracy niezbędny do ich działania był minimalny.
 W niniejszej pracy zastosowano szereg rozwiązań stosowanych na polu uczenia maszynowego.
 Zostaną one opisane w poniższych rozdziałach.
-\subsection{Klastrowanie}
-Mając \(N\) obserwacji w \(d\)-wymiarowej przestrzeni ze zbioru \(X = {x_1, ..., x_N}\) chcemy dokonać takiego przyporządkowania punktów do \(K\) zbiorów oznaczonych od \(C_1\) do \(C_K\), tak żeby obserwacje w obrębie jednego zbioru były jak najbardziej podobne do siebie, a zarazem jak najbardziej odmienne od punktów przyporządkowanych do innych klastrów.\
+\subsection{Analiza Skupień}
+Mając zbiór $X = {x_1, ..., x_N}$ składający się z N  elementów, każdy traktowany jako punkt w  $d$ -wymiarowej przestrzeni chcemy
+dokonać takiego przyporządkowania punktów do $K$ podzbiorów (skupisk) oznaczonych od \(C_1\) do \(C_K\) tak żeby punkty w obrębie jednego podzbioru były jak najbardziej
+podobne do siebie, a zarazem jak najbardziej odmienne od punktów przyporządkowanych
+do innych skupisk, zwanych zamiennie klastrami.
+
 \subsubsection{Działanie algorytmu K-Means}
 Algorytm K-Means, dla ustalonego \(K\) tj. liczby klastrów dąży do minimalizacji funkcji 
 \[Q = \sum\limits^K_{k=1}\sum\limits_{x_i \in C_k} ||x_i - c_k||^2\]
 gdzie \(c_k\) to średnia wyciagnieta z obserwacji zawierających się w \(k\)-tym klastrze, którą później będziemy nazywać centroidą $k$-tego skupiska.
+Kolejne kroki, które doprowadzą nas do minimalizacji funkcji $Q$ opisane są w algorytmie \ref{class_kmeans_alg}
 
 \begin{algorithm}
 \floatname{algorithm}{Algorytm}
-\label{class_kmeans_alg}
 \caption{Klastrowanie metodą K-Means}
+\label{class_kmeans_alg}
 \begin{algorithmic}[1]
 \STATE Wybierz K punktów, będących pierwotnymi centroidami
 \REPEAT
@@ -213,12 +241,12 @@ gdzie \(c_k\) to średnia wyciagnieta z obserwacji zawierających się w \(k\)-t
 W pierwszej linii algorytmu \ref{class_kmeans_alg} podana jest instrukcja wyboru początkowych centroid. 
 Można to robić na wiele sposobów, na przyklad za centroidy wziąć K pierwszych lub losowych elementów zbioru, zbadać rozpiętość poszczególnych zmiennych i na tej podstawie rozmieścić początkowe centra klastrów.
 Nieprzypadkowe i celowe wybranie centroid może prowadzić do znacznego przyspieszenia zbiegania algorytmu do lokalnego minimum.
-W badaniach relacjonowanych przez tą pracę skorzystano z algorytmu K-Means++\cite{C.K.Reddy2014}.
-Składa się o z następujących kroków:
+W badaniach relacjonowanych przez tą pracę skorzystano z algorytmu K-Means++ (por. algorytm \ref{k_means++})\cite{C.K.Reddy2014}.
+
 \begin{algorithm}
 \floatname{algorithm}{Algorytm}
-\label{k_means++}
 \caption{K-Means++}
+\label{k_means++}
 \begin{algorithmic}[1]
 \STATE Wybierz pierwszą centroidę z elementów zbioru \(D\) z równym prawdopobieństwem
 \REPEAT
@@ -238,14 +266,14 @@ gdzie \(Q^*\) to funkcja kosztu optymalnego klastrowania. %cytat sprawdzić
 Dla dużych zborów danych klasyczny algorytm K-Means może działać wolno. Dlatego w pracy wykorzystany został algorytm, który w jednej iteracji pracuje jedynie na części danych, co znacząco przyspiesza jego działanie\citep{Sculley2010}.
 Rozwiązanie, o którym mowa to Batch K-Means.
 Zdefiniujmy \(b\), jako wielkość zbioru punktów, który będzie brany pod uwagę w jednej iteracji, \(t\) - ilość iteracji algorytmu, \(\mathbb{C} = {c_1, ..., c_k}\) zbiór centroid, oraz funkcję \(f(\mathbb{C}, x)\), która zwraca centroidę ze zbioru \(\mathbb{C}\) leżącą najbliżej punktu \(x\).
-Podejście to składa się z następujących etapów:
+Podejście to opisane jest w algorytmie \ref{batch_k_means}.
 
 \begin{algorithm}
 \floatname{algorithm}{Algorytm}
-\label{batch_k_means}
 \caption{Mini Batch K-Means}
+\label{batch_k_means}
 \begin{algorithmic}[1]
-\STATE zainicjalizuj wektor v, przechowujący liczbę obserwacji przyporządkowaną do 
+\STATE zainicjalizuj wektor $v$, przechowujący liczbę obserwacji przyporządkowaną do 
 klastra
 \FOR {$i = 1$ do $t$}
 	\STATE $M \leftarrow b$ losowo wybranych obserwacji z $X$
@@ -261,14 +289,14 @@ klastra
 \ENDFOR
 \end{algorithmic}
 \end{algorithm}
-
-\subsubsection{Klastrowanie hierarchiczne}
+\FloatBarrier
+\subsubsection{Hierarchiczna Analiza Skupień}
 Klastrowanie hierarchiczne przedstawia inne spojrzenie na problem niż opisane wyżej metody. Zamiast zwracać płaską strukturę opartą na podziale przestrzeni między dane klastry, obliczany jest tzw. dendrogram. 
 Można z niego wyciągnąć więcej wniosków(np. grupowania składające z róźnej ilości klastrów, odległość między powstałymi klastrami)  niż, z samego wektora etykiet powstałego po dokonaniu klastrowania np. metodą K-means.
 Są ponadto deterministyczne, w przeciwieństwie do poprzednio opisywanych algorytmów.
-Zapuszczając klastrowanie hierarchiczne dwa razy na tym samym zbiorze, zawsze dostaniemy taki sam dendrogram, co w pewnych sytuacjach może być ważne.
+Przeprowadzając dwukrotnie analizę skupień z wykorzystaniem algorytmów hierarchicznych, zawsze dostaniemy taki sam dendrogram, co w pewnych sytuacjach może być ważne.
 Wśród metod klastrowania hierarchicznego można wyszczególnić dwa podejścia: aglomeracyjne oraz dzielące.
-Pierwsze z nich wychodzi od $N$ singletonów zawierających wszystkie obserwacje ze zbioru , a następnie z wykorzystaniem wybranej metody łączenia, skleja leżące najbliżej siebie klastry. 
+Pierwsze z nich wychodzi od $N$ singletonów zawierających wszystkie obserwacje ze zbioru, a następnie z wykorzystaniem wybranej metody łączenia, skleja leżące najbliżej siebie klastry. 
 W podejściu drugim sytuacja jest odwrócona, z jednego dużego klastra, wydzielane są coraz mniejsze skupiska obserwacji\citep{Jain1988}.
 
 
@@ -302,100 +330,130 @@ gdzie $C_n$ to zbiór obserwacji w klastrze, $N_j$ to liczebność klastra $j$ot
 Współcześnie zbieranie danych jest stosunkowo tanie.
 Natomiast, żeby taki zbiór danych dało się dostarczyć na wejście jakiegoś algorytmu uczącego się, należy go uprzednio opisać.
 Jeśli interesuje nas zagadnienie klasyfikacji, należy obserwacjom z takiego wzoru przypisać etykiety.
-Jest to zadanie zwykle wykonywanie przez człowieka.
+Jest to zadanie zwykle wykonywane przez człowieka.
 Tradycyjne algorytmy uczenia nadzorowanego do skutecznego działania potrzebują dużych zbiorów uczących. 
 Jednak przygotowanie takowych jest zasobochłonne.
 Rozwiązaniem tego problemu moga być algorytmy pół-nadzorowane.
 Projektowane są one pod kątem optymalizacji działania w warunkach małego zbioru uczącego i dużego zbioru obserwacji bez etykiet.
-Algorytmy pół-nadzorowane zakładają dwie własności danych na których pracują.
-Po pierwsze zakładają spójność danych, co oznacza, że punktu leżące blisko siebie w przestrzeni problemu najprawdopodobniej mają tą samą etykietę.
+Algorytmy pół-nadzorowane zakładają dwie własności danych, na których pracują.
+Po pierwsze zakładają spójność danych, co oznacza, że punkt leżące blisko siebie w przestrzeni problemu najprawdopodobniej mają tą samą etykietę.
 Po drugie, jeśli dane formułują dającą się odgraniczyć od innych punktów strukturę, to jest wysoce prawdopodobne, że noszą taką samą etykietę\cite{Zhou2004}.
 Poniżej opisane zostaną dwa z nich, które zostały wykorzystane przez autora.
 \subsubsection{Sformułowanie problemu}
+\label{roz_semi_sformulowanie}
 Dany jest zbiór oberwacji \(X = \{x_1, ..., x_l, x_{l+1}, ..., x_n\}\) oraz zbiór etykiet \(\mathcal{L} = \{1, ... ,c\}\).
 Pierwsze \(l\) przypadków ma przypisaną którąś z etykiet ze zbioru \(\mathcal{L}\). Celem jest przypisanie odpowiednich oznaczeń dla pozostałych punktów \(x_u(l  < u \leqslant n)\).
-Do rozwiązania tak postawionego problemu w obu algorytmach należy zacząć od skonstruowania grafu, gdzie krawędzi między dwoma wierzchołkami \(i, j\) przypisana jest waga, która zależy od wyboru odpowiedniej funkcji jądra (\emph{ang. kernel function}. W pracy wykorzystano dwie z nich: \emph{Radial Basis Function} oraz funkcję opartą o algorytm K Najbliższych Sąsiadów. Jeśli odległość euklidesową między punktami \(x_1\) i \(x_2\) oznaczymy jako \(||x_1 - x_2||\), to wartość funkcji RBF dla tych obserwacji wyrażona jest wzorem \(exp(\gamma(||x_1 - x_2||^2)\).
-Druga funkcja równa się jedności jeśli punkt jest w zbiorze k Najbliższych sąsiadów drugiego w przeciwnym wypadku wynosi 0, co można to zapisać \(1[x_1 \in kNN(x_2)]\). 
+Do rozwiązania tak postawionego problemu w obu algorytmach należy zacząć od skonstruowania grafu, gdzie krawędzi między dwoma wierzchołkami \(i, j\) przypisana jest waga, która zależy od wyboru odpowiedniej funkcji jądra (\emph{ang. kernel function}). W pracy wykorzystano dwie z nich: radialną funkcję bazową( \emph{ang. RBF - Radial Basis Function} oraz funkcję opartą o algorytm K Najbliższych Sąsiadów( \emph{ang. kNN -k Nearest Neighbours}. Jeśli odległość euklidesową między punktami \(x_1\) i \(x_2\) oznaczymy jako \(||x_1 - x_2||\), to wartość funkcji RBF dla tych obserwacji wyrażona jest wzorem:
+
+\[RBF(x_1, x_2) = exp(-\gamma||x_1 - x_2||^2)\]
+
+Druga funkcja równa się jedności jeśli punkt jest w zbiorze k najbliższych sąsiadów drugiego w przeciwnym wypadku wynosi 0.
+Zbiór k najbliższych sąsiadów punktu $x$ oznaczymy $NN_k(x)$.
+Wtedy funkcję jądra k najbliższych sąsiadów można formalnie zapisać:
+
+\[kNN(x_1, x_2) = \begin{cases}
+	1\text{, jeśli } x_2 \in NN_k(x_1) \\
+	0\text{, jeśli } x_2 \notin NN_k(x_1)
+\end{cases} \] 
 Wybierając pierwszą funkcję należy mieć na uwadze, że powstaje całkowicie połączony graf, przez co jego macierzowa reprezentacja jest wymagająca, jeśli chodzi o miejsce w pamięci komputera.
 Dlatego też, jest to rozwiązanie mało skalowalne, co przy dużych zbiorach obserwacji może być kłopotliwe.
-Wybór drugiej funkcji prowadzi do powstania macierzy składające się w przeważającej części z zer, dlatego też można wybrać reprezentację pochłaniającą znacznie mniej pamięci.
+Wybór drugiej funkcji prowadzi do powstania macierzy składającej się w przeważającej części z zer, dlatego też można wybrać reprezentację pochłaniającą znacznie mniej pamięci.
 \subsubsection{Propagacja etykiet (label propagation)}
-Po wyborze funckji jądra i zbudowaniu grafu odległości w algorytmie Propagacji Etykiet należy pszystąpić do konstrukcji macierzy przejścia \(T\).
-\[T_{ij} = P(j \rightarrow i) = \frac{w_{ij}}{\sum^n_{k=1}w_{kj}}\]
-Liczbę \(T_{ij}\) możemy traktować jako prawdopodobieństwo propagacji etykiety z wezła \(j\) na węzeł \(i\). Zdefiniujmy macierz \(Y\) o wymiarach \((n \times |\mathcal{L}|)\), gdzie wiersz odpowiada danej obserwacji, zaś liczby w poszczególnych kolumnach (po normalizacji) interpretujemy jako miarę prawdopodobieństwa przypisania obserwacji określonej etykiety.
-Sam algorytm jest natury iteracyjnej i składa się z trzech kroków:
-\begin{enumerate}
-	\item Propagowania etykiet \(Y \leftarrow TY\).
-	\item Normalizacji każdego wiersza macierzy Y.
-	\item Odtworzeniu wierszy \(Y\) z pierwotnie ustalonymi etykietami.
-\end{enumerate}
-Po spełnieniu warunku stop przypisujemy obserwacjom etykiety na podstawie macierzy Y\cite{Zhu2002}.
-\subsubsection{Przeciąganie etykiet (label spreading)}
-Zdefiniujmy macierz \(F\) o wymiarach \((n \times |\mathcal{L}|)\) , która pełni podobną rolę do macierzy \(Y\) w algorytmie Propagacji Etykiet.
-Natomiast w algorytmie Przeciągania etykiet macierzy Y zdefiniowana jest nieco odmiennie.
-Macierz składa się w większości zer. W pierwszych l wierszach występuje 1 na pozycji reprezentującej etykietę pierwotnie przypisaną obserwacji.
+\label{rozLabelPropagation}
+Zdefiniujmy macierz \textbf{Y} o wymiarach $n \times |\mathcal{L}|$, gdzie $i$-ty wiersz i $k$-ta kolumna odpowiadają prawdopodobieństu przynależenia $i$-tej odserwacji do $k$-tego skupiska.
+Początkowo w macierzy \textbf{Y} w każdym z $l$ wierszy występuje jedność w odpowiedniej kolumnie, całą resztę wypełniają 0.
+Po wyborze funckji jądra i zbudowaniu macierzy odleglości \textbf{W} z użyciem wybranej funkcji w algorytmie Propagacji Etykiet należy pszystąpić do konstrukcji macierzy przejścia \(T\) o wymiarach $n \times n$.
+\[T_{ij} = \frac{W_{ij}}{\sum^n_{k=1}W_{kj}}\]
+
+Liczba $T_{ij}$ równa jest sile połączenia $j$-otej oraz $i$-tej obserwacji znormalizowaną przez sumaryczną siłę połączeń $j$-otego przypadku z wszystkimi innymi wierzchołkami.
+Możemy ją interpretować jako prawdopodobieństwa przekazania $j$-otej etykiety $i$-temu przypadkowi.
+Dalsze kroki są natury iteracyjnej i ich opis można znaleźć w algorytmie \ref{algLabelProp}.
+
+\begin{algorithm}
+\floatname{algorithm}{Algorytm}
+\caption{Label Propagation}
+\label{algLabelProp}
+\begin{algorithmic}[1]
+\REPEAT
+\STATE Wykonaj mnożenie macierzy \(\mathbf{Y} = \mathbf{TY}\).
+\STATE Znormalizuj każdy wiersz \textbf{Y} tak, by sumował się do 1
+\STATE Pierwszym $l$ wierszom macierzy $\textbf{Y}$ przywróć pierwotną postać
+\UNTIL Warunek stopu
+\end{algorithmic}
+\end{algorithm}
+
+Po spełnieniu warunku stop przypisujemy obserwacjom etykiety na podstawie macierzy \textbf{Y}\cite{Zhu2002}.
+\subsubsection{Label Spreading}
+\label{rozLabelSpreading}
+Zdefiniujmy macierz \(F\) o wymiarach \((n \times |\mathcal{L}|)\) , która pełni podobną rolę do macierzy \textbf{Y} w algorytmie Propagacji Etykiet.
+W algorytmie Label Spreading macierz \textbf{Y} odpowiedzialna jest za przywracanie pierwotnie nadanych etykiet obserwacjom ze zbioru uczącego.
+Macierz składa się w większości zer. 
+W pierwszych l wierszach występuje 1 na pozycji reprezentującej etykietę pierwotnie przypisaną obserwacji.
 Podobnie jak w poprzednim algorytmie budujemy macierz sąsiedztwa między obserwacjami, gdzie wartości je wypełniające zależą od wybranej funkcji jądra.
 Nazwijmy ją macierzą \(W\). Na jej podstawie tworzymy graf. 
-Następnie tworzymy macierz \(S = D^{-1/2}WD^{-1/2}\), gdzie \(D\) to macierz diagonalna z elementami będącymi sumą \(i\)-tego wiersza w macierzy \(W\).
-Następnie przystępujemy do kroku iteracyjnego obliczając kolejne macierze \(F\): \(F(t+1) = \alpha SF(t) + (1 - \alpha)Y\), gdzie \(a \in [0,1]\).
-Ostatecznie przypisujemy obserwacji etykietę na podstawie wartości macierzy \(F\) tak, że \(y_i = argmax_{j\leqslant |\mathcal{L}|} F_{ij}\).
+Następnie tworzymy macierz 
+
+$$S = D^{-1/2}WD^{-1/2}$$
+gdzie \(D\) to macierz diagonalna z elementami będącymi sumą \(i\)-tego wiersza w macierzy \(W\).
+Następnie przystępujemy do kroku iteracyjnego obliczając kolejne macierze \(F\): 
+$$F(t+1) = \alpha SF(t) + (1 - \alpha)Y, \alpha \in [0,1]$$
+Ostatecznie przypisujemy obserwacji etykietę na podstawie wartości macierzy \(F\) tak, że: $$y_i = \operatornamewithlimits{argmax}\limits_{j\leqslant |\mathcal{L}|} F_{ij}$$
 Jesli parametr \(\alpha\) nie jest równy zero, to pierwotnie przypisane etykiety mogą ulec zmianie.
-Aby kontrolować ten proces, algorytm dąży do minimalizacji funkcji kosztu \(Q\) od macierzy \(F\):
+Algorytm dąży do minimalizacji funkcji kosztu \(Q\) od macierzy \(F\):
 \[Q(F) = \frac{1}{2}\bigg(\sum\limits^n_{i,j=1}W_{ij}\left|\left| \frac{F_i}{\sqrt{D_{ii}}} -
 \frac{F_j}{\sqrt{D_{jj}}}\right|\right|^2 + \mu\sum\limits^n_{i=1}
 \left|\left|F_i - Y_i\right|\right|^2 \bigg)\]
-Pierwszy człon funkcji \(Q\) zapewnia minimalizację zmienności etykiet punktów nieodległych od siebie, drugi natomiast kontroluje przez parametr \(\mu\) na ile jesteśmy skłonni zmienić naszą pierwszą decyzje co do etykiet obserwacji ze zbioru uczącego\citep{Zhou2004}.	
+Pierwszy człon funkcji \(Q\) zapewnia minimalizację zmienności etykiet punktów nieodległych od siebie, drugi natomiast kontroluje przez parametr \(\mu\) na ile jesteśmy skłonni zmienić naszą pierwszą decyzje co do etykiet obserwacji ze zbioru uczącego\citep{Zhou2004}.
+	
 \subsection{Indeksy}
-Do oceny jakości klastrowania potrzebne sa wskaźniki.
+Do oceny jakości klastrowania potrzebne są wskaźniki, które będa wskazywały, które dopasowanie jest najlepsze.
 Poniżej zostaną opisane indeksy, które znalazły zastosowanie w niniejszej pracy.
 
 \subsubsection{Silhouette Coefficient}
 \label{roz_silhouette_coeff}
 Pierwszym z wykorzystanych wskaźników jest Silhouette Coefficient.
-Jest to indeks , który preferuje podziały o klastrach dobrze rozseparowanych, z małą wariancją wewnątrzgrupową\citep{Arbelaitz2013}. Oblicza się go dla jednej obserwacji ze zbioru, wykorzystując poniższy wzór:
+Jest to indeks, który preferuje podziały o klastrach dobrze rozseparowanych, z małą wariancją wewnątrzgrupową\citep{Arbelaitz2013}. Oblicza się go dla jednej obserwacji ze zbioru, wykorzystując poniższy wzór:
 
 \[SC(x) = \frac{B(x) - W(x)}{max(B(x),W(x))}\]
-
 gdzie $W(x)$ to średnia odległość od punktów zaklasyfikowanych do tego samego klastra, zaś $B(x)$ to średnia odległość od punktów w najbliższym sąsiednim klastrze\citep{Rousseeuw1987}.
 Niech $d(x, C)$ będzie średnią odległością punktu $x$ od wszystkich punktów w klastrze $C$, wtedy:
 \[B(x) = \min_{0 < j < K} d(x, C_j)\]
-Wskaźnik może przyjmować wartości od -1 do 1, gdzie wyniki dodatnie, bliższe jedynki swiadczą o dobrym dopasowaniu.
+Wskaźnik może przyjmować wartości od -1 do 1, gdzie wyniki dodatnie, bliższe jedności swiadczą o dobrym dopasowaniu.
 Żeby policzyć Silhouette Index dla całego klastrowania, należy wyciągnąć średnią ze wskaźników dla poszczególnych punktów.
  %% cytaty
 
 \subsubsection{Korygowany Współczynnik Przekrywania}
 \label{roz_neigh_coeff}
-W przeciwieństwie do poprzedniego indeksu, który oceniał strukturę klastrowania, indeks Korygowany Współczynnik Przekrywania ocenia stabilność danego klastrowania\citep{Ben-Hur2002}, tj. jak bardzo czułe jest klastrowanie na niewielkie zmiany warunków początkowych np. usunięcie paru obserwacji.
-Zdefiniujmy $\textbf{Y} = {y_1, ..., y_N}$ oraz $\textbf{Z} = {z_1, ..., z_N}$ jako wektory etykiet dla dwóch klastrowań. Macierz sąsiedztwa $\textbf{A}$ dla wektora etykiet $\textbf{Y}$ konstruujemy na podstawie wzoru:
-
+W przeciwieństwie do poprzedniego indeksu, który oceniał strukturę wyniku działania algorytmu analizy skupień, indeks Korygowany Współczynnik Przekrywania ocenia stabilność metody klastrowania\citep{Ben-Hur2002}, tj. jak dany algorytm czuły jest na niewielkie zmiany warunków początkowych np. usunięcie niewielu obserwacji.
+Zdefiniujmy $\textbf{Y} = {y_1, ..., y_N}$ oraz $\textbf{Z} = {z_1, ..., z_N}$ jako wektory etykiet dla dwóch przebiegów analizy skupień. Macierz sąsiedztwa $\textbf{A}$ dla wektora etykiet $\textbf{Y}$ konstruujemy na podstawie wzoru:
+%
 $$A^Y_{ij} = \begin{cases}
 	1\text{, jeśli} \textbf{ Y}_i = \textbf{Y}_j \\
 	0\text{, jeśli}\textbf{ Y}_i \neq \textbf{Y}_j
 \end{cases}$$
-
+%
 Następnie definiujemy Współczynnik Przekrywania ($NC$):
 $$NC(\textbf{Y}, \textbf{Z}) = \sum_i^N\sum_j^N A^Y_{ij} \cdot A^Z_{ij}$$
-
+%
 Ostatecznie obliczamy Korygowany Współczynnik Przekrywania ze wzoru:
-$$NC_{adj} = \frac{NC(\textbf{X},\textbf{Z})}{\sqrt{NC(\textbf{X},\textbf{X}NC(\textbf{Z},\textbf{Z})}}$$
-
+$$NC_{adj} = \frac{NC(\textbf{X},\textbf{Z})}{\sqrt{NC(\textbf{X},\textbf{X})NC(\textbf{Z},\textbf{Z})}}$$
+%
 Wskaźnik ten intuicyjnie można pojmować jako część wspólnych krawędzi w grafach sąsiedztwa zbudowanych na bazie dwu klastrowań.
 Korygowany Współczynnik Przekrywania przyjmuje wartości od 0 do 1, gdzie wyższe wartości świadczą o większej stabilności algorytmu.
 \subsubsection{Indeks Zgodności}
-Ostatnim wskaźnikiem służącym do szacowania jakości dopoasowania był ułamek poprawnie zaklasyfikowanych przypadków w odniesieniu do kolców opisanych w rozdziale 2.
+Ostatnim wskaźnikiem służącym do szacowania jakości dopasowania był ułamek poprawnie zaklasyfikowanych przypadków w odniesieniu do kolców prawidłowo opisanych (por. rozdział \ref{rozdzial_dane}).
 \subsection{Analiza Głównych Składowych}
 \label{pca_rozdzial}
-Analiza głównych składowych(\textit{ang. PCA- Primary Component Analysis} jest metodą analizy czynnikowej, która wielowymiarowym zbiorze danych znajduje kierunki o największej zmienności.
+Analiza głównych składowych(\textit{ang. PCA- Pricipal Component Analysis} jest metodą analizy czynnikowej, która w wielowymiarowym zbiorze danych znajduje kierunki o największej zmienności.
 Zagadnienie można też równoważnie postrzegać jako próbę takiego obrotu układu współrzędnych, żeby zmaksymalizować wariancję transformowanych danych.
-Analiza głównych składowych znajduje zastosowanie w dziedzinie kompresji danych.
-Odrzucając kierunki o najmniejszej zmienności możemy przedstawić dane w przestrzeni o mniejszej wymiarowości
-W niniejszej pracy została wykorzystana do redukcji wymiarowości danych w celu ich wizualizacji.
-Algorytm prowadzący do otrzymania głównych składowych można zapisać następująco:
-
-\begin{algorithm}
+Analiza głównych składowych znajduje zastosowanie w dziedzinie kompresji danych, gdyż odrzucając kierunki o najmniejszej zmienności możemy przedstawić dane w przestrzeni o mniejszej liczbie wymiarów.
+W tejże pracy Analiza Glównych Składowych została wykorzystana do redukcji wymiarowości danych w celu ich wizualizacji.
+Sposób otrzymania głównych składowych zapisano w algorytmie \ref{pca}.
+\begin{algorithm}[H]
 \floatname{algorithm}{Algorytm}
-\label{pca}
+
 \caption{Analiza głównych składowych}
+\label{pca}
 \begin{algorithmic}[1]
 \STATE utwórz macierz $\textbf{X}$ o wymiarach $d \times N$, gdzie $N$ to liczebność zbioru obserwacji zaś $d$ jest liczbą zmiennych, które mierzymy. $k$-tą kolumnę w takiej macierzy utożsamianą z jedną obserwacją będziemy oznaczć $\mathbf{x_k}$
 \STATE obliczając średnią dla każdego wiersza utwórz wektor $\textbf{m}$
@@ -405,54 +463,84 @@ Algorytm prowadzący do otrzymania głównych składowych można zapisać nastę
 \STATE dokonaj projekcji na nową podprzestrzeń wykonując mnożenie $\mathbf{Y = W^TX}$
 \end{algorithmic}
 \end{algorithm}
-Aby dokonać redukcji wymiarowość danych przy zachowaniu jak najwyższej zmienności w zbiorze, do konstrukcji macierzy W należy wybrać $k$ wektorów własnych o najwyższych wartościach własnych.
+Aby dokonać redukcji wymiarowość danych przy zachowaniu jak największej części wariancji w zbiorze, do konstrukcji macierzy $\mathbf{W}$ należy wybrać $k$ wektorów własnych o najwyższych odpowiadającym im wartościach własnych.
 
 \section{Wyniki i dyskusja}
+W tym rozdziale przedstawione zostaną wyniki uzyskane przez autora.
+W podrozdziałach \ref{roz_eksploracja_danych}, \ref{roz_ocena_struktury} i \ref{rozStruktEtykiet} pracowano na danych poddanych transformacji z wykorzystaniem dwóch najbardziej znaczących składowych głównych w celu wizualizacji wyników.
+W podrozdziałach \ref{roz_anal_k_means}, \ref{roz_anal_ward} oraz \ref{roz_anal_semi} danymi wejściowymi dla algorytmów były obrysy kolców (procedura ich otrzymywania opisana w rozdziale \ref{rozdzial_dane}).
+%jakie dane w poxzczególnych rozdziałach
+
 \subsection{Eksploracja danych}
 \label{roz_eksploracja_danych}
-Aby zorientować się w ogólnej strukturze przeprowadzono redukcję wymiarowości danych z wykorzystaniem analizy głównych składowych (por. \ref{pca_rozdzial}).
-W pierwszym etapie badań postanowiono sprawdzić czy jest możliwe odkrycie wewnętrznej struktury danych, dlatego nie wykorzystano klasyfikacji o której mowa w rozdziale \ref{rozdzial_dane}.
-Na rysunku przedstawiono wszystkie obserwacje, jakie znalazły się w analizowanym zbiorze.  
-Aby możliwa była reprezentacja graficzna zbioru danych, zrzutowano każdy wektor reprezentujący obserwację wykorzystując dwie pierwsze składowe, zachowujące $43\%$ wariancji.
-W przestrzeni dwuwymiarowej wydaje się, że wskazanie wyraźnie wyodrębnionych klastrów na pierwszy rzut oka jest niemożliwe. 
-W kolejnym podrozdziale opisane zostaną działanie jakie podjęto w celu identyfikacji właściwej liczby skupisk w analizowanym zbiorze.
-\begin{figure}
+Aby zorientować się w ogólnej strukturze danych przeprowadzono redukcję wymiarowości z wykorzystaniem analizy głównych składowych (por. \ref{pca_rozdzial}).
+W pierwszym etapie badań postanowiono sprawdzić czy czy zbiór charakteryzuje się wewnętrzną strukturą, dlatego nie wykorzystano klasyfikacji przygotowanej przez badaczy, o której mowa w rozdziale \ref{rozdzial_dane}.
+Na rysunku \ref{rys_pca_unlabeled} przedstawiono wszystkie obserwacje, jakie znalazły się w analizowanym zbiorze.  
+Aby możliwa była reprezentacja graficzna zbioru danych, zrzutowano każdy wektor reprezentujący obserwację wykorzystując dwie główne składowe z największymi wartościami własnymi, zachowujące $43\%$ wariancji.
+W przestrzeni dwuwymiarowej wydaje się, że wskazanie wyraźnie wyodrębnionych skupisk jest niemożliwe (por. rysunek \ref{rys_pca_unlabeled}). 
+W kolejnym podrozdziale opisane zostaną działania, jakie podjęto w celu identyfikacji właściwej liczby skupisk w analizowanym zbiorze.
+\begin{figure}[H]
+\includegraphics[scale=0.30]{grafika/klastry_unlabeled}
 \caption{Redukcja wymiarowości z użyciem analizy głównych składowych. Wszystkie obserwacje}
 \label{rys_pca_unlabeled}
-\includegraphics[scale=0.25]{grafika/klastry_unlabeled}
+
 \end{figure}
 
-
+\FloatBarrier
 \subsection{Ocena struktury}
 \label{roz_ocena_strukt}
-W celu znalezienia optymalnej liczby skupisk, na na jakie należałoby podzielić analizowany zbiór danych wykorzystano wskaźniki Silhouette Coefficient oraz Korygowany Współczynnik Przekrywania (opisane odpowiewnio w rozdziale \ref{roz_silhouette_coeff} i \ref{roz_neigh_coeff}).
-Zakładano, że wybranie liczby zbiorów odpowiadającej immanentnej strukturze danych, będzie skutkowało pojawieniem się maksimów na wykresach wspomnianych indeksów w funkcji ilości skupisk.
-Wyniki dla algorytmów K-Means i Warda zaprezentowano na rysunkach %%%%%%%
-\subsection{Struktura danych z etykietami}
-Po trudnościach z identyfikacją dających się dobrze wyodrębnić klastrów w rozdziale \ref{roz_eksploracja_danych} postanowiono z korzystać z etykiet przygotowanych przez badaczy(por. rozdział \ref{rozdzial_dane}). Na rysunek \ref{rys_pca_unlabeled} naniesiono etykiety, uzyskując efekt widoczny na rysunku \ref{pca_nieopisane}.
+W celu znalezienia optymalnej liczby skupisk, na na jakie należałoby podzielić analizowany zbiór danych wykorzystano wskaźniki Silhouette Coefficient oraz Korygowany Współczynnik Przekrywania (opisane odpowiewnio w rozdziałach \ref{roz_silhouette_coeff} i \ref{roz_neigh_coeff}).
+Zakładano, że wybranie liczby podzbiorów odpowiadającej immanentnej strukturze danych, będzie skutkowało pojawieniem się maksimów na wykresach wspomnianych indeksów w funkcji ilości skupisk.
+Wyniki dla algorytmu K-Means zaprezentowano na rysunkach \ref{rysSilUnlabeled} i \ref{rysNeighUnlabeled}.
+Na obu rysunkach maksimum występuje dla najmniejszej liczby klastrów, a  dla większych liczebności obserwujemy monotoniczny spadek.
+Tego wyniku jednak nie można interpretować jako przewidywanej ilości skupisk w zbiorze.
+Korygowany Wskaźnik Przekrywania przyjmuje najwyższą wartość dla niskiej liczby klastrów, gdyż przy niewielkiej liczbie skupisk istnieje, duże prawdopodobieństwo, że punkty nieodległe od siebie znajdą się w tym samym klastrze, zatem odsetek wspólnych krawędzi w macierzach sąsiedztwa dwóch klastrowań będzie wysoki.
+Z kolei przy braku struktury Silhouette Index preferuje duże klastry z racji na czlon odegłości od najbliższego sąsiada, duży przy niewielkiej liczbie klastrów.
+Punkty o najniższym współczynniku Silhouette Index, będą znajdowały się na granicy dwu klastrów.
+Takie obszary granicznie są tym mniejsze, im mniej skupisk zostanie zidentyfikowanych.
+\begin{figure}
+\includegraphics[scale=0.30]{grafika/unlabeled_silhouette}
+\caption{Silhouette Indeks w funkcji ilości skupisk dla algorytmu K-Means, 20 iteracji}
+\label{rysSilUnlabeled}
+
+\end{figure}
 
 \begin{figure}
+\includegraphics[scale=0.30]{grafika/unlabeled_neigh}
+\caption{Korygowany Wskaźnik Przekrywania w funkcji ilości skupisck dla algorytmu K-Means, 20 iteracji}
+\label{rysNeighUnlabeled}
+
+\end{figure}
+\FloatBarrier
+\subsection{Struktura danych etykietowanych}
+\label{rozStruktEtykiet}
+Po trudnościach z identyfikacją dających się dobrze wyodrębnić klastrów w rozdziale \ref{roz_eksploracja_danych} postanowiono skorzystać z etykiet przygotowanych przez badaczy(por. rozdział \ref{rozdzial_dane}). Na rysunek \ref{rys_pca_unlabeled} naniesiono etykiety, uzyskując efekt widoczny na rysunku \ref{pca_nieopisane}.
+
+\begin{figure}
+\includegraphics[scale=0.3]{grafika/klastry_pca_nieopisane}
 \caption{Obserwacje wraz z etykietami na przestrzeni dwuwymiarowej PCA. Wszystkie obserwacje}
 \label{pca_nieopisane}
-\includegraphics[scale=0.25]{grafika/klastry_pca_nieopisane}
 \end{figure}
 
 Po usunięciu punktów reprezentujących zdjęcie błędnie zaklasyfikowane otrzymano grafikę \ref{pca_opisane}.
 \begin{figure}
+\includegraphics[scale=0.30]{grafika/klastry_pca}
 \caption{Obserwacje wraz z etykietami na przestrzeni dwuwymiarowej PCA. Zdjęcia poprawnie opisane}
 \label{pca_opisane}
-\includegraphics[scale=0.25]{grafika/klastry_pca}
+
 \end{figure}
 
 Spoglądając na rysunek \ref{pca_opisane} zaobserwować można trzy skupiska punktów. Jakkolwiek grupy \textit{Przysadzista} i \textit{Długie} są dobrze rozseparowane tak, trzecia klasa kolców dendrytycznych w dużym stopniu przekrywa się z dwoma innymi, co utrudnia działanie algorytmów analizy skupień.
 Dodatkowo, porównując rysunek \ref{pca_nieopisane} można zaobserwować, że obserwację błędnie zaklasyfikowane przez eksperymentatorów występują w bezpośredniej bliskości tych dobrze opisanych, co komplikuje stosunkowo prosty obraz wyłaniający się z rysunku \ref{pca_opisane}.
+\FloatBarrier
 \subsection{Metodologia obliczania wskaźników}
+\label{rozMetodologiaWskaznikow}
 Po krokach opisanch w dwóch poprzednich rozdziałach i niekonluzywnych wniosków na temat wewnętrznej struktury danych postanowiono z korzystać z etykiet przypisanych przez eksperymentatorów.
 Dla rozdziałów \ref{roz_anal_k_means}, \ref{roz_anal_ward} oraz \ref{roz_anal_semi} zastosowaną wspólną metodologię.
-Na wejście algorytmu dostarczano cały zbiór danych, pozbawiony 20 losowych obserwacji, co służyło sprawdzaniu stabilności algorytmu. 
-Do obliczania indeksów wykorzystywano przecięcie zbioru obserwacji występujących w zbiorze wejściowym każdej iteracji algorytmu oraz zbioru przypadków dobrze opisanych (por. \ref{rozdzial_dane}).
-Na wykresach we wspomnianych rozdziałach punkt oznacza średnią wyciągniętą z $k$ obserwacji w obrębie jednej grupy (np. $k$ klastrowań z określoną liczbą skupisk).
-Dla Indeksu Zgodności $k$ równe jest ilości wykonananych iteracji algorytmiu (zwykle 25).
+Na wejście algorytmu dostarczano cały zbiór danych, pozbawiony każdorazowo 20 losowych obserwacji, co służyło sprawdzaniu stabilności algorytmu. 
+Do obliczania indeksów wykorzystywano przecięcie zbioru obserwacji występujących w zbiorze wejściowym każdej iteracji algorytmu oraz zbioru przypadków dobrze opisanych (por. rozdział \ref{rozdzial_dane}).
+Na wykresach we wspomnianych rozdziałach punkt oznacza średnią wyciągniętą z $k$ obserwacji w obrębie jednej grupy (np. $k$ przebiegów algorytmu analizy skupień z zadaną liczbą skupisk).
+Dla Indeksu Zgodności $k$ równe jest ilości wykonananych iteracji algorytmiu.
 Dla Korygowanego Współczynnika Przekrywania, określając ilość iteracji jako $N_{\text{Iter}}$ jest to $\frac{N_\text{Iter}^2 - N_\text{Iter}}{2}$.
 Ponadto na wykresach zaznaczony jest błąd standardowy.
 Etykiety zwracane przez algorytmy analizy skupień są abstrakcyjne.
@@ -462,41 +550,185 @@ Następnie etykieta z klasyfikacji dokonanej przez człowieka najczęściej spot
 
 \subsection{Analiza skupień metodą K-means}
 \label{roz_anal_k_means}
-Wyniki uzyskane dla algorytmu K-Means przedstawiono na rysunkach \ref{rysKMeansAccord} i \ref{rysKMeansNeigh}.
+Wyniki uzyskane dla algorytmu K-Means przedstawiono na rysunkach \ref{rysKMeansAccord}, \ref{rysKMeansNeigh}.
 \begin{figure}
+\includegraphics[scale=0.30]{grafika/k_means_20_accord}
 \caption{Współczynnik Zgodności dla algorytmu K-Means, 20 iteracji.}
 \label{rysKMeansAccord}
-\includegraphics[scale=0.25]{grafika/k_means_20_accord}
+
 \end{figure}
 
 \begin{figure}
+\includegraphics[scale=0.30]{grafika/k_means_20_neigh}
 \caption{Korygowany Współczynnik Przekrywania dla algorytmu K-Means, 20 iteracji.}
 \label{rysKMeansNeigh}
-\includegraphics[scale=0.25]{grafika/k_means_20_neigh}
+
 \end{figure}
 
 
+
+Na rysunku \ref{rysKMeansAccord} obserwujemy monotoniczny wzrost Indeksu Zgodności wraz ze spadającym błędem.
+Dzięki tworzeniu większej ilości skupisk, zapewniamy zmniejszenie wariancji wewnątrzgrupowej, przez co jesteśmy w stanie z większą precyzją dopasować klaster do którejś z grup biologicznych.
+Jeśli chodzi Korygowany Współczynnik Przekrywania naniesiony na wykres \ref{rysKMeansNeigh}, to wysoką wariancję dla małej ilości skupisk można wyjaśnić kluczową rolą warunków inicjalizacyjnych algorytmu.
+Opisany w rozdziałach \ref{roz_eksploracja_danych} i \ref{roz_ocena_strukt} brak wyraźnej struktury danych, sprawia, że tworzone skupiska są dość przypadkowe, szczególnie dla małej ilości dużych klastrów.
+Jeśli warunki dwóch przebiegów algorytmu będą podobne, wtedy z uwagi na niewielką ilość klastrów, będą miały bardzo dużo wspólnych krawędzi między macierzami sąsiedztwa(por. rozdział \ref{roz_neigh_coeff}).
+Gdy warunki początkowe są odmienne skutek będzie odwrotny, przez co wariancja dla małej ilości skupisk jest taka duża.
+\FloatBarrier
 \subsection{Analiza skupień metodą hierarchiczną}
 \label{roz_anal_ward}
-
+Podobne obliczenia przeprowadzono z użyciem algorytmu klastrowania hierarchicznego z wykorzystaniem metody Warda. 
+Wyniki można zaobserwować na rysunkach \ref{rysWardAccord} i \ref{rysWardNeigh}.
+Z racji swojego podobieństwa do wyresów \ref{rysKMeansAccord} i \ref{rysKMeansNeigh}, można wysnuć podobne wnioski jak w rozdziale \ref{roz_anal_k_means}.
+Pamiętać należy jednak, że w  przeciwieństwie do algorytmu K-Means wyniki dostarczane przez algorytmy hierarchiczne są deterministyczne, zatem nie powinniśmy obserwować żadnej wariancji.
+Jednak zgodnie z protokołem opisanym w rozdziale \ref{rozMetodologiaWskaznikow} przy każdej kolejnej iteracji algorytmu odrzucano 20 losowych zdjęć kolców ze zbioru danych.
+Algorytm Warda jest czuły na tak wydawałoby się małe zaburzenia.
+Niewielka zmiana zbioru danych dobprowadzić może do stworzenia różniącego się  dendrogramu, połączenia odmiennych klastrów, co wpływa na obniżenie wyniku w przypadku gdy usunięto znacząco róźniące się obserwacje, lub takie, które przez swoje położenie w przestrzeni danych eksperymentalnych miały kluczowy wpływ na złączenie klastrów.
+Należy jednak zwrócić uwagę, że wyniki oscylują wokół wysokiego wyniku (0.9), zatem znacząca większość krawędzi spotykana jest we wszystkich klastrowaniach.
 \begin{figure}
+\includegraphics[scale=0.30]{grafika/ward_20_accord}
 \caption{Współczynnik Zgodności dla algorytmu Warda, 20 iteracji.}
 \label{rysWardAccord}
-\includegraphics[scale=0.25]{grafika/k_means_20_accord}
+
 \end{figure}
 
 \begin{figure}
+\includegraphics[scale=0.30]{grafika/ward_20_neigh}
 \caption{Korygowany Współczynnik Przekrywania dla algorytmu Warda, 20 iteracji.}
 \label{rysWardNeigh}
-\includegraphics[scale=0.25]{grafika/k_means_20_neigh}
+
+\end{figure}
+
+\FloatBarrier
+\subsection{Analiza skupień narzędziami uczenia pół-nadzorowanego}
+\label{roz_anal_semi}
+W algorytmach uczenia półmaszynowego konieczne jest znalezienie optymalnych poziomów dla innych parametrów niż oczekiwana ilość klastrów. 
+Wybierając jedną z dwu funkcji jądra konieczne jest ustalenie wartości parametru $\gamma$ dla radialnej funkcji bazowej i wartości $k$, przy wyborze funkcji k najbliższych sąsiadów.
+Oprócz tego, niezależnie od funkcji jądra należy zidentyfikować optymalną wielkość zbioru uczącego.
+Na rysunkach \ref{rysGammas}, \ref{rysKnns}, \ref{rysZbiorRbf} oraz \ref{rysZbiorKnn} można zaobserwować efekty przeszukiwania przestrzeni parametrów.
+\subsubsection{Współczynnik gamma}
+\begin{figure}
+\includegraphics[scale=0.30]{grafika/gammas}
+\caption{Korygowany Współczynnik Przekrywania oraz Indeks Zgodności w funkcji współczynnika $\gamma$, 20 iteracji.}
+\label{rysGammas}
+\end{figure}
+
+Po inspekcji rysunku \ref{rysGammas} mając na względzie zarówno stabilność jak i wyniki na obu skalach wskaźników podjęto decyzję o ustaleniu czynnika $\gamma$ na poziomie $3 \cdot 10^{-6}$.
+\subsubsection{Współczynnik k w funkcji najbliższych sąsiadów}
+Na rysunku \ref{rysKnns} widzimy zależność indeksów od współczynnika $k$ charakterystycznego dla funkcji jądra k najbliższych sąsiadów (por. rozdział \ref{roz_semi_sformulowanie}.
+Możemy zaobserwować, że dla niskich wartości współczynnika $k$ algorytmy charakteryzują się wysoką stabilnością, jednak są kompletnie nieskuteczne w poprawnym przewidywaniu etykiet.
+Dla wysokich wartości parametru $k$ algorytmy działają z wysoką skutecznością oraz stabilnością.
+Na wykresie Korygowanego Współczynnika Przekrywania możemy zaobserwować charakterystyczne minimum dla $ k = 3 $, co związane jest z zachodzeniem na siebie poszczególnych grup.
+\begin{figure}
+\includegraphics[scale=0.30]{grafika/knns}
+\caption{Korygowany Współczynnik Przekrywania oraz Indeks Zgodności w funkcji współczynnika $k$, 20 iteracji.}
+\label{rysKnns}
+
+\end{figure}
+\FloatBarrier
+\subsubsection{Wielkość zbioru uczącego}
+
+Ostatnim parametrem koniecznym do ustalenia dla opisywanych algorytmów uczenia półnadzorowanego jest wielkość zbioru uczącego.
+Na wykresach \ref{rysZbiorRbf} oraz \ref{rysZbiorKnn} obserwujemy oczekiwane zachowanie algorytmów w funkcji wielkości zbioru uczącego, to jest wyższe wyniki na obu skalach dla większym zbiorów uczących.
+W kontekście analizowanego zagadnienia - przyporządkowania zdjęć kolców dendrytycznych do odpowiedniej grupy, liczebności zbioru uczącego zbliżone do 100, 200 wydają się być satysfakcjonujące.
+Nieczekiwane zachowanie możemy zaobserwować na wykresie \ref{rysZbiorKnn}, gdzie dla zbioru uczącego liczącego 30 obserwacji obserwujemy minimum Korygowanego Współczynnika Przekrywania dla algorytmu Label Spreading.
+Spowodowane może to być dużą rozbieżnością liczebności poszczególnych grup w dostarczonej klasyfikacji (por. \ref{rozdzial_dane}).
+W grupie 30 obserwacji zbioru uczącego mogą pojawiać się częściej kolce z dwóch mniej licznych grup.
+W zależności od tego, z jakiego regionu w przestrzeni obserwacji pochądzą te kolce, skupiska zbudowane na ich podstawie mogą znacząco się różnić.
+
+\begin{figure}
+\includegraphics[scale=0.30]{grafika/zbior_uczacy_rbf}
+\caption{Korygowany Współczynnik Przekrywania oraz Indeks Zgodności w funkcji współczynnika wielkośći zbioru uczącego. Funkcja RBF. 20 iteracji.}
+\label{rysZbiorRbf}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.30]{grafika/zbior_uczacy_knn}
+\caption{Korygowany Współczynnik Przekrywania oraz Indeks Zgodności w funkcji współczynnika wielkośći zbioru uczącego. Funkcja kNN. 20 iteracji.}
+\label{rysZbiorKnn}
+
 \end{figure}
 
 
+\FloatBarrier
+\subsection{Porównanie metod klasyfikacji}
+W następujących podrozdziałach przedstawione zostaną wyniki osiągnięte w skalach Indeksu Zgodności oraz Normalizowanego Współczynnika Przekrywania przez poszczególne algorytmy.
+W każdym podrozdziale przedstawione są statystyki dla innego zestawu danych, które opisane zostały w rozdziale \ref{rozdzial_dane}.
+Zbiorcze wyniki dla danych zredukowanych do obrysu kolca można znaleźć na rysunkach \ref{rysAllAccord} i \ref{rysAllNeigh}.
+Resultaty dla znormalizowanych danych parametrycznych przedstawiono na wykresach \ref{rysAllParamAccord} i \ref{rysAllParamNeigh}, zaś dla niesparametryzowanych XXXX.
+Wreszcie na rycinach XXXXXXX zilustrowano wyniki algortytmów dla danych zredukowanych z użyciem analizy składowych głównych.
+Poziome, niebieskie granice oznaczają pierwszy i trzeci kwartyl, czerwona linia symbolizuje medianę, zaś wąsy wskazują na minimalną i maksymalną wartość.
+Etykiety od lewej strony należy czytać kolejno: analiza skupień metodą K-Means dla 3, 32 i 100 klastrów, analiza skupień z wykorzystaniem algorytmou Warda dla 3, 32 i 100 skupisk, algorytm Label Propagation z funkcją jądra RBF i kNN, algorytm Label Spreading z takimi samymi funkcjami.
 
-\subsection{Analiza skupień narzędziami uczenia pół-nadzorowanego}
-\label{roz_anal_semi}
-\subsection{Porównanie metod klasyfikacji.}
-\subsection{Podsumowanie}
+\subsubsection{Dane wejściowe: obrys kolca}
+\label{rozPorObrys}
+
+Algorytmy uczenia nienadzorowanego radzą sobie tym lepiej im więcej skupisk mają znaleźć.
+Zachowanie takie zostało już wcześniej opisane w rozdziałach \ref{roz_anal_k_means} oraz \ref{roz_anal_ward}.
+Dla stu klastrów osiągają one skuteczność przewyższającą 95\%, co można uznać za bardzo dobry wynik.
+Nieco gorzej radzą sobie algorytmy pół-nadzorowane, jednak wciąż jest to bardzo dobry wynik, z medianą bliską 95\%.
+Najgorszy wynik osiągnął algorytm Label Propagation z jądrem k najbliższych sąsiadów uzyskując wynik poniżej 90\% poprawnie zaklasyfikowanych przypadków.
+Jeśli chodzi o stabilność, to wszystkie algorytmy wykazały się wysoką stabilnością (mediana Korygowanego Współczynnika Przekrywania w poszczególnych grupach powyżej 0,90).
+Najstabilniejszy okazał sie algorytm K-Means.
+Stabilność algorytmu Warda zależała od ilości skupisk, które miał zlokalizowć.
+Dla 100 skupisk poradził sobie najlepiej z całej stawki, aby dla 3 klastrów osiągnąć najgorszy wynik.
+O prawdopodobnych przyczynach takiego zachowania można przeczytać w rozdziale \ref{roz_anal_ward}.
+Wszystkie konfiguracje algorytmów uczenia pół-nadzorowanego wypadły podobnie z medianami Korygowanego Współczynnika Przekrywania powyżej 0.92.
+\begin{figure}
+\includegraphics[scale=0.3]{grafika/all_accord}
+\caption{Indeks Zgodności dla poszczególnych sposobów analizy skupień. 25 iteracji.}
+\label{rysAllAccord}
+
+\end{figure}
+
+
+\begin{figure}
+\includegraphics[scale=0.30]{grafika/all_neigh}
+\caption{Korygowany Wskaźnik Przekrywania dla poszczególnych sposobów analizy skupień. 25 iteracji.}
+\label{rysAllNeigh}
+
+\end{figure}
+
+\FloatBarrier
+\subsubsection{Dane wejściowe: znormalizowane parametry z programu SpineMagick!}
+\label{rozPorNormParametry}
+
+\begin{figure}
+\includegraphics[scale=0.3]{grafika/all_parametrised_accord}
+\caption{Indeks Zgodności dla poszczególnych sposobów analizy skupień dla danych sparametryzowanych. 25 iteracji.}
+\label{rysAllParamAccord}
+
+\end{figure}
+
+
+\begin{figure}
+\includegraphics[scale=0.3]{grafika/all_parametrised_neigh}
+\caption{Korygowany Wskaźnik Przekrywania dla poszczególnych sposobów analizy skupień dla danych sparametryzowanych. 25 iteracji.}
+\label{rysAllParamNeigh}
+
+\end{figure}
+
+
+\FloatBarrier
+\subsubsection{Dane wejściowe: parametry z programu SpineMagick!}
+\label{rozPorParametry}
+
+
+\FloatBarrier
+\subsubsection{Dane wejściowe: transformacja oryginalnych danych z wykorzystaniem 10 składowych głównych}
+\label{rozPor10PCA}
+\FloatBarrier
+\section{Podsumowanie}
+W pracy wykorzystano trzy wskaźniki: Silhouette Index, Korygowany Wskaźnik Przekrywania oraz Indeks Zgodności, aby zbadać działanie algorytmów uczenia maszynowego na danych pochodzących z ekperymentu biologicznego.
+Algorytmy jakie zostały uwzględnione to algorytm K-Means++, algorytm klastrowania hierarchicznego Warda oraz dwa algorytmy uczenia pół-nadzorowanego: Label Propagation i Label Spreading. 
+Dwa ostatnie używały jednej z dwu funkcji jądra: radialnej funkcji bazy lub k najbliższych sąsiadów.
+Wyniki uzyskane w pracy sugerują, że najlepszym podejściem jest użycie algorytmu K-Means++ (lub algorytmu Warda z niewiele gorszym skutkiem) do zgrupowania danych w wiele (>100) skupisk, a następnie przedstawienie średnich sylwetek kolców w obrębie danego klastra do klasyfikacji badaczowi.
+Możliwe jest też alternatywne podejście, tj. przedstawienie nieopisanych zdjęć kolców uczonemu by przyporządkował je do odpowiedniej grupy, a następnie z użyciem, któregoś z algorytmów uczenia pół-nadzorowanego ekstrapolacja etykiet na resztę nieopisanych zdjęć z eksperymentu.
+Algorytmy uczenia pół-nadzorowanego wypadły niewiele gorzej przy losowym wybieraniu kolców opisanych, zatem jeśli zoptymalizować sposób wybierania zdjęć do zbioru uczącego, tak by dobrze próbkowały przestrzeń w której znajdują się dane, mogłoby się okazać, że wyniki osiągane przez takie algorytmy dorównują lub nawet przewyższają klasycznie stosowane metody.
+Poza tym, kluczem do zwiększenia skuteczności uczenia maszynowego, może okazać się inny sposób redukcji wymiarowości danych(np. z użyciem PCA)
+Przy dostępie do szybkiego komputera, można spróbować przetwarzania oryginalnych bitmap.
+W pracy pokazano jak zachowują się algorytmy uczenia maszynowego w kontakcie z danymi eksperymentalnymi.
+Zaproponowano także sposób mierzenia ich efektywności i stabilności, w wyniku czego możliwe jest porównywanie różnych algorytmów. 
+\clearpage
 \bibliographystyle{plain}
 
 \bibliography{magisterka}

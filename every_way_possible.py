@@ -1,3 +1,5 @@
+#coding: utf8
+
 from new_stability import *
 from semisupervised import *
 from os.path import join
@@ -43,28 +45,29 @@ def plotAllData(data, title):
                               "spreading-rbf","spreading-knn"], rotation = 70)
     plt.show()
 
-def plotAllDataBox(data, title):
+def plotAllDataBox(data, ylabel):
     plt.figure()
     n = len(data)
-    plt.boxplot(data.T)
-    plt.title(title)
+    plt.boxplot(data.T, whis=9999)
+    plt.ylabel(ylabel, fontsize=16)
+    plt.tick_params(labelsize=14)
     plt.xticks(range(1, n + 1), ["k-means3", "k-means32", "k-means100",
                           "ward3", "ward32", "ward100",
                           "propagation-rbf","propagation-knn",
                           "spreading-rbf","spreading-knn"], rotation = 70)
     plt.show()
 #
-#a = gatherAllData("results/every_way_possible/", "accord.npy")
-#plotAllDataBox(a, "Accordance Index")
-#    
+#a = gatherAllData("results/every_way_possible_shapes/", "accord.npy")
+#plotAllDataBox(a, u"Indeks Zgodności")
+    
 #a = gatherAllData("results/every_way_possible/", "neigh.npy")
 #plotAllDataBox(a, "Neighbourhood Index")
-
-a = gatherAllData("results/every_way_possible/", "accord.npy")
-plotAllData(a, "Accordance Index")
-    
-a = gatherAllData("results/every_way_possible/", "neigh.npy")
-plotAllData(a, "Neighbourhood Index")
+#
+#a = gatherAllData("results/every_way_possible/", "accord.npy")
+#plotAllData(a, "Accordance Index")
+#    
+#a = gatherAllData("results/every_way_possible/", "neigh.npy")
+#plotAllData(a, "Neighbourhood Index")
 
     
 def plot1Clustering(val_vec, placement, label):
@@ -72,26 +75,32 @@ def plot1Clustering(val_vec, placement, label):
     plt.scatter(x, val_vec)
     plt.xlabel(label)
 
-
 ward = myAgglomerativeClustering
 k_means = cluster.MiniBatchKMeans
 N_ITER=25
-DATA_TO_CLUSTER = shapes
-##DATA_TO_CLUSTER = par_data_normed
-#
-#g, h = inspectLearnCases(shapes, LabelSpreading, [100],
-#    "results/every_way_possible/spreading/knn/", "knn",  N_ITER)
-#g, h = inspectLearnCases(shapes, LabelSpreading, [100],
-#    "results/every_way_possible/spreading/rbf/", "rbf",  N_ITER)  
-#    
-##TODO
-#e, f = inspectLearnCases(shapes, LabelPropagation, [100],
-#    "results/every_way_possible/propagation/rbf/", "rbf", N_ITER)
-#e, f = inspectLearnCases(shapes, LabelPropagation, [100],
-#    "results/every_way_possible/propagation/knn/", "knn", N_ITER)
-#
-#d, e = multiCrossStability([3, 32, 100], shapes,
-#                           ward, "results/every_way_possible/ward/", n_iter = N_ITER)
-#
-#d, e = multiCrossStability([3, 32, 100], shapes,
-#                           k_means, "results/every_way_possible/k_means/", n_iter = N_ITER)
+pca_10 = np.load("datasets/all_normed_10_pca.npy")
+##par_data
+##DATA_TO_CLUSTER = shapes
+#DATA_TO_CLUSTER = par_data_normed
+
+def everyWayPossible(DATA_TO_CLUSTER, N_ITER, PATH):
+    g, h = inspectLearnCases(shapes, LabelSpreading, [100],
+        PATH + "/spreading/knn/", "knn",  N_ITER)
+    g, h = inspectLearnCases(shapes, LabelSpreading, [100],
+        PATH + "/spreading/rbf/", "rbf",  N_ITER)  
+        
+    #TODO
+    e, f = inspectLearnCases(shapes, LabelPropagation, [100],
+        PATH + "/propagation/rbf/", "rbf", N_ITER)
+    e, f = inspectLearnCases(shapes, LabelPropagation, [100],
+        PATH + "/propagation/knn/", "knn", N_ITER)
+    
+    d, e = multiCrossStability([3, 32, 100], shapes,
+                               ward, PATH + "/ward/", n_iter = N_ITER)
+    
+    d, e = multiCrossStability([3, 32, 100], shapes,
+                               k_means, PATH + "/k_means/", n_iter = N_ITER)
+
+#everyWayPossible(par_data, 25, "results/every_way_par_not_normedcbc")
+everyWayPossible(pca_10, 25, "results/every_way_pca_10")
+

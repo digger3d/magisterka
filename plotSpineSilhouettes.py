@@ -51,22 +51,45 @@ def plotClusters2(clust_labels, n_clusters, original_data):
         one_cluster = original_data["shapes_n"][clust_labels == cluster_label, ...]
         mean_image = np.mean(one_cluster, axis=0)
         plt.pcolor(mean_image)
-        
-#    
-#    
-    
+
+
+
+def plotClustersPL(clust_labels, n_clusters, original_data, trans_dict):
+    d = createTransDict(clust_labels, 100)
+    plt.figure()
+    for cluster_label in range(n_clusters):
+        plt.subplot(10,10,cluster_label + 1) ## lol watch out for +1 !!!!
+        plt.xlim([0, 31])
+        plt.ylim([0, 63])
+        plt.gca().invert_yaxis()
+        plt.gca().axes.get_xaxis().set_visible(False)
+        plt.gca().axes.get_yaxis().set_visible(False)        
+        plt.title(trans_dict[d[cluster_label]])
+        one_cluster = original_data["shapes_n"][clust_labels == cluster_label, ...]
+        mean_image = np.mean(one_cluster, axis=0)
+        plt.pcolor(mean_image)
+    plt.subplots_adjust(hspace=0.45)
 def simplyClusterData(data_to_cluster,n_clusters, clust_algo,
                       original_data=original):
     clust_algo_instance = clust_algo(n_clusters = n_clusters)
     labels = clust_algo_instance.fit_predict(data_to_cluster)
     return labels
-    
-labels_k_means = simplyClusterData(shapes, 100, k_means)
+
+trans_dict = {"Long & thin" : u"Długie",
+              "Mushroom" : "Grzybkowate",
+              "Stubby" : "Przysadziste",
+              "84" : "Przysadziste"}
+
+#labels_k_means = simplyClusterData(shapes, 100, k_means)
 labels_ward = simplyClusterData(shapes, 100, ward)
 
-plotClusters(labels_k_means, 100, original,
-             u"Średnia sylwetka kolca w obrębie klastra. Algorytm: K-Means")
-plotClusters(labels_ward, 100, original,
-             u"Średnia sylwetka kolca w obrębie klastra. Algorytm: Ward")
+#plotClustersPL(labels_k_means, 100, original, trans_dict)
+plotClustersPL(labels_ward, 100, original, trans_dict)
+
+#
+#plotClusters(labels_k_means, 100, original,
+#             u"Średnia sylwetka kolca w obrębie klastra. Algorytm: K-Means")
+#plotClusters(labels_ward, 100, original,
+#             u"Średnia sylwetka kolca w obrębie klastra. Algorytm: Ward")
              
 plt.show()

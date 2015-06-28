@@ -129,14 +129,14 @@ def multiCrossStability(list_n_clusters, data_to_cluster, clust_algo,
     return np.array(accordance_indices), np.array(neighbour_coeffs)
 
 #sils, neighs = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], shapes, k_means,
-#    "results/unlabeled_sil_stab/k_means/",20)
+#    "results/unlabeled_sil_stab/k_means/", 20)
 #    
-sils, neighs = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], shapes, ward,
-    "results/unlabeled_sil_stab/ward/", 20)
+#sils1, neighs2 = multiCrossStability([3, 5, 10, 15, 20, 25, 30, 40, 60, 80, 100], shapes, ward,
+#    "results/unlabeled_sil_stab/ward/", 20)
 
-def plotFromPath(path, npy_file, y_lim = [0.5, 1]):
-    trans_dict = dict([("slhouettes.npy", "Ratio of properly classified spines"),
-                       ("neigh.npy", "Nieghbourhood Index")])
+def plotFromPath(path, npy_file, y_lim = [0.0, 1]):
+    trans_dict = dict([("silhouettes.npy", "Silhouette Index"),
+                       ("neigh.npy", u"Korygowany Współczynnik Przekrywania")])
     data_file = open(pathJoin(path, "data.txt"))
     matrix = np.load(pathJoin(path, npy_file))
     means = np.mean(matrix, axis = 1)
@@ -146,10 +146,12 @@ def plotFromPath(path, npy_file, y_lim = [0.5, 1]):
         parameter, value = line.rstrip("\n").split("\t")
         data_dict[parameter] = value
     plt.errorbar(np.arange(len(matrix)), means, yerr=errors)
-    title_string = ("Algorithm: {algorithm}, n_iter: {n_iter},"
-                    "throw away: {throw_away}").format(**data_dict) 
     plt.ylim(y_lim)
-    plt.title(title_string)
     plt.xlim(-1, len(matrix) + 1)
-    plt.ylabel(trans_dict[npy_file])
-    plt.xticks(np.arange(len(matrix)), eval(data_dict["list_of_cluster_n"]))
+    plt.ylabel(trans_dict[npy_file], fontsize=16)
+    plt.xlabel("Liczba Skupisk", fontsize=16)
+    plt.plt.tick_params(labelsize=14)
+    xticks(np.arange(len(matrix)), eval(data_dict["list_of_cluster_n"]))
+    
+plotFromPath("results/unlabeled_sil_stab/k_means/", "silhouettes.npy",[0, 0.4])
+plotFromPath("results/unlabeled_sil_stab/k_means/", "neigh.npy", [0.3, 1])

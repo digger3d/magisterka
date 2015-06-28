@@ -213,7 +213,7 @@ def plotFromPath(path, npy_file, y_lim = [0.5, 1]):
 #plt.subplot(222)
 #plotFromPath("results/multi_stab/par_ward/", "neigh.npy")
 #plt.subplot(223)
-plotFromPath("results/multi_stab/par_k_means/", "accord.npy")
+#plotFromPath("results/multi_stab/par_k_means/", "accord.npy")
 #plt.subplot(224)
 #plotFromPath("results/multi_stab/par_k_means/", "neigh.npy")
 #plt.show()

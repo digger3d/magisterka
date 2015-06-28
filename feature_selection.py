@@ -34,8 +34,13 @@ both_match_long_stubby_mush = lsm = both_match_vector & (longs | mushrooms | stu
 #pca fitting
 pca = PCA(n_components = 10)
 pca.fit(all_norm)
+#normed_pca_10 = pca.transform(all_norm)
+#np.save("datasets/all_normed_10_pca", normed_pca_10)
 #np.save("PCAcomps.npy", pca.components_)
 
+
+def plotOsuwisko(eigen_vals_vect):
+    pass
 
 def transformPCA(data, components):
     """ components in n_comp x features format"""
@@ -122,16 +127,17 @@ def plotPCAScatterAll(vectorized_obs, pca_comps, longs, stubbies, mushrooms, lsm
     plt.legend(scatterpoints=1)
     plt.show()
         
-#plotPCAScatter(all_norm, PCA_COMP_10[:2,...], longs, stubbies, mushrooms, lsm)
+plotPCAScatter(all_norm, PCA_COMP_10[:2,...], longs, stubbies, mushrooms, lsm)
 #plotPCAScatterAll(all_norm, PCA_COMP_10[:2,...], longs, stubbies, mushrooms, lsm)
 ##transforming data for plotting 2D
-#X = transformPCA(all_norm, PCA_COMP_10[:2,:])
-#plt.scatter(X[:,0], X[:,1])
-#plt.xlabel(u"Składowa 1.", fontsize=14)
-#plt.ylabel(u"Składowa 2.", fontsize=14)
-#plt.xticks([])
-#plt.yticks([])
-#plt.show()
+X = transformPCA(all_norm, PCA_COMP_10[:2,:])
+plt.scatter(X[:,0], X[:,1])
+plt.xlabel(u"Składowa 1.", fontsize=24)
+plt.ylabel(u"Składowa 2.", fontsize=24)
+plt.xticks([])
+plt.yticks([])
+plt.tight_layout()
+plt.show()
 
 ##3d
 #X = transformPCA(all_norm, PCA_COMP_10[:3,:])

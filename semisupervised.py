@@ -204,53 +204,53 @@ def plotFromPath(path, npy_file, title, ylabel, xlabel, ylim=[0,1]):
 #
 #plt.subplot(221)
 #plotFromPath("results/semi_labeled/propagation/rbf/gamma/", "accord.npy",\
-#"Algorytm Label Propagation", u"Ułamek dobrze zaklasyfikowanych przypadków",\
+#"Algorytm Label Propagation", u"Indeks Zgodności",\
 #u"Wartość parametru gammma")
 #plt.subplot(222)
 #plotFromPath("results/semi_labeled/propagation/rbf/gamma/", "neigh.npy",\
-#"Algorytm Label Propagation", u"Współczynnik Przystawania",\
+#"Algorytm Label Propagation", u"Korygowany Współczynnik Przekrywania",\
 #u"Wartość parametru gammma")
 #plt.subplot(223)
 #plotFromPath("results/semi_labeled/spreading/rbf/gamma/", "accord.npy",\
-#"Algorytm Label Spreading", u"Ułamek dobrze zaklasyfikowanych przypadków",\
-#u"Wartość parametru gammma")
+#"Algorytm Label Spreading", u"Indeks Zgodności",\
+#u"Wartość parametru gammma", [0.9, 1])
 #plt.subplot(224)
 #plotFromPath("results/semi_labeled/spreading/rbf/gamma/", "neigh.npy",\
-#"Algorytm Label Spreading", u"Współczynnik Przystawania",\
-#u"Wartość parametru gammma")
+#"Algorytm Label Spreading", u"Korygowany Współczynnik Przekrywania",\
+#u"Wartość parametru gammma", [0.9, 1])
 #
 #plt.subplot(221)
 #plotFromPath("results/semi_labeled/propagation/knn/knns/", "accord.npy",\
-#"Algorytm Label Propagation", u"Ułamek dobrze zaklasyfikowanych przypadków",\
+#"Algorytm Label Propagation", u"Indeks Zgodności",\
 #u"Ilość najbliższych sąsiadów")
 #plt.subplot(222)
 #plotFromPath("results/semi_labeled/propagation/knn/knns/", "neigh.npy",\
-#"Algorytm Label Propagation", u"Współczynnik Przystawania",\
+#"Algorytm Label Propagation", u"Korygowany Współczynnik Przekrywania",\
 #u"Ilość najbliższych sąsiadów")
 #plt.subplot(223)
 #plotFromPath("results/semi_labeled/spreading/knn/knns/", "accord.npy",\
-#"Algorytm Label Spreading", u"Ułamek dobrze zaklasyfikowanych przypadków",\
+#"Algorytm Label Spreading", u"Indeks Zgodności",\
 #u"Ilość najbliższych sąsiadów")
 #plt.subplot(224)
 #plotFromPath("results/semi_labeled/spreading/knn/knns/", "neigh.npy",\
-#"Algorytm Label Spreading", u"Współczynnik Przystawania",\
+#"Algorytm Label Spreading", u"Korygowany Współczynnik Przekrywania",\
 #u"Ilość najbliższych sąsiadów")
 
 #plt.subplot(221)
 #plotFromPath("results/semi_labeled/propagation/rbf/learn_cases/", "accord.npy",\
-#"Algorytm Label Propagation", u"Ułamek dobrze zaklasyfikowanych przypadków",\
+#"Algorytm Label Propagation", u"Indeks Zgodności",\
 #u"Wielkość zbioru uczącego")
 #plt.subplot(222)
 #plotFromPath("results/semi_labeled/propagation/rbf/learn_cases/", "neigh.npy",\
-#"Algorytm Label Propagation", u"Współczynnik Przystawania",\
+#"Algorytm Label Propagation", u"Korygowany Współczynnik Przekrywania",\
 #u"Wielkość zbioru uczącego")
 #plt.subplot(223)
 #plotFromPath("results/semi_labeled/spreading/rbf/learn_cases/", "accord.npy",\
-#"Algorytm Label Spreading", u"Ułamek dobrze zaklasyfikowanych przypadków",\
+#"Algorytm Label Spreading", u"Indeks Zgodności",\
 #u"Wielkość zbioru uczącego")
 #plt.subplot(224)
 #plotFromPath("results/semi_labeled/spreading/rbf/learn_cases/", "neigh.npy",\
-#"Algorytm Label Spreading", u"Współczynnik Przystawania",\
+#"Algorytm Label Spreading", u"Korygowany Współczynnik Przekrywania",\
 #u"Wielkość zbioru uczącego")
 
 #plotFromPath("results/semi_labeled/spreading/knn/learn_cases/", "accord.npy","Gamma Value", "knn")
